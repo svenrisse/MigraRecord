@@ -6,8 +6,8 @@ export default function Dashboard() {
   const router = useRouter();
   const { data } = useSession();
 
-  if (!data) {
-    () => void router.push("/");
+  if (!data && typeof window !== "undefined") {
+    void router.push("/");
   }
 
   return (

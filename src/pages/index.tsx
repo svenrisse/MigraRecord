@@ -6,9 +6,10 @@ export default function Home() {
   const { data } = useSession();
   const router = useRouter();
 
-  if (data) {
-    () => void router.push("/dashboard");
+  if (data && typeof window !== "undefined") {
+    void router.push("/dashboard");
   }
+
   return (
     <>
       <Head>
