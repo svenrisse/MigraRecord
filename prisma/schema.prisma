@@ -67,10 +67,11 @@ model Event {
   id         String     @id @default(cuid())
   user       User       @relation(fields: [userId], references: [id])
   userId     String
-  type       String
-  painScale  Int
-  medication String
-  notes      String
+  completed  Boolean
+  type       String?
+  painScale  Int?
+  medication String?
+  notes      String?
   questions  Question[]
 
   createdAt DateTime @default(now())
