@@ -19,7 +19,7 @@ export default function Dashboard() {
           <button onClick={() => void signOut()}>Logout</button>
         </div>
       </main>
-      <Navbar />
+      <Navbar focused="dashboard" />
     </>
   );
 }
