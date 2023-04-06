@@ -1,14 +1,7 @@
 import Head from "next/head";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 export default function Home() {
-  const { data } = useSession();
-  const router = useRouter();
-
-  if (data) {
-    void router.push("/dashboard");
-  }
   return (
     <>
       <Head>
