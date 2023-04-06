@@ -17,16 +17,28 @@ export default function Navbar({ focused }: { focused?: string }) {
         />
       </Link>
       <Link href={"/addevent"}>
-        <AiFillPlusCircle size={"3rem"} />
+        <AiFillPlusCircle
+          size={"3rem"}
+          className={focused == "addevent" ? "fill-green-300" : ""}
+        />
       </Link>
       <Link href={"/list"}>
-        <AiOutlineUnorderedList size={"3rem"} />
+        <AiOutlineUnorderedList
+          size={"3rem"}
+          className={focused == "list" ? "fill-green-300" : ""}
+        />
       </Link>
       <Link href={"/calender"}>
-        <AiFillCalendar size={"3rem"} />
+        <AiFillCalendar
+          size={"3rem"}
+          className={focused == "calender" ? "fill-green-300" : ""}
+        />
       </Link>
       <Link href={"/settings"}>
-        <AiFillSetting size={"3rem"} />
+        <AiFillSetting
+          size={"3rem"}
+          className={focused == "settings" ? "fill-green-300" : ""}
+        />
       </Link>
     </div>
   );
