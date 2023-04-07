@@ -4,6 +4,7 @@ import Navbar from "~/components/Navbar";
 
 type Inputs = {
   type: string;
+  pain: number;
 };
 
 export default function Addevent() {
@@ -31,7 +32,22 @@ export default function Addevent() {
             >
               Migraine
             </button>
+            <button
+              className={watchType == "tension" ? "bg-red-700" : ""}
+              type="button"
+              onClick={() => setValue("type", "tension")}
+            >
+              Tension Headache
+            </button>
+            <button
+              className={watchType == "other" ? "bg-red-700" : ""}
+              type="button"
+              onClick={() => setValue("type", "other")}
+            >
+              Other Headache
+            </button>
 
+            <input {...register("pain")} className="hidden" />
             <input type="submit" />
           </form>
         </div>
