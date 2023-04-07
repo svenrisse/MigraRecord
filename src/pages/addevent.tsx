@@ -7,6 +7,8 @@ type Inputs = {
   type: string;
   pain: number;
   medications: string[];
+  note: string;
+  questions: boolean[];
 };
 
 export default function Addevent() {
@@ -54,6 +56,7 @@ export default function Addevent() {
             className="flex flex-col gap-4"
           >
             <input {...register("type")} className="hidden" />
+            <h3>What type of headache do you have?</h3>
             <div className="flex gap-3">
               <button
                 className={watchType == "migraine" ? "bg-red-700" : ""}
@@ -79,7 +82,8 @@ export default function Addevent() {
             </div>
 
             <input {...register("pain")} className="hidden" />
-            <div className="flex">
+            <h3>Rate your pain:</h3>
+            <div className="flex gap-3">
               <button
                 className={watchPain == 1 ? "bg-green-600" : ""}
                 type="button"
@@ -151,7 +155,8 @@ export default function Addevent() {
                 10
               </button>
             </div>
-            <div className="flex">{medicationCheckboxes}</div>
+            <h3>What medications did you use?</h3>
+            <div className="flex gap-3">{medicationCheckboxes}</div>
             <button type="submit">Save</button>
           </form>
         </div>
