@@ -51,14 +51,14 @@ export default function Addevent() {
       <label
         key={question.id}
         className={
-          watchQuestions && watchQuestions.includes(question.text as string)
+          watchQuestions && watchQuestions.includes(question.text)
             ? "bg-blue-400"
             : ""
         }
       >
         <input
           type="checkbox"
-          value={question.text as string}
+          value={question.text}
           {...register("questions")}
           className="hidden"
         />
