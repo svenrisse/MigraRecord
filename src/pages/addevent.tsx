@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Navbar from "~/components/Navbar";
+import { api } from "../utils/api";
 
 type Inputs = {
   type: string;
   pain: number;
+  medications: string[];
 };
 
 export default function Addevent() {
@@ -18,9 +20,31 @@ export default function Addevent() {
 
   const watchType = watch("type");
   const watchPain = watch("pain");
+  const watchMedications = watch("medications");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const { data } = api.user.getMedications.useQuery();
 
+  const medicationCheckboxes = data?.map((medication) => {
+    return (
+      <label
+        key={medication.id}
+        className={
+          watchMedications && watchMedications.includes(medication.name)
+            ? "bg-yellow-500"
+            : ""
+        }
+      >
+        <input
+          type="checkbox"
+          value={medication.name}
+          {...register("medications")}
+          className="hidden"
+        />
+        {medication.name}
+      </label>
+    );
+  });
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59]">
@@ -127,6 +151,7 @@ export default function Addevent() {
                 10
               </button>
             </div>
+            <div className="flex">{medicationCheckboxes}</div>
             <button type="submit">Save</button>
           </form>
         </div>
