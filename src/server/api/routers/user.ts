@@ -16,4 +16,11 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+  getQuestions: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.question.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+  }),
 });

@@ -4,11 +4,13 @@ import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
 
 type Inputs = {
+  startTime: Date;
+  endTime: Date;
   type: string;
   pain: number;
   medications: string[];
   note: string;
-  questions: boolean[];
+  questions: string[];
 };
 
 export default function Addevent() {
@@ -23,11 +25,13 @@ export default function Addevent() {
   const watchType = watch("type");
   const watchPain = watch("pain");
   const watchMedications = watch("medications");
+  const watchQuestions = watch("questions");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-  const { data } = api.user.getMedications.useQuery();
+  const { data: medicationData } = api.user.getMedications.useQuery();
+  const { data: questionData } = api.user.getQuestions.useQuery();
 
-  const medicationCheckboxes = data?.map((medication) => {
+  const medicationCheckboxes = medicationData?.map((medication) => {
     return (
       <label
         key={medication.id}
@@ -47,14 +51,45 @@ export default function Addevent() {
       </label>
     );
   });
+
+  const questionCheckboxes = questionData?.map((question) => {
+    return (
+      <label
+        key={question.id}
+        className={
+          watchQuestions && watchQuestions.includes(question.text as string)
+            ? "bg-blue-400"
+            : ""
+        }
+      >
+        <input
+          type="checkbox"
+          value={question.text as string}
+          {...register("questions")}
+          className="hidden"
+        />
+        {question.text}
+      </label>
+    );
+  });
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59]">
         <div className="flex w-3/4 flex-col items-center rounded-xl bg-slate-200">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
+            className="flex flex-col items-center gap-4"
           >
+            <div className="flex flex-col items-center">
+              <h4>Start time:</h4>
+              <input
+                type="datetime-local"
+                {...register("startTime")}
+                className="rounded-md border-2 border-gray-400 bg-slate-200 p-1"
+              />
+              <h4>End time:</h4>
+              <input type="datetime-local" {...register("endTime")} />
+            </div>
             <input {...register("type")} className="hidden" />
             <h3>What type of headache do you have?</h3>
             <div className="flex gap-3">
@@ -157,6 +192,7 @@ export default function Addevent() {
             </div>
             <h3>What medications did you use?</h3>
             <div className="flex gap-3">{medicationCheckboxes}</div>
+            <div>{questionCheckboxes}</div>
             <button type="submit">Save</button>
           </form>
         </div>

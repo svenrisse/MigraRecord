@@ -53,7 +53,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   events        Event[]
-  Question      Question[]
+  questions     question[]
   medication    medication[]
 }
 
@@ -74,19 +74,19 @@ model Event {
   painScale   Int?
   medications medication[]
   notes       String?
-  questions   Question[]
+  questions   question[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Question {
+model question {
   id      String  @id @default(cuid())
-  Event   Event?  @relation(fields: [eventId], references: [id])
-  eventId String?
+  text    String
   user    User    @relation(fields: [userId], references: [id])
   userId  String
-  answer  String?
+  Event   Event?  @relation(fields: [eventId], references: [id])
+  eventId String?
 }
 
 model medication {
