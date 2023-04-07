@@ -14,13 +14,7 @@ type Inputs = {
 };
 
 export default function Addevent() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit, setValue, watch } = useForm<Inputs>();
 
   const watchType = watch("type");
   const watchPain = watch("pain");
