@@ -2,16 +2,20 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
+import { object, string, date, number, array } from "zod";
+import type { z } from "zod";
 
-type Inputs = {
-  startTime: Date;
-  endTime: Date;
-  type: string;
-  pain: number;
-  medications: string[];
-  note: string;
-  questions: string[];
-};
+export const eventSchema = object({
+  startTime: date(),
+  endTime: date(),
+  type: string(),
+  pain: number(),
+  medications: array(string()),
+  note: string(),
+  questions: array(string()),
+});
+
+type Inputs = z.infer<typeof eventSchema>;
 
 export default function Addevent() {
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>();
