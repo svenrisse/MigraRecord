@@ -1,19 +1,14 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
-  getMedications: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.medication.findMany({
+  getUserData: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.user.findUnique({
       where: {
-        userId: {
-          equals: ctx.session.user.id,
-        },
+        id: ctx.session.user.id,
       },
-    });
-  }),
-  getQuestions: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.question.findMany({
-      where: {
-        userId: ctx.session.user.id,
+      include: {
+        medication: true,
+        questions: true,
       },
     });
   }),

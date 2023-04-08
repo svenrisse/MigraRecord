@@ -28,8 +28,9 @@ export default function Addevent() {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   const { data: medicationData } = api.user.getMedications.useQuery();
   const { data: questionData } = api.user.getQuestions.useQuery();
+  const { data } = api.user.getUserData.useQuery();
 
-  const medicationCheckboxes = medicationData?.map((medication) => {
+  const medicationCheckboxes = data?.medication.map((medication) => {
     return (
       <label
         key={medication.id}
@@ -50,7 +51,7 @@ export default function Addevent() {
     );
   });
 
-  const questionCheckboxes = questionData?.map((question) => {
+  const questionCheckboxes = data?.questions.map((question) => {
     return (
       <label
         key={question.id}
