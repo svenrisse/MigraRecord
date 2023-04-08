@@ -26,8 +26,6 @@ export default function Addevent() {
   const watchQuestions = watch("questions");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-  const { data: medicationData } = api.user.getMedications.useQuery();
-  const { data: questionData } = api.user.getQuestions.useQuery();
   const { data } = api.user.getUserData.useQuery();
 
   const medicationCheckboxes = data?.medication.map((medication) => {
