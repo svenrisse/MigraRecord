@@ -6,6 +6,7 @@ import { object, string, date, number, array } from "zod";
 import type { z } from "zod";
 
 export const eventSchema = object({
+  id: string(),
   startTime: date(),
   endTime: date(),
   type: string(),
