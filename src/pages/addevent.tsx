@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
-import { object, string, date, number, array } from "zod";
+import { object, string, date, number, array, boolean } from "zod";
 import type { z } from "zod";
 
 export const eventSchema = object({
@@ -14,6 +14,7 @@ export const eventSchema = object({
   medications: array(string()),
   note: string(),
   questions: array(string()),
+  completed: boolean(),
 });
 
 type Inputs = z.infer<typeof eventSchema>;
