@@ -4,11 +4,12 @@ import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
 import { object, string, date, number, array, boolean } from "zod";
 import type { z } from "zod";
+import { useEffect } from "react";
 
 export const eventSchema = object({
-  id: string(),
-  startTime: date(),
-  endTime: date(),
+  id: string().optional(),
+  startTime: string(),
+  endTime: string(),
   type: string(),
   pain: number(),
   medications: array(string()),
@@ -21,14 +22,31 @@ type Inputs = z.infer<typeof eventSchema>;
 
 export default function Addevent() {
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>();
-
   const watchType = watch("type");
   const watchPain = watch("pain");
   const watchMedications = watch("medications");
   const watchQuestions = watch("questions");
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    mutateAsync({
+      id: data.id,
+      completed: data.completed,
+      note: data.note,
+      questions: data.questions,
+      medications: data.medications,
+      pain: data.pain,
+      type: data.type,
+      endTime: data.endTime,
+      startTime: data.startTime,
+    });
+  };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   const { data } = api.user.getUserData.useQuery();
+  const { mutateAsync } = api.event.addEvent.useMutation({});
+
+  useEffect(() => {
+    setValue("id", "");
+  }, []);
 
   const medicationCheckboxes = data?.medication.map((medication) => {
     return (
@@ -79,6 +97,7 @@ export default function Addevent() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-center gap-4"
           >
+            <div {...register("id")} className="hidden" />
             <div className="flex flex-col items-center">
               <h4>Start time:</h4>
               <input
@@ -192,7 +211,18 @@ export default function Addevent() {
             <h3>What medications did you use?</h3>
             <div className="flex gap-3">{medicationCheckboxes}</div>
             <div>{questionCheckboxes}</div>
-            <button type="submit">Save</button>
+            <textarea {...register("note")} />
+            <div className="flex gap-5">
+              <button
+                type="submit"
+                onClick={() => setValue("completed", false)}
+              >
+                Save
+              </button>
+              <button type="submit" onClick={() => setValue("completed", true)}>
+                Save & Complete
+              </button>
+            </div>
           </form>
         </div>
       </main>
