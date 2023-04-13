@@ -2,16 +2,16 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
-import { object, string, number, array, boolean } from "zod";
+import { object, string, array, boolean, coerce, number } from "zod";
 import type { z } from "zod";
 import { useEffect } from "react";
 
 export const eventSchema = object({
   id: string().optional(),
-  startTime: string(),
-  endTime: string(),
+  startTime: coerce.date().nullish(),
+  endTime: coerce.date().nullish(),
   type: string(),
-  pain: number(),
+  pain: number().nullish(),
   medications: array(string()),
   note: string(),
   questions: array(string()),
@@ -47,6 +47,11 @@ export default function Addevent() {
 
   useEffect(() => {
     setValue("id", "");
+    setValue("startTime", null);
+    setValue("endTime", null);
+    setValue("pain", null);
+    setValue("questions", []);
+    setValue("medications", []);
   }, [setValue]);
 
   const medicationCheckboxes = data?.medication.map((medication) => {
@@ -135,7 +140,7 @@ export default function Addevent() {
               </button>
             </div>
 
-            <input {...register("pain")} className="hidden" />
+            <input {...register("pain")} hidden defaultValue={0} />
             <h3>Rate your pain:</h3>
             <div className="flex gap-3">
               <button
