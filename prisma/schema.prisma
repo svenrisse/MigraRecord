@@ -73,10 +73,10 @@ model Event {
   painScale   Int?
   medications String[]
   notes       String?
-  questions   String[]
+  questions   String[]  @default(["Worse with physical activity?", "Are you nauseous?", "Did you throw up?", "Are you sensitive to light?", "Are you sensitive to noise?", "Do you have migraine aura?"])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  startTime   DateTime?
+  startTime   DateTime
   endTime     DateTime?
 
   // @@unique([userId, completed])
