@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
-import { object, string, date, number, array, boolean } from "zod";
+import { object, string, number, array, boolean } from "zod";
 import type { z } from "zod";
 import { useEffect } from "react";
 
@@ -26,9 +26,10 @@ export default function Addevent() {
   const watchPain = watch("pain");
   const watchMedications = watch("medications");
   const watchQuestions = watch("questions");
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
-    mutateAsync({
+    void mutateAsync({
       id: data.id,
       completed: data.completed,
       note: data.note,
@@ -46,7 +47,7 @@ export default function Addevent() {
 
   useEffect(() => {
     setValue("id", "");
-  }, []);
+  }, [setValue]);
 
   const medicationCheckboxes = data?.medication.map((medication) => {
     return (
