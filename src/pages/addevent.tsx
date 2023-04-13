@@ -54,44 +54,44 @@ export default function Addevent() {
     setValue("medications", []);
   }, [setValue]);
 
-  const medicationCheckboxes = data?.medication.map((medication) => {
+  const medicationCheckboxes = data?.medication?.map((medication: string) => {
     return (
       <label
-        key={medication.id}
+        key={data.id}
         className={
-          watchMedications && watchMedications.includes(medication.name)
+          watchMedications && watchMedications.includes(medication)
             ? "bg-yellow-500"
             : ""
         }
       >
         <input
           type="checkbox"
-          value={medication.name}
+          value={medication}
           {...register("medications")}
           className="hidden"
         />
-        {medication.name}
+        {medication}
       </label>
     );
   });
 
-  const questionCheckboxes = data?.questions.map((question) => {
+  const questionCheckboxes = data?.questions?.map((question: string) => {
     return (
       <label
-        key={question.id}
+        key={data.id}
         className={
-          watchQuestions && watchQuestions.includes(question.text)
+          watchQuestions && watchQuestions.includes(question)
             ? "bg-blue-400"
             : ""
         }
       >
         <input
           type="checkbox"
-          value={question.text}
+          value={question}
           {...register("questions")}
           className="hidden"
         />
-        {question.text}
+        {question}
       </label>
     );
   });
