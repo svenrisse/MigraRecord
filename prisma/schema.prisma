@@ -44,16 +44,16 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?      @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   events        Event[]
-  questions     question[]
-  medication    medication[]
+  questions     String[]  @default(["Worse with physical activity?", "Are you nauseous?", "Did you throw up?", "Are you sensitive to light?", "Are you sensitive to noise?", "Do you have migraine aura?"])
+  medication    String[]
 }
 
 model VerificationToken {
@@ -73,25 +73,11 @@ model Event {
   painScale   Int?
   medications String[]
   notes       String?
-  questions   String[]  @default(["Worse with physical activity?", "Are you nauseous?", "Did you throw up?", "Are you sensitive to light?", "Are you sensitive to noise?", "Do you have migraine aura?"])
+  questions   String[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   startTime   DateTime
   endTime     DateTime?
 
   // @@unique([userId, completed])
-}
-
-model question {
-  id     String @id @default(cuid())
-  text   String
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-}
-
-model medication {
-  id     String @id @default(cuid())
-  name   String
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
 }

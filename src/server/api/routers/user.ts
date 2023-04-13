@@ -6,10 +6,6 @@ export const userRouter = createTRPCRouter({
       where: {
         id: ctx.session.user.id,
       },
-      include: {
-        medication: true,
-        questions: true,
-      },
     });
   }),
 });
