@@ -97,7 +97,7 @@ export default function Addevent() {
   });
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59] pb-16">
         <div className="flex w-3/4 flex-col items-center rounded-xl bg-slate-200">
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -216,7 +216,8 @@ export default function Addevent() {
             </div>
             <h3>What medications did you use?</h3>
             <div className="flex gap-3">{medicationCheckboxes}</div>
-            <div>{questionCheckboxes}</div>
+            <h3>Please click on the applying questions:</h3>
+            <div className="flex flex-col gap-2">{questionCheckboxes}</div>
             <textarea {...register("note")} />
             <div className="flex gap-5">
               <button
