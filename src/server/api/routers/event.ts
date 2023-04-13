@@ -34,4 +34,12 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+  listEvents: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.event.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      orderBy: [{ startTime: "desc" }],
+    });
+  }),
 });
