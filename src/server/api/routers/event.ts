@@ -1,5 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { eventSchema } from "~/pages/addevent";
+import { eventSchema } from "~/components/Eventform";
+import { z } from "zod";
 
 export const eventRouter = createTRPCRouter({
   addEvent: protectedProcedure.input(eventSchema).mutation(({ ctx, input }) => {
@@ -42,4 +43,14 @@ export const eventRouter = createTRPCRouter({
       orderBy: [{ startTime: "desc" }],
     });
   }),
+
+  getEvent: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.event.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });
