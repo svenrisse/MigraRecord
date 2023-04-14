@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { api } from "../utils/api";
-import { object, string, array, boolean, coerce, number } from "zod";
+import { object, string, array, coerce, number } from "zod";
 import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,14 +9,13 @@ import { useRouter } from "next/router";
 
 export const eventSchema = object({
   id: string().optional(),
-  startTime: coerce.date(),
-  endTime: coerce.date().nullish(),
-  type: string(),
+  startTime: coerce.date().or(string()),
+  endTime: coerce.date().nullish().or(string()),
+  type: string().nullish(),
   pain: number().nullish(),
   medications: array(string()).or(string()),
-  note: string(),
+  note: string().nullish(),
   questions: array(string()),
-  completed: boolean(),
 });
 
 type Inputs = z.infer<typeof eventSchema>;
@@ -35,15 +34,14 @@ export default function Eventform() {
     defaultValues: {
       ...(eventData
         ? {
-            id: eventData.id,
-            startTime: eventData.startTime.toISOString().slice(0, 16),
-            endTime: eventData.endTime?.toISOString().slice(0, 16),
-            type: eventData.type,
-            pain: eventData.painScale,
-            medications: eventData.medications,
-            questions: eventData.questions,
-            note: eventData.notes,
-            completed: eventData.completed,
+            id: eventData?.id,
+            startTime: eventData?.startTime.toISOString().slice(0, 16),
+            endTime: eventData?.endTime?.toISOString().slice(0, 16),
+            type: eventData?.type,
+            pain: eventData?.painScale,
+            medications: eventData?.medications,
+            questions: eventData?.questions,
+            note: eventData?.notes,
           }
         : {
             id: "",
@@ -63,7 +61,6 @@ export default function Eventform() {
     console.log(data);
     void mutateAsync({
       id: data.id,
-      completed: data.completed,
       note: data.note,
       questions: data.questions,
       medications: data.medications,
@@ -238,14 +235,7 @@ export default function Eventform() {
       <h3>Please click on the applying questions:</h3>
       <div className="flex flex-col gap-2">{questionCheckboxes}</div>
       <textarea {...register("note")} />
-      <div className="flex gap-5">
-        <button type="submit" onClick={() => setValue("completed", false)}>
-          Save
-        </button>
-        <button type="submit" onClick={() => setValue("completed", true)}>
-          Save & Complete
-        </button>
-      </div>
+      <button type="submit">Save</button>
     </form>
   );
 }
