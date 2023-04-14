@@ -6,6 +6,8 @@ import { object, string, array, boolean, coerce, number } from "zod";
 import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -22,6 +24,13 @@ export const eventSchema = object({
 type Inputs = z.infer<typeof eventSchema>;
 
 export default function Addevent() {
+  const router = useRouter();
+  const { data: authData } = useSession();
+
+  if (!authData && typeof window !== "undefined") {
+    void router.push("/");
+  }
+
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
     defaultValues: {
@@ -50,6 +59,7 @@ export default function Addevent() {
       endTime: data.endTime,
       startTime: data.startTime,
     });
+    router.push("/list");
   };
 
   const { data } = api.user.getUserData.useQuery();
