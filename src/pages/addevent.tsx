@@ -4,7 +4,6 @@ import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
 import { object, string, array, boolean, coerce, number } from "zod";
 import type { z } from "zod";
-import { useEffect } from "react";
 import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -25,6 +24,13 @@ type Inputs = z.infer<typeof eventSchema>;
 export default function Addevent() {
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
+    defaultValues: {
+      id: "",
+      endTime: null,
+      pain: null,
+      medications: [],
+      questions: [],
+    },
   });
   const watchType = watch("type");
   const watchPain = watch("pain");
@@ -48,15 +54,6 @@ export default function Addevent() {
 
   const { data } = api.user.getUserData.useQuery();
   const { mutateAsync } = api.event.addEvent.useMutation({});
-
-  useEffect(() => {
-    console.log("useEffect ran");
-    setValue("id", "");
-    setValue("endTime", null);
-    setValue("pain", null);
-    setValue("questions", []);
-    setValue("medications", []);
-  }, [setValue]);
 
   const medicationCheckboxes = data?.medication?.map((medication: string) => {
     return (
