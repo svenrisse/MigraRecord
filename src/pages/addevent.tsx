@@ -6,6 +6,7 @@ import { object, string, array, boolean, coerce, number } from "zod";
 import type { z } from "zod";
 import { useEffect } from "react";
 import { createId } from "@paralleldrive/cuid2";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -22,7 +23,9 @@ export const eventSchema = object({
 type Inputs = z.infer<typeof eventSchema>;
 
 export default function Addevent() {
-  const { register, handleSubmit, setValue, watch } = useForm<Inputs>();
+  const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
+    resolver: zodResolver(eventSchema),
+  });
   const watchType = watch("type");
   const watchPain = watch("pain");
   const watchMedications = watch("medications");
@@ -61,8 +64,8 @@ export default function Addevent() {
         key={createId()}
         className={
           watchMedications && watchMedications.includes(medication)
-            ? "bg-yellow-500"
-            : ""
+            ? "cursor-pointer bg-yellow-500"
+            : "cursor-pointer"
         }
       >
         <input
