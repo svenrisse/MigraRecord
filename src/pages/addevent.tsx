@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 export const eventSchema = object({
   id: string().optional(),
-  startTime: coerce.date().nullish(),
+  startTime: coerce.date(),
   endTime: coerce.date().nullish(),
   type: string(),
   pain: number().nullish(),
@@ -47,7 +47,6 @@ export default function Addevent() {
 
   useEffect(() => {
     setValue("id", "");
-    setValue("startTime", null);
     setValue("endTime", null);
     setValue("pain", null);
     setValue("questions", []);
@@ -110,6 +109,7 @@ export default function Addevent() {
                 type="datetime-local"
                 {...register("startTime")}
                 className="rounded-md border-2 border-gray-400 bg-slate-200 p-1"
+                required
               />
               <h4>End time:</h4>
               <input type="datetime-local" {...register("endTime")} />
