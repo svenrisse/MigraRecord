@@ -68,7 +68,6 @@ model Event {
   id          String    @id @default(cuid())
   user        User      @relation(fields: [userId], references: [id])
   userId      String
-  completed   Boolean   @default(false)
   type        String?
   painScale   Int?
   medications String[]
@@ -78,6 +77,4 @@ model Event {
   updatedAt   DateTime  @updatedAt
   startTime   DateTime
   endTime     DateTime?
-
-  // @@unique([userId, completed])
 }
