@@ -27,7 +27,7 @@ export default function Eventform() {
   const { data } = api.user.getUserData.useQuery();
   const { mutateAsync } = api.event.addEvent.useMutation({});
   const { data: eventData } = api.event.getEvent.useQuery({
-    id: "",
+    id: "clggsb5bh0004cm8k9rbq5fq9",
   });
 
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
@@ -36,8 +36,8 @@ export default function Eventform() {
       ...(eventData
         ? {
             id: eventData.id,
-            startTime: eventData.startTime,
-            endTime: eventData.endTime,
+            startTime: eventData.startTime.toISOString().slice(0, 16),
+            endTime: eventData.endTime?.toISOString().slice(0, 16),
             type: eventData.type,
             pain: eventData.painScale,
             medications: eventData.medications,
