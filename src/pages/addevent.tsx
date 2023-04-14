@@ -5,6 +5,7 @@ import { api } from "../utils/api";
 import { object, string, array, boolean, coerce, number } from "zod";
 import type { z } from "zod";
 import { useEffect } from "react";
+import { createId } from "@paralleldrive/cuid2";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -12,7 +13,7 @@ export const eventSchema = object({
   endTime: coerce.date().nullish(),
   type: string(),
   pain: number().nullish(),
-  medications: array(string()),
+  medications: array(string()).or(string()),
   note: string(),
   questions: array(string()),
   completed: boolean(),
@@ -46,6 +47,7 @@ export default function Addevent() {
   const { mutateAsync } = api.event.addEvent.useMutation({});
 
   useEffect(() => {
+    console.log("useEffect ran");
     setValue("id", "");
     setValue("endTime", null);
     setValue("pain", null);
@@ -56,7 +58,7 @@ export default function Addevent() {
   const medicationCheckboxes = data?.medication?.map((medication: string) => {
     return (
       <label
-        key={data.id}
+        key={createId()}
         className={
           watchMedications && watchMedications.includes(medication)
             ? "bg-yellow-500"
@@ -77,7 +79,7 @@ export default function Addevent() {
   const questionCheckboxes = data?.questions?.map((question: string) => {
     return (
       <label
-        key={data.id}
+        key={createId()}
         className={
           watchQuestions && watchQuestions.includes(question)
             ? "bg-blue-400"
