@@ -1,7 +1,6 @@
-## Twitter-Clone built in Typescript with the T3 Stack
+## Migraine-Tracker built in Typescript with the T3 Stack
 
-
-Stil in the early stages :)
+Still in the early stages :)
 
 - [Typescript](https://www.typescriptlang.org/)
 - [Create-T3-App](https://create.t3.gg/)
