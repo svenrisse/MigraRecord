@@ -20,13 +20,13 @@ export const eventSchema = object({
 
 type Inputs = z.infer<typeof eventSchema>;
 
-export default function Eventform() {
+export default function Eventform({ id }: { id?: string }) {
   const router = useRouter();
 
   const { data } = api.user.getUserData.useQuery();
   const { mutateAsync } = api.event.addEvent.useMutation({});
   const { data: eventData } = api.event.getEvent.useQuery({
-    id: "clggsb5bh0004cm8k9rbq5fq9",
+    id: id ? id : "",
   });
 
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
