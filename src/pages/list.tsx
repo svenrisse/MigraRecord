@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
+import EventCard from "~/components/EventCard";
 
 export default function List() {
   const router = useRouter();
@@ -16,8 +17,7 @@ export default function List() {
   const events = data?.map((event) => {
     return (
       <>
-        <div>this is a event</div>
-        <div>{event.startTime.toLocaleDateString()}</div>
+        <EventCard event={event} />
       </>
     );
   });
