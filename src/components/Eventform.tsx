@@ -134,23 +134,23 @@ export default function Eventform({ id }: { id?: string }) {
       <h3>What type of headache do you have?</h3>
       <div className="flex gap-3">
         <button
-          className={watchType == "migraine" ? "bg-red-700" : ""}
+          className={watchType == "Migraine" ? "bg-red-700" : ""}
           type="button"
-          onClick={() => setValue("type", "migraine")}
+          onClick={() => setValue("type", "Migraine")}
         >
           Migraine
         </button>
         <button
-          className={watchType == "tension" ? "bg-red-700" : ""}
+          className={watchType == "Tension Headache" ? "bg-red-700" : ""}
           type="button"
-          onClick={() => setValue("type", "tension")}
+          onClick={() => setValue("type", "Tension Headache")}
         >
           Tension Headache
         </button>
         <button
-          className={watchType == "other" ? "bg-red-700" : ""}
+          className={watchType == "Other Headache" ? "bg-red-700" : ""}
           type="button"
-          onClick={() => setValue("type", "other")}
+          onClick={() => setValue("type", "Other Headache")}
         >
           Other Headache
         </button>
