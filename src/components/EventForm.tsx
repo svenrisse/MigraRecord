@@ -20,7 +20,7 @@ export const eventSchema = object({
 
 type Inputs = z.infer<typeof eventSchema>;
 
-export default function Eventform({ id }: { id?: string }) {
+export default function EventForm({ id }: { id?: string }) {
   const router = useRouter();
 
   const { data } = api.user.getUserData.useQuery();

@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { eventSchema } from "~/components/Eventform";
+import { eventSchema } from "~/components/EventForm";
 import { z } from "zod";
 
 export const eventRouter = createTRPCRouter({
