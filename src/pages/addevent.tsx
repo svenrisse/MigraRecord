@@ -1,5 +1,5 @@
 import Navbar from "~/components/Navbar";
-import Eventform from "~/components/Eventform";
+import Eventform from "~/components/EventForm";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
