@@ -1,10 +1,14 @@
 import type { RouterOutputs } from "~/utils/api";
+import { createId } from "@paralleldrive/cuid2";
 
 export default function EventCard({
   event,
 }: {
   event: RouterOutputs["event"]["getEvent"];
 }) {
+  const questions = event?.questions.map((question) => {
+    return <div key={createId()}>{question}</div>;
+  });
   return (
     <div className="my-2 rounded-md bg-slate-200 p-2 ">
       <div className="flex gap-1">
@@ -14,7 +18,7 @@ export default function EventCard({
           {event?.endTime ? (
             <div>{event?.endTime?.toLocaleDateString()}</div>
           ) : (
-            <div className="text-gray-500">No End Time yet</div>
+            <div className="text-gray-500">No End Time</div>
           )}
         </div>
       </div>
@@ -34,8 +38,12 @@ export default function EventCard({
           <div className="text-gray-500">None</div>
         )}
       </div>
+      <div>
+        <h4>Questions answered with yes:</h4>
+        <div>{questions}</div>
+      </div>
       <div className="flex gap-2">
-        <h4>Notes:</h4>
+        <h4>Note:</h4>
         {event?.notes ? (
           <p>{event.notes}</p>
         ) : (
