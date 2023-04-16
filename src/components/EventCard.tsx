@@ -9,6 +9,10 @@ export default function EventCard({
   const questions = event?.questions.map((question) => {
     return <div key={createId()}>{question}</div>;
   });
+
+  const medications = event?.medications.map((medication) => {
+    return <div key={createId()}>{medication}</div>;
+  });
   return (
     <div className="my-2 rounded-md bg-slate-200 p-2 ">
       <div className="flex gap-1">
@@ -37,6 +41,10 @@ export default function EventCard({
         ) : (
           <div className="text-gray-500">None</div>
         )}
+      </div>
+      <div>
+        <h4>Medications:</h4>
+        <div>{medications}</div>
       </div>
       <div>
         <h4>Questions answered with yes:</h4>
