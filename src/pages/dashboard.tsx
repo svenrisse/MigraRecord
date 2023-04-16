@@ -4,9 +4,9 @@ import Navbar from "~/components/Navbar";
 
 export default function Dashboard() {
   const router = useRouter();
-  const { data } = useSession();
+  const { data: authData, status } = useSession();
 
-  if (!data && typeof window !== "undefined") {
+  if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
   }
 

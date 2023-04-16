@@ -5,9 +5,9 @@ import { useSession } from "next-auth/react";
 
 export default function Addevent() {
   const router = useRouter();
-  const { data: authData } = useSession();
+  const { data: authData, status } = useSession();
 
-  if (!authData && typeof window !== "undefined") {
+  if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
   }
   return (
