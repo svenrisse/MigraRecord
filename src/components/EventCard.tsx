@@ -14,7 +14,7 @@ export default function EventCard({
     return <div key={createId()}>{medication}</div>;
   });
   return (
-    <div className="my-2 rounded-md bg-slate-200 p-2 ">
+    <div className="rounded-md bg-slate-200 p-2 ">
       <div className="flex gap-1">
         <div>{event?.startTime.toLocaleDateString()}</div>
         <div> - </div>
