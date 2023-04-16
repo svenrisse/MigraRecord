@@ -12,7 +12,7 @@ export const eventSchema = object({
   startTime: coerce.date().or(string()),
   endTime: coerce.date().nullish().or(string()),
   type: string().nullish(),
-  pain: number().nullish(),
+  painScale: number().nullish(),
   medications: array(string()).or(string()),
   note: string().nullish(),
   questions: array(string()),
@@ -53,7 +53,7 @@ export default function EventForm({ id }: { id?: string }) {
     },
   });
   const watchType = watch("type");
-  const watchPain = watch("pain");
+  const watchPain = watch("painScale");
   const watchMedications = watch("medications");
   const watchQuestions = watch("questions");
 
@@ -64,7 +64,7 @@ export default function EventForm({ id }: { id?: string }) {
       note: data.note,
       questions: data.questions,
       medications: data.medications,
-      pain: data.pain,
+      painScale: data.painScale,
       type: data.type,
       endTime: data.endTime,
       startTime: data.startTime,
@@ -156,76 +156,76 @@ export default function EventForm({ id }: { id?: string }) {
         </button>
       </div>
 
-      <input {...register("pain")} hidden defaultValue={0} />
+      <input {...register("painScale")} hidden defaultValue={0} />
       <h3>Rate your pain:</h3>
       <div className="flex gap-3">
         <button
           className={watchPain == 1 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 1)}
+          onClick={() => setValue("painScale", 1)}
         >
           1
         </button>
         <button
           className={watchPain == 2 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 2)}
+          onClick={() => setValue("painScale", 2)}
         >
           2
         </button>
         <button
           className={watchPain == 3 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 3)}
+          onClick={() => setValue("painScale", 3)}
         >
           3
         </button>
         <button
           className={watchPain == 4 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 4)}
+          onClick={() => setValue("painScale", 4)}
         >
           4
         </button>
         <button
           className={watchPain == 5 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 5)}
+          onClick={() => setValue("painScale", 5)}
         >
           5
         </button>
         <button
           className={watchPain == 6 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 6)}
+          onClick={() => setValue("painScale", 6)}
         >
           6
         </button>
         <button
           className={watchPain == 7 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 7)}
+          onClick={() => setValue("painScale", 7)}
         >
           7
         </button>
         <button
           className={watchPain == 8 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 8)}
+          onClick={() => setValue("painScale", 8)}
         >
           8
         </button>
         <button
           className={watchPain == 9 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 9)}
+          onClick={() => setValue("painScale", 9)}
         >
           9
         </button>
         <button
           className={watchPain == 10 ? "bg-green-600" : ""}
           type="button"
-          onClick={() => setValue("pain", 10)}
+          onClick={() => setValue("painScale", 10)}
         >
           10
         </button>
