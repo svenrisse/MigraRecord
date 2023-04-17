@@ -120,15 +120,19 @@ export default function EventForm({ id }: { id?: string }) {
     >
       <div {...register("id")} className="hidden" />
       <div className="flex flex-col items-center">
-        <h4>Start time:</h4>
+        <h4 className="text-gray-500">Start time:</h4>
         <input
           type="datetime-local"
           {...register("startTime")}
-          className="rounded-md border-2 border-gray-400 bg-slate-200 p-1"
+          className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
           required
         />
-        <h4>End time:</h4>
-        <input type="datetime-local" {...register("endTime")} />
+        <h4 className="text-gray-500">End time:</h4>
+        <input
+          type="datetime-local"
+          {...register("endTime")}
+          className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
+        />
       </div>
       <input {...register("type")} className="hidden" />
       <h3>What type of headache do you have?</h3>
