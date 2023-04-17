@@ -24,7 +24,7 @@ export default function List() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
         <div className="flex w-10/12 flex-col gap-3 pb-20 pt-7">{events}</div>
       </main>
       <Navbar focused="list" />

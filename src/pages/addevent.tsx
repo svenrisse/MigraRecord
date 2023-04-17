@@ -12,7 +12,7 @@ export default function Addevent() {
   }
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#059669] to-[#115e59] pb-16">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490] pb-16">
         <div className="flex w-3/4 flex-col items-center rounded-xl bg-slate-200">
           <EventForm />
         </div>
