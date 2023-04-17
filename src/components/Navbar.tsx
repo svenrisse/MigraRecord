@@ -13,31 +13,31 @@ export default function Navbar({ focused }: { focused?: string }) {
       <Link href={"/dashboard"}>
         <MdSpaceDashboard
           size={"3rem"}
-          className={focused == "dashboard" ? "fill-emerald-700" : ""}
+          className={focused == "dashboard" ? "fill-cyan-700" : ""}
         />
       </Link>
       <Link href={"/addevent"}>
         <AiFillPlusCircle
           size={"3rem"}
-          className={focused == "addevent" ? "fill-emerald-700" : ""}
+          className={focused == "addevent" ? "fill-cyan-700" : ""}
         />
       </Link>
       <Link href={"/list"}>
         <AiOutlineUnorderedList
           size={"3rem"}
-          className={focused == "list" ? "fill-emerald-700" : ""}
+          className={focused == "list" ? "fill-cyan-700" : ""}
         />
       </Link>
       <Link href={"/calender"}>
         <AiFillCalendar
           size={"3rem"}
-          className={focused == "calender" ? "fill-emerald-700" : ""}
+          className={focused == "calender" ? "fill-cyan-700" : ""}
         />
       </Link>
       <Link href={"/settings"}>
         <AiFillSetting
           size={"3rem"}
-          className={focused == "settings" ? "fill-emerald-700" : ""}
+          className={focused == "settings" ? "fill-cyan-700" : ""}
         />
       </Link>
     </div>
