@@ -171,73 +171,93 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
 
       <input {...register("painScale")} hidden defaultValue={0} />
-      <h3>Rate your pain:</h3>
-      <div className="flex gap-3">
+      <h3 className="text-sm text-gray-500">Rate your pain:</h3>
+      <div className="flex w-full justify-evenly">
         <button
-          className={watchPain == 1 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 1)}
         >
           1
         </button>
         <button
-          className={watchPain == 2 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 2)}
         >
           2
         </button>
         <button
-          className={watchPain == 3 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 3)}
         >
           3
         </button>
         <button
-          className={watchPain == 4 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 4)}
         >
           4
         </button>
         <button
-          className={watchPain == 5 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 5)}
         >
           5
         </button>
         <button
-          className={watchPain == 6 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 6)}
         >
           6
         </button>
         <button
-          className={watchPain == 7 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 7)}
         >
           7
         </button>
         <button
-          className={watchPain == 8 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 8)}
         >
           8
         </button>
         <button
-          className={watchPain == 9 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 9)}
         >
           9
         </button>
         <button
-          className={watchPain == 10 ? "bg-green-600" : ""}
+          className={`${
+            watchPain == 1 && "bg-green-600"
+          } h-8 w-8 rounded-full border-2 border-green-600`}
           type="button"
           onClick={() => setValue("painScale", 10)}
         >
