@@ -119,15 +119,15 @@ export default function EventForm({ id }: { id?: string }) {
       className="flex flex-col items-center gap-4"
     >
       <div {...register("id")} className="hidden" />
-      <div className="flex flex-col items-center">
-        <h4 className="text-gray-500">Start time:</h4>
+      <div className="flex flex-col items-center gap-1 pt-1">
+        <h4 className="text-sm text-gray-500">Start time:</h4>
         <input
           type="datetime-local"
           {...register("startTime")}
           className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
           required
         />
-        <h4 className="text-gray-500">End time:</h4>
+        <h4 className="text-sm text-gray-500">End time:</h4>
         <input
           type="datetime-local"
           {...register("endTime")}
@@ -135,28 +135,36 @@ export default function EventForm({ id }: { id?: string }) {
         />
       </div>
       <input {...register("type")} className="hidden" />
-      <h3>What type of headache do you have?</h3>
-      <div className="flex gap-3">
+      <h3 className="text-sm text-gray-500">
+        What type of headache do you have?
+      </h3>
+      <div className="flex w-full justify-evenly">
         <button
-          className={watchType == "Migraine" ? "bg-red-700" : ""}
+          className={`${
+            watchType == "Migraine" && "bg-red-300"
+          } w-20 rounded-xl border-2 border-red-300 py-2`}
           type="button"
           onClick={() => setValue("type", "Migraine")}
         >
           Migraine
         </button>
         <button
-          className={watchType == "Tension Headache" ? "bg-red-700" : ""}
+          className={`${
+            watchType == "Tension" && "bg-red-300"
+          } w-20 rounded-xl border-2 border-red-300 py-2`}
           type="button"
-          onClick={() => setValue("type", "Tension Headache")}
+          onClick={() => setValue("type", "Tension")}
         >
-          Tension Headache
+          Tension
         </button>
         <button
-          className={watchType == "Other Headache" ? "bg-red-700" : ""}
+          className={`${
+            watchType == "Other" && "bg-red-300"
+          } w-20 rounded-xl border-2 border-red-300 py-2`}
           type="button"
-          onClick={() => setValue("type", "Other Headache")}
+          onClick={() => setValue("type", "Other")}
         >
-          Other Headache
+          Other
         </button>
       </div>
 
