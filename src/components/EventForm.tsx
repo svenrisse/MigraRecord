@@ -119,6 +119,7 @@ export default function EventForm({ id }: { id?: string }) {
       className="flex flex-col items-center gap-4"
     >
       <div {...register("id")} className="hidden" />
+
       <div className="flex flex-col items-center gap-1 pt-1">
         <h4 className="text-sm text-gray-500">Start time:</h4>
         <input
@@ -135,6 +136,7 @@ export default function EventForm({ id }: { id?: string }) {
         />
       </div>
       <input {...register("type")} className="hidden" />
+
       <h3 className="text-sm text-gray-500">
         What type of headache do you have?
       </h3>
@@ -242,11 +244,15 @@ export default function EventForm({ id }: { id?: string }) {
           10
         </button>
       </div>
+
       <h3>What medications did you use?</h3>
       <div className="flex gap-3">{medicationCheckboxes}</div>
+
       <h3>Please click on the applying questions:</h3>
       <div className="flex flex-col gap-2">{questionCheckboxes}</div>
+
       <textarea {...register("note")} />
+
       <button type="submit">Save</button>
     </form>
   );
