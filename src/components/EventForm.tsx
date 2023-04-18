@@ -177,7 +177,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 1 && "bg-cyan-100"
-            } h-8 w-8 rounded-full border-2 border-cyan-100`}
+            } h-10 w-10 rounded-full border-2 border-cyan-100 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 1)}
           >
@@ -186,7 +186,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 2 && "bg-cyan-200"
-            } h-8 w-8 rounded-full border-2 border-cyan-200`}
+            } h-10 w-10 rounded-full border-2 border-cyan-200 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 2)}
           >
@@ -195,7 +195,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 3 && "bg-cyan-300"
-            } h-8 w-8 rounded-full border-2 border-cyan-300`}
+            } h-10 w-10 rounded-full border-2 border-cyan-300 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 3)}
           >
@@ -204,7 +204,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 4 && "bg-cyan-400"
-            } h-8 w-8 rounded-full border-2 border-cyan-400`}
+            } h-10 w-10 rounded-full border-2 border-cyan-400 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 4)}
           >
@@ -213,7 +213,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 5 && "bg-cyan-500"
-            } h-8 w-8 rounded-full border-2 border-cyan-500`}
+            } h-10 w-10 rounded-full border-2 border-cyan-500 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 5)}
           >
@@ -224,7 +224,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 6 && "bg-cyan-600"
-            } h-8 w-8 rounded-full border-2 border-cyan-600`}
+            } h-10 w-10 rounded-full border-2 border-cyan-600 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 6)}
           >
@@ -233,7 +233,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 7 && "bg-cyan-700"
-            } h-8 w-8 rounded-full border-2 border-cyan-700`}
+            } h-10 w-10 rounded-full border-2 border-cyan-700 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 7)}
           >
@@ -242,7 +242,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 8 && "bg-cyan-800"
-            } h-8 w-8 rounded-full border-2 border-cyan-800`}
+            } h-10 w-10 rounded-full border-2 border-cyan-800 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 8)}
           >
@@ -251,7 +251,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 9 && "bg-cyan-900"
-            } h-8 w-8 rounded-full border-2 border-cyan-900`}
+            } h-10 w-10 rounded-full border-2 border-cyan-900 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 9)}
           >
@@ -260,7 +260,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button
             className={`${
               watchPain == 10 && "bg-cyan-950"
-            } h-8 w-8 rounded-full border-2 border-cyan-950`}
+            } h-10 w-10 rounded-full border-2 border-cyan-950 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 10)}
           >
