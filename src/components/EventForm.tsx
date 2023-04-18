@@ -143,8 +143,8 @@ export default function EventForm({ id }: { id?: string }) {
       <div className="flex w-full justify-evenly">
         <button
           className={`${
-            watchType == "Migraine" && "bg-red-300"
-          } w-20 rounded-xl border-2 border-red-300 py-2`}
+            watchType == "Migraine" && "bg-red-700 font-bold text-white"
+          } w-20 rounded-xl border-2 border-red-700 py-2`}
           type="button"
           onClick={() => setValue("type", "Migraine")}
         >
@@ -152,8 +152,8 @@ export default function EventForm({ id }: { id?: string }) {
         </button>
         <button
           className={`${
-            watchType == "Tension" && "bg-red-300"
-          } w-20 rounded-xl border-2 border-red-300 py-2`}
+            watchType == "Tension" && "bg-red-700 font-bold text-white"
+          } w-20 rounded-xl border-2 border-red-700 py-2`}
           type="button"
           onClick={() => setValue("type", "Tension")}
         >
@@ -161,8 +161,8 @@ export default function EventForm({ id }: { id?: string }) {
         </button>
         <button
           className={`${
-            watchType == "Other" && "bg-red-300"
-          } w-20 rounded-xl border-2 border-red-300 py-2`}
+            watchType == "Other" && "bg-red-700 font-bold text-white"
+          } w-20 rounded-xl border-2 border-red-700 py-2`}
           type="button"
           onClick={() => setValue("type", "Other")}
         >
