@@ -279,11 +279,23 @@ export default function EventForm({ id }: { id?: string }) {
         </div>
       </div>
 
-      <h3>What medications did you use?</h3>
-      <div className="flex gap-3">{medicationCheckboxes}</div>
+      <div>
+        <h3 className="my-2 text-sm text-gray-500">
+          What medications did you use?
+        </h3>
+        <div className="flex flex-col items-center gap-1">
+          {medicationCheckboxes}
+        </div>
+      </div>
 
-      <h3>Please click on the applying questions:</h3>
-      <div className="flex flex-col gap-2">{questionCheckboxes}</div>
+      <div>
+        <h3 className="my-2 text-sm text-gray-500">
+          Please click on the applying questions:
+        </h3>
+        <div className="flex flex-col items-center gap-1">
+          {questionCheckboxes}
+        </div>
+      </div>
 
       <textarea {...register("note")} />
 
