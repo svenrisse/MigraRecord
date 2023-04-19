@@ -6,6 +6,7 @@ import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
+import { TailSpin } from "react-loader-spinner";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -23,7 +24,7 @@ type Inputs = z.infer<typeof eventSchema>;
 export default function EventForm({ id }: { id?: string }) {
   const router = useRouter();
 
-  const { data } = api.user.getUserData.useQuery();
+  const { data, isInitialLoading } = api.user.getUserData.useQuery();
   const { mutateAsync } = api.event.addEvent.useMutation({});
   const { data: eventData } = api.event.getEvent.useQuery({
     id: id ? id : "",
@@ -113,6 +114,15 @@ export default function EventForm({ id }: { id?: string }) {
       </label>
     );
   });
+
+  if (isInitialLoading) {
+    return (
+      <div>
+        <TailSpin color="cyan" />
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
