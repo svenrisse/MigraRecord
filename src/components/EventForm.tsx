@@ -126,7 +126,7 @@ export default function EventForm({ id }: { id?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-4"
+      className="flex flex-col items-center"
     >
       <div {...register("id")} className="hidden" />
 
@@ -297,7 +297,8 @@ export default function EventForm({ id }: { id?: string }) {
         </div>
       </div>
 
-      <textarea {...register("note")} />
+      <h3 className="text-sm text-gray-500">Notes:</h3>
+      <textarea className="rounded-lg p-1" {...register("note")} />
 
       <button type="submit">Save</button>
     </form>
