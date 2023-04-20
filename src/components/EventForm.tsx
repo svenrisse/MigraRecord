@@ -126,7 +126,7 @@ export default function EventForm({ id }: { id?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center"
+      className="flex flex-col items-center gap-2"
     >
       <div {...register("id")} className="hidden" />
 
@@ -145,11 +145,12 @@ export default function EventForm({ id }: { id?: string }) {
           className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
         />
       </div>
-      <input {...register("type")} className="hidden" />
 
+      <input {...register("type")} className="hidden" />
       <h3 className="text-sm text-gray-500">
         What type of headache do you have?
       </h3>
+
       <div className="flex w-full justify-evenly">
         <button
           className={`${
