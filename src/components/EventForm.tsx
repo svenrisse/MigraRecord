@@ -75,21 +75,22 @@ export default function EventForm({ id }: { id?: string }) {
 
   const medicationCheckboxes = data?.medication?.map((medication: string) => {
     return (
-      <label
-        key={createId()}
-        className={
-          watchMedications && watchMedications.includes(medication)
-            ? "cursor-pointer bg-yellow-500"
-            : "cursor-pointer"
-        }
-      >
+      <label key={createId()}>
         <input
           type="checkbox"
           value={medication}
           {...register("medications")}
           className="hidden"
         />
-        {medication}
+        <div
+          className={`${
+            watchMedications &&
+            watchMedications.includes(medication) &&
+            "bg-cyan-700"
+          } cursor-pointer rounded-xl border-2 border-cyan-700 px-1 py-1`}
+        >
+          {medication}
+        </div>
       </label>
     );
   });
