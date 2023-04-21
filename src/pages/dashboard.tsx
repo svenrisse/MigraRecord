@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 
@@ -15,8 +15,7 @@ export default function Dashboard() {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
         <div>
           <div>this is the dashboard</div>
-
-          <button onClick={() => void signOut()}>Logout</button>
+          <p>Stats coming soon :)</p>
         </div>
       </main>
       <Navbar focused="dashboard" />
