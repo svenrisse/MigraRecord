@@ -4,9 +4,10 @@ import Navbar from "~/components/Navbar";
 import Calendar from "react-calendar";
 import { isSameDay } from "date-fns";
 import { api } from "../utils/api";
+import type { View } from "react-calendar/dist/cjs/shared/types";
 
 export default function Calender() {
-  function tileClassName({ date, view }) {
+  function tileClassName({ date, view }: { view: View; date: Date }) {
     if (
       dates &&
       view === "month" &&
