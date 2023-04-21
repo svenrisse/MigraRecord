@@ -13,8 +13,11 @@ export default function Calender() {
       view === "month" &&
       dates.find((dDate) => isSameDay(dDate, date))
     ) {
-      return "bg-red-500";
+      return "bg-cyan-700 rounded-xl";
     }
+  }
+  function handleDayClick(value: Date) {
+    console.log(value);
   }
 
   const router = useRouter();
@@ -34,7 +37,10 @@ export default function Calender() {
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
         <div className="w-11/12 rounded-lg bg-slate-200 px-2 py-4">
-          <Calendar tileClassName={tileClassName} />
+          <Calendar
+            tileClassName={tileClassName}
+            onClickDay={(value) => handleDayClick(value)}
+          />
         </div>
       </main>
       <Navbar focused="calender" />
