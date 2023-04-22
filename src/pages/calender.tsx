@@ -10,12 +10,22 @@ export default function Calender() {
   function tileClassName({ date, view }: { view: View; date: Date }) {
     if (
       dates &&
+      firstDates &&
+      view == "month" &&
+      firstDates.find((dDate) => isSameDay(dDate as Date, date))
+    ) {
+      return "bg-red-500";
+    }
+
+    if (
+      dates &&
       view === "month" &&
       dates.flat().find((dDate) => isSameDay(dDate, date))
     ) {
       return "bg-cyan-700";
     }
   }
+
   function handleDayClick(value: Date) {
     console.log(value);
   }
@@ -32,16 +42,18 @@ export default function Calender() {
   const dates = data?.map((event) => {
     return event.endTime
       ? eachDayOfInterval({
-        start: event.startTime,
-        end: event.endTime,
-      })
+          start: event.startTime,
+          end: event.endTime,
+        })
       : eachDayOfInterval({
-        start: event.startTime,
-        end: event.startTime,
-      });
+          start: event.startTime,
+          end: event.startTime,
+        });
   });
 
-  console.log(dates?.flat());
+  const firstDates = dates?.map((d) => {
+    return d[0];
+  });
 
   return (
     <>
