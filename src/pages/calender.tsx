@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import Calendar from "react-calendar";
-import { isSameDay } from "date-fns";
+import { eachDayOfInterval, isSameDay } from "date-fns";
 import { api } from "../utils/api";
 import type { View } from "react-calendar/dist/cjs/shared/types";
 
@@ -11,9 +11,9 @@ export default function Calender() {
     if (
       dates &&
       view === "month" &&
-      dates.find((dDate) => isSameDay(dDate, date))
+      dates.flat().find((dDate) => isSameDay(dDate, date))
     ) {
-      return "bg-cyan-700 rounded-xl";
+      return "bg-cyan-700";
     }
   }
   function handleDayClick(value: Date) {
@@ -29,9 +29,19 @@ export default function Calender() {
 
   const { data } = api.event.listEvents.useQuery();
 
-  const dates = data?.map((date) => {
-    return date.startTime;
+  const dates = data?.map((event) => {
+    return event.endTime
+      ? eachDayOfInterval({
+        start: event.startTime,
+        end: event.endTime,
+      })
+      : eachDayOfInterval({
+        start: event.startTime,
+        end: event.startTime,
+      });
   });
+
+  console.log(dates?.flat());
 
   return (
     <>
