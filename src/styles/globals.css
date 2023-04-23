@@ -24,10 +24,17 @@
   height: 44px;
   margin-bottom: 1em;
   display: flex;
+  color: #164e63;
+  font-weight: bold;
 }
 .react-calendar__navigation button {
   min-width: 100px;
   background: none;
+  font-size: 20px;
+}
+
+.react-calendar__navigation .react-calendar__navigation__arrow {
+  font-size: 30px;
 }
 
 .react-calendar__month-view__weekdays {
