@@ -46,6 +46,11 @@
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
 }
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+  font-size: 14px;
+}
 .react-calendar__month-view__weekNumbers {
   font-weight: bold;
 }
