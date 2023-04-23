@@ -7,6 +7,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
+import { useEffect } from "react";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -23,36 +24,47 @@ type Inputs = z.infer<typeof eventSchema>;
 
 export default function EventForm({ id }: { id?: string }) {
   const router = useRouter();
+  const utils = api.useContext();
 
   const { data, isInitialLoading } = api.user.getUserData.useQuery();
-  const { mutateAsync } = api.event.addEvent.useMutation({});
-  const { data: eventData } = api.event.getEvent.useQuery({
-    id: id ? id : "",
+  const { mutateAsync } = api.event.addEvent.useMutation({
+    onSuccess: () => {
+      utils.event.invalidate(), utils.user.invalidate();
+    },
   });
+  const { data: eventData, isLoading: eventLoading } =
+    api.event.getEvent.useQuery({
+      id: id ? id : "",
+    });
 
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
-    defaultValues: {
-      ...(eventData
-        ? {
-            id: eventData?.id,
-            startTime: eventData?.startTime.toISOString().slice(0, 16),
-            endTime: eventData?.endTime?.toISOString().slice(0, 16),
-            type: eventData?.type,
-            pain: eventData?.painScale,
-            medications: eventData?.medications,
-            questions: eventData?.questions,
-            note: eventData?.notes,
-          }
-        : {
-            id: "",
-            endTime: null,
-            pain: null,
-            medications: [],
-            questions: [],
-          }),
-    },
   });
+
+  useEffect(() => {
+    setValue("id", eventData?.id || "");
+    setValue(
+      "startTime",
+      eventData?.startTime.toISOString().slice(0, 16) || ""
+    );
+    setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
+    setValue("type", eventData?.type);
+    setValue("painScale", eventData?.painScale || null);
+    setValue("medications", eventData?.medications || []);
+    setValue("questions", eventData?.questions || []);
+    setValue("note", eventData?.notes);
+  }, [
+    setValue,
+    eventData?.startTime,
+    eventData?.endTime,
+    eventData?.id,
+    eventData?.medications,
+    eventData?.questions,
+    eventData?.notes,
+    eventData?.painScale,
+    eventData?.type,
+  ]);
+
   const watchType = watch("type");
   const watchPain = watch("painScale");
   const watchMedications = watch("medications");
@@ -117,7 +129,7 @@ export default function EventForm({ id }: { id?: string }) {
     );
   });
 
-  if (isInitialLoading) {
+  if (isInitialLoading || eventLoading) {
     return (
       <div>
         <TailSpin color="cyan" />
