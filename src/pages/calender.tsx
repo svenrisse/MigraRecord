@@ -51,7 +51,7 @@ export default function Calender() {
       view == "month" &&
       sameDates.flat().find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-700 rounded-xl";
+      return "bg-cyan-600 rounded-xl text-white font-bold";
     }
 
     if (
@@ -60,7 +60,7 @@ export default function Calender() {
       view == "month" &&
       lastDates.flat().find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-700 rounded-r-xl";
+      return "bg-cyan-600 rounded-r-xl text-white font-bold";
     }
 
     if (
@@ -69,7 +69,7 @@ export default function Calender() {
       view == "month" &&
       firstDates.find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-700 rounded-l-xl";
+      return "bg-cyan-600 rounded-l-xl text-white font-bold";
     }
 
     if (
@@ -77,7 +77,7 @@ export default function Calender() {
       view === "month" &&
       dates.flat().find((dDate) => isSameDay(dDate, date))
     ) {
-      return "bg-cyan-700";
+      return "bg-cyan-600 text-white font-bold";
     }
   }
 
@@ -87,7 +87,7 @@ export default function Calender() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
-        <div className="w-11/12 rounded-lg bg-slate-200 px-2 py-4">
+        <div className="w-11/12 rounded-lg bg-gray-50 px-2 py-4">
           <Calendar
             tileClassName={tileClassName}
             onClickDay={(value) => handleDayClick(value)}
