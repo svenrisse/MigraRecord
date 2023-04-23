@@ -51,7 +51,7 @@ export default function Calender() {
       view == "month" &&
       sameDates.flat().find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-600 rounded-xl text-white font-bold";
+      return "bg-cyan-600 rounded-3xl text-white font-bold";
     }
 
     if (
@@ -60,7 +60,7 @@ export default function Calender() {
       view == "month" &&
       lastDates.flat().find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-600 rounded-r-xl text-white font-bold";
+      return "bg-cyan-600 rounded-r-3xl text-white font-bold";
     }
 
     if (
@@ -69,7 +69,7 @@ export default function Calender() {
       view == "month" &&
       firstDates.find((dDate) => isSameDay(dDate as Date, date))
     ) {
-      return "bg-cyan-600 rounded-l-xl text-white font-bold";
+      return "bg-cyan-600 rounded-l-3xl text-white font-bold";
     }
 
     if (
