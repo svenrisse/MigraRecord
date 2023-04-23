@@ -15,6 +15,12 @@ export default function EventCard({
   const medications = event?.medications.map((medication) => {
     return <div key={createId()}>{medication}</div>;
   });
+
+  function handleDeleteClick(id: string, e: React.SyntheticEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(id);
+  }
   return (
     <div className="rounded-md bg-gray-50 p-2 ">
       <div className="flex gap-1">
@@ -61,7 +67,9 @@ export default function EventCard({
         )}
       </div>
       <div className="flex">
-        <RiDeleteBin5Fill size={"1.5rem"} />
+        <button onClick={(e) => handleDeleteClick(event && event.id, e)}>
+          <RiDeleteBin5Fill size="1.5rem" className="cursor-pointer" />
+        </button>
         <Link href={`/edit/${event && event.id}`}>
           <RiEdit2Fill size={"1.5rem"} />
         </Link>
