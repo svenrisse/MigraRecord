@@ -86,8 +86,8 @@ export default function EventForm({ id }: { id?: string }) {
           className={`${
             watchMedications &&
             watchMedications.includes(medication) &&
-            "bg-cyan-700"
-          } cursor-pointer rounded-xl border-2 border-cyan-700 px-1 py-1`}
+            "bg-cyan-900 text-white"
+          } cursor-pointer rounded-xl border-2 border-cyan-900 px-1 py-1`}
         >
           {medication}
         </div>
@@ -106,8 +106,10 @@ export default function EventForm({ id }: { id?: string }) {
         />
         <div
           className={`${
-            watchQuestions && watchQuestions.includes(question) && "bg-cyan-700"
-          } cursor-pointer rounded-xl border-2 border-cyan-700 px-1 py-1 text-center`}
+            watchQuestions &&
+            watchQuestions.includes(question) &&
+            "bg-cyan-900 text-white"
+          } cursor-pointer rounded-xl border-2 border-cyan-900 px-1 py-1 text-center`}
         >
           {question}
         </div>
@@ -126,36 +128,34 @@ export default function EventForm({ id }: { id?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-2"
+      className="flex flex-col items-center gap-2 font-sans"
     >
       <div {...register("id")} className="hidden" />
 
       <div className="flex flex-col items-center gap-1 pt-1">
-        <h4 className="text-sm text-gray-500">Start time:</h4>
+        <h4 className="text-gray-500">Start time:</h4>
         <input
           type="datetime-local"
           {...register("startTime")}
-          className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
+          className="rounded-md border-2 border-cyan-900 bg-slate-100 p-1"
           required
         />
-        <h4 className="text-sm text-gray-500">End time:</h4>
+        <h4 className="text-gray-500">End time:</h4>
         <input
           type="datetime-local"
           {...register("endTime")}
-          className="rounded-md border-2 border-gray-400 bg-slate-100 p-1"
+          className="rounded-md border-2 border-cyan-900 bg-slate-100 p-1"
         />
       </div>
 
       <input {...register("type")} className="hidden" />
-      <h3 className="text-sm text-gray-500">
-        What type of headache do you have?
-      </h3>
+      <h3 className="text-gray-500">What type of headache do you have?</h3>
 
       <div className="flex w-full justify-evenly">
         <button
           className={`${
-            watchType == "Migraine" && "bg-red-700 font-bold text-white"
-          } w-20 rounded-xl border-2 border-red-700 py-2`}
+            watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
+          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Migraine")}
         >
@@ -163,8 +163,8 @@ export default function EventForm({ id }: { id?: string }) {
         </button>
         <button
           className={`${
-            watchType == "Tension" && "bg-red-700 font-bold text-white"
-          } w-20 rounded-xl border-2 border-red-700 py-2`}
+            watchType == "Tension" && "bg-cyan-600 font-bold text-white"
+          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Tension")}
         >
@@ -172,8 +172,8 @@ export default function EventForm({ id }: { id?: string }) {
         </button>
         <button
           className={`${
-            watchType == "Other" && "bg-red-700 font-bold text-white"
-          } w-20 rounded-xl border-2 border-red-700 py-2`}
+            watchType == "Other" && "bg-cyan-600 font-bold text-white"
+          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Other")}
         >
@@ -182,7 +182,7 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
 
       <input {...register("painScale")} hidden defaultValue={0} />
-      <h3 className="text-sm text-gray-500">Rate your pain:</h3>
+      <h3 className="text-gray-500">Rate your pain:</h3>
       <div className="flex w-full flex-col items-center gap-2">
         <div className="flex gap-3">
           <button
@@ -281,16 +281,14 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
 
       <div>
-        <h3 className="my-2 text-sm text-gray-500">
-          What medications did you use?
-        </h3>
+        <h3 className="my-2 text-gray-500">What medications did you use?</h3>
         <div className="flex flex-col items-center gap-1">
           {medicationCheckboxes}
         </div>
       </div>
 
       <div>
-        <h3 className="my-2 text-sm text-gray-500">
+        <h3 className="my-2 text-gray-500">
           Please click on the applying questions:
         </h3>
         <div className="flex flex-col items-center gap-1">
@@ -298,10 +296,15 @@ export default function EventForm({ id }: { id?: string }) {
         </div>
       </div>
 
-      <h3 className="text-sm text-gray-500">Notes:</h3>
+      <h3 className="text-gray-500">Notes:</h3>
       <textarea className="rounded-lg p-1" {...register("note")} />
 
-      <button type="submit">Save</button>
+      <button
+        type="submit"
+        className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
+      >
+        Save
+      </button>
     </form>
   );
 }
