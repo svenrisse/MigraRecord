@@ -87,7 +87,7 @@ export default function EventForm({ id }: { id?: string }) {
             watchMedications &&
             watchMedications.includes(medication) &&
             "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-1 py-1`}
+          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
         >
           {medication}
         </div>
@@ -109,7 +109,7 @@ export default function EventForm({ id }: { id?: string }) {
             watchQuestions &&
             watchQuestions.includes(question) &&
             "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-1 py-1 text-center`}
+          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1 text-center`}
         >
           {question}
         </div>
@@ -137,14 +137,14 @@ export default function EventForm({ id }: { id?: string }) {
         <input
           type="datetime-local"
           {...register("startTime")}
-          className="rounded-md border-2 border-cyan-900 bg-slate-100 p-1"
+          className="rounded-md border-2 border-cyan-900 bg-white p-1"
           required
         />
         <h4 className="text-gray-500">End time:</h4>
         <input
           type="datetime-local"
           {...register("endTime")}
-          className="rounded-md border-2 border-cyan-900 bg-slate-100 p-1"
+          className="rounded-md border-2 border-cyan-900 bg-white p-1"
         />
       </div>
 
@@ -297,7 +297,10 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
 
       <h3 className="text-gray-500">Notes:</h3>
-      <textarea className="rounded-lg p-1" {...register("note")} />
+      <textarea
+        className="rounded-lg border-2 border-cyan-900 p-1"
+        {...register("note")}
+      />
 
       <button
         type="submit"
