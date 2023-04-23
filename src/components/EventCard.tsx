@@ -1,5 +1,7 @@
 import type { RouterOutputs } from "~/utils/api";
 import { createId } from "@paralleldrive/cuid2";
+import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
+import Link from "next/link";
 
 export default function EventCard({
   event,
@@ -57,6 +59,12 @@ export default function EventCard({
         ) : (
           <div className="text-gray-500">None</div>
         )}
+      </div>
+      <div className="flex">
+        <RiDeleteBin5Fill size={"1.5rem"} />
+        <Link href={`/edit/${event && event.id}`}>
+          <RiEdit2Fill size={"1.5rem"} />
+        </Link>
       </div>
     </div>
   );
