@@ -33,6 +33,15 @@ export const eventRouter = createTRPCRouter({
       },
     });
   }),
+  deleteEvent: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.event.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
   listEvents: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.event.findMany({
       where: {
