@@ -1,4 +1,5 @@
-import { RouterOutputs, api } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
 import { createId } from "@paralleldrive/cuid2";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 import Link from "next/link";
