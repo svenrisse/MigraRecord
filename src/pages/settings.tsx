@@ -11,11 +11,11 @@ export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
 
   const userQuestions = data?.questions.map((question) => {
-    return <div key={createId()}>question</div>;
+    return <div key={createId()}>{question}</div>;
   });
 
   const userMedications = data?.medication.map((medication) => {
-    return <div key={createId()}>medication</div>;
+    return <div key={createId()}>{medication}</div>;
   });
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -77,7 +77,13 @@ export default function Settings() {
           onRequestClose={closeModal}
           className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
         >
-          <form onSubmit={handleSubmit(onSubmit)}>{}</form>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {modalContent === "questions" ? (
+              <div>{userQuestions}</div>
+            ) : (
+              <div>{userMedications}</div>
+            )}
+          </form>
         </Modal>
       </main>
       <Navbar focused="settings" />
