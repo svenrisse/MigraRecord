@@ -3,8 +3,21 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { api } from "~/utils/api";
+import { createId } from "@paralleldrive/cuid2";
 
 export default function Settings() {
+  const { data } = api.user.getUserData.useQuery();
+
+  const userQuestions = data?.questions.map((question) => {
+    return <div key={createId()}>question</div>;
+  });
+
+  const userMedications = data?.medication.map((medication) => {
+    return <div key={createId()}>medication</div>;
+  });
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
@@ -21,6 +34,14 @@ export default function Settings() {
   if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
   }
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => console.log(data);
 
   return (
     <>
@@ -56,7 +77,7 @@ export default function Settings() {
           onRequestClose={closeModal}
           className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
         >
-          <div>{modalContent}</div>
+          <form onSubmit={handleSubmit(onSubmit)}>{}</form>
         </Modal>
       </main>
       <Navbar focused="settings" />
