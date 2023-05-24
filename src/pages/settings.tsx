@@ -3,9 +3,19 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { createId } from "@paralleldrive/cuid2";
+import { object, string, array, coerce, number } from "zod";
+
+import type { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+export const settingsSchema = object({
+  content: string(),
+});
+
+type Inputs = z.infer<typeof settingsSchema>;
 
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
@@ -39,8 +49,11 @@ export default function Settings() {
     void router.push("/");
   }
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => {
+  const { register, handleSubmit } = useForm<Inputs>({
+    resolver: zodResolver(settingsSchema),
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (modalContent === "questions") {
       mutateQuestion({ text: data.content });
     }
