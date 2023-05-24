@@ -20,9 +20,19 @@ type Inputs = z.infer<typeof settingsSchema>;
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
   const { mutateAsync: mutateQuestion, isLoading: questionIsLoading } =
-    api.user.addQuestion.useMutation();
+    api.user.addQuestion.useMutation({
+      onSuccess: () => {
+        utils.user.getUserData.invalidate();
+      },
+    });
   const { mutateAsync: mutateMedication, isLoading: medicationIsLoading } =
-    api.user.addMedication.useMutation();
+    api.user.addMedication.useMutation({
+      onSuccess: () => {
+        utils.user.getUserData.invalidate();
+      },
+    });
+
+  const utils = api.useContext();
 
   const userQuestions = data?.Questions.map((question) => {
     return <div key={createId()}>{question.text}</div>;
@@ -49,15 +59,18 @@ export default function Settings() {
     void router.push("/");
   }
 
-  const { register, handleSubmit } = useForm<Inputs>({
+  const { register, handleSubmit, setValue } = useForm<Inputs>({
     resolver: zodResolver(settingsSchema),
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (modalContent === "questions") {
       mutateQuestion({ text: data.content });
+      setValue("content", "");
+      return;
     }
-    console.log(data);
+    mutateMedication({ text: data.content });
+    setValue("content", "");
   };
 
   return (
