@@ -9,6 +9,10 @@ import { createId } from "@paralleldrive/cuid2";
 
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
+  const { mutateAsync: mutateQuestion, isLoading: questionIsLoading } =
+    api.user.addQuestion.useMutation();
+  const { mutateAsync: mutateMedication, isLoading: medicationIsLoading } =
+    api.user.addMedication.useMutation();
 
   const userQuestions = data?.Questions.map((question) => {
     return <div key={createId()}>{question.text}</div>;
@@ -36,7 +40,12 @@ export default function Settings() {
   }
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => {
+    if (modalContent === "questions") {
+      mutateQuestion({ text: data.content });
+    }
+    console.log(data);
+  };
 
   return (
     <>
