@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
@@ -12,4 +13,32 @@ export const userRouter = createTRPCRouter({
       },
     });
   }),
+  addQuestion: protectedProcedure
+    .input(z.object({ text: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.question.create({
+        data: {
+          text: input.text,
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
+  addMedication: protectedProcedure
+    .input(z.object({ text: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.medication.create({
+        data: {
+          text: input.text,
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
+    }),
 });
