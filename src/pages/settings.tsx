@@ -35,12 +35,7 @@ export default function Settings() {
     void router.push("/");
   }
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = (data: any) => console.log(data);
 
   return (
@@ -83,6 +78,20 @@ export default function Settings() {
             ) : (
               <div>{userMedications}</div>
             )}
+            <div className="flex gap-4 px-2">
+              <input
+                type="text"
+                className="w-10/12 rounded-lg text-center"
+                placeholder="Add new..."
+                {...register("content")}
+              ></input>
+              <button
+                className="rounded-xl bg-cyan-600 px-4 py-2"
+                type="submit"
+              >
+                +
+              </button>
+            </div>
           </form>
         </Modal>
       </main>
