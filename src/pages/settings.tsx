@@ -10,12 +10,12 @@ import { createId } from "@paralleldrive/cuid2";
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
 
-  const userQuestions = data?.questions.map((question) => {
-    return <div key={createId()}>{question}</div>;
+  const userQuestions = data?.Questions.map((question) => {
+    return <div key={createId()}>{question.text}</div>;
   });
 
-  const userMedications = data?.medication.map((medication) => {
-    return <div key={createId()}>{medication}</div>;
+  const userMedications = data?.Medication.map((medication) => {
+    return <div key={createId()}>{medication.text}</div>;
   });
 
   const [modalIsOpen, setIsOpen] = useState(false);
