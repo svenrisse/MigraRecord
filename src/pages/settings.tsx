@@ -3,10 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { api } from "~/utils/api";
-import { createId } from "@paralleldrive/cuid2";
-import { object, string, array, coerce, number } from "zod";
+import { object, string } from "zod";
 
 import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,11 +35,11 @@ export default function Settings() {
   const utils = api.useContext();
 
   const userQuestions = data?.Questions.map((question) => {
-    return <div key={createId()}>{question.text}</div>;
+    return <div key={question.id}>{question.text}</div>;
   });
 
   const userMedications = data?.Medication.map((medication) => {
-    return <div key={createId()}>{medication.text}</div>;
+    return <div key={medication.id}>{medication.text}</div>;
   });
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -119,6 +119,7 @@ export default function Settings() {
                 className="w-10/12 rounded-lg text-center"
                 placeholder="Add new..."
                 {...register("content")}
+                min={1}
               ></input>
               <button
                 className="rounded-xl bg-cyan-600 px-4 py-2"
