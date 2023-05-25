@@ -10,9 +10,10 @@ import { object, string } from "zod";
 
 import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import SettingsCard from "~/components/SettingsCard";
 
 export const settingsSchema = object({
-  content: string(),
+  content: string().min(1),
 });
 
 type Inputs = z.infer<typeof settingsSchema>;
@@ -35,11 +36,11 @@ export default function Settings() {
   const utils = api.useContext();
 
   const userQuestions = data?.Questions.map((question) => {
-    return <div key={question.id}>{question.text}</div>;
+    return <SettingsCard key={question.id} content={question.text} />;
   });
 
   const userMedications = data?.Medication.map((medication) => {
-    return <div key={medication.id}>{medication.text}</div>;
+    return <SettingsCard key={medication.id} content={medication.text} />;
   });
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -108,11 +109,13 @@ export default function Settings() {
           className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
         >
           <form onSubmit={handleSubmit(onSubmit)}>
-            {modalContent === "questions" ? (
-              <div>{userQuestions}</div>
-            ) : (
-              <div>{userMedications}</div>
-            )}
+            <div>
+              {modalContent === "questions" ? (
+                <div className="flex flex-col gap-2">{userQuestions}</div>
+              ) : (
+                <div className="flex flex-col gap-2">{userMedications}</div>
+              )}
+            </div>
             <div className="flex h-10 gap-4 px-2">
               <input
                 type="text"
