@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import Calendar from "react-calendar";
-import { eachDayOfInterval, isSameDay } from "date-fns";
+import { eachDayOfInterval, isSameDay, isWithinInterval } from "date-fns";
 import { api } from "../utils/api";
 import type { View } from "react-calendar/dist/cjs/shared/types";
 
@@ -82,7 +82,16 @@ export default function Calender() {
   }
 
   function handleDayClick(value: Date) {
-    console.log(value);
+    dates?.map((dates) => {
+      if (
+        isWithinInterval(value, {
+          start: dates[0] as Date,
+          end: dates[dates.length - 1] as Date,
+        })
+      ) {
+        console.log(dates[0]);
+      }
+    });
   }
   return (
     <>
