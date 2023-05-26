@@ -82,17 +82,23 @@ export default function Calender() {
   }
 
   function handleDayClick(value: Date) {
-    dates?.map((dates) => {
+    data?.map((event) => {
       if (
+        event.endTime &&
         isWithinInterval(value, {
-          start: dates[0] as Date,
-          end: dates[dates.length - 1] as Date,
+          start: event.startTime,
+          end: event.endTime,
         })
       ) {
-        console.log(dates[0]);
+        console.log(event.startTime);
+      }
+
+      if (isSameDay(value, event.startTime)) {
+        console.log(event.startTime);
       }
     });
   }
+
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
