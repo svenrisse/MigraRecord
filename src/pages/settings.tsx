@@ -106,14 +106,21 @@ export default function Settings() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
-          className="fixed inset-x-0 top-1/2 mx-auto flex w-2/3 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
+          className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
             <div>
               {modalContent === "questions" ? (
-                <div className="flex flex-col gap-2">{userQuestions}</div>
+                <div className="flex flex-col items-center gap-2">
+                  {userQuestions}
+                </div>
               ) : (
-                <div className="flex flex-col gap-2">{userMedications}</div>
+                <div className="flex flex-col items-center gap-2">
+                  {userMedications}
+                </div>
               )}
             </div>
             <div className="flex h-10 gap-4 px-2">
