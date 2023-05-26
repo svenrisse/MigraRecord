@@ -84,16 +84,13 @@ export default function Calender() {
   function handleDayClick(value: Date) {
     data?.map((event) => {
       if (
-        event.endTime &&
-        isWithinInterval(value, {
-          start: event.startTime,
-          end: event.endTime,
-        })
+        (event.endTime &&
+          isWithinInterval(value, {
+            start: event.startTime,
+            end: event.endTime,
+          })) ||
+        isSameDay(value, event.startTime)
       ) {
-        console.log(event.startTime);
-      }
-
-      if (isSameDay(value, event.startTime)) {
         console.log(event.startTime);
       }
     });
