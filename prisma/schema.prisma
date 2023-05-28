@@ -90,6 +90,6 @@ model Event {
   questions   String[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  startTime   DateTime
+  startTime   DateTime  @unique
   endTime     DateTime?
 }
