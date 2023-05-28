@@ -59,14 +59,14 @@ model User {
 
 model Question {
   id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   text   String
 }
 
 model Medication {
   id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
   text   String
 }
@@ -81,7 +81,7 @@ model VerificationToken {
 
 model Event {
   id          String    @id @default(cuid())
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   type        String?
   painScale   Int?
