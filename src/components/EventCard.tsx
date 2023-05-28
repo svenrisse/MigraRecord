@@ -10,7 +10,7 @@ import { TailSpin } from "react-loader-spinner";
 export default function EventCard({
   event,
 }: {
-  event: RouterOutputs["event"]["getEvent"];
+  event: RouterOutputs["event"]["getEvent"] | undefined;
 }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
