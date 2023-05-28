@@ -5,6 +5,9 @@ import Calendar from "react-calendar";
 import { eachDayOfInterval, isSameDay, isWithinInterval } from "date-fns";
 import { api } from "../utils/api";
 import type { View } from "react-calendar/dist/cjs/shared/types";
+import { useState } from "react";
+import Modal from "react-modal";
+import EventCard from "~/components/EventCard";
 
 export default function Calender() {
   const router = useRouter();
@@ -13,6 +16,20 @@ export default function Calender() {
   if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
   }
+
+  const [modalContent, setModalContent] = useState<Date>();
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const { data: selectedData } = api.event.getEventByDate.useQuery({
+    startTime: modalContent,
+  });
 
   const { data } = api.event.listEvents.useQuery();
 
@@ -91,7 +108,8 @@ export default function Calender() {
           })) ||
         isSameDay(value, event.startTime)
       ) {
-        console.log(event.startTime);
+        openModal();
+        setModalContent(event.startTime);
       }
     });
   }
@@ -109,6 +127,14 @@ export default function Calender() {
         </div>
       </main>
       <Navbar focused="calender" />
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
+        appElement={document.getElementById("__next") as HTMLElement}
+      >
+        <EventCard event={selectedData && selectedData} />
+      </Modal>
     </>
   );
 }
