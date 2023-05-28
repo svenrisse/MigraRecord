@@ -85,45 +85,43 @@ export default function EventForm({ id }: { id?: string }) {
     router.push("/list");
   };
 
-  const medicationCheckboxes = data?.medication?.map((medication: string) => {
+  const medicationCheckboxes = data?.Medication.map((medication) => {
     return (
       <label key={createId()}>
         <input
           type="checkbox"
-          value={medication}
+          value={medication.text}
           {...register("medications")}
           className="hidden"
         />
         <div
-          className={`${
-            watchMedications &&
-            watchMedications.includes(medication) &&
+          className={`${watchMedications &&
+            watchMedications.includes(medication.text) &&
             "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
+            } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
         >
-          {medication}
+          {medication.text}
         </div>
       </label>
     );
   });
 
-  const questionCheckboxes = data?.questions?.map((question: string) => {
+  const questionCheckboxes = data?.Questions?.map((question) => {
     return (
       <label key={createId()}>
         <input
           type="checkbox"
-          value={question}
+          value={question.text}
           {...register("questions")}
           className="hidden"
         />
         <div
-          className={`${
-            watchQuestions &&
-            watchQuestions.includes(question) &&
+          className={`${watchQuestions &&
+            watchQuestions.includes(question.text) &&
             "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1 text-center`}
+            } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1 text-center`}
         >
-          {question}
+          {question.text}
         </div>
       </label>
     );
@@ -165,27 +163,24 @@ export default function EventForm({ id }: { id?: string }) {
 
       <div className="flex w-full justify-evenly">
         <button
-          className={`${
-            watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
-          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+          className={`${watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
+            } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Migraine")}
         >
           Migraine
         </button>
         <button
-          className={`${
-            watchType == "Tension" && "bg-cyan-600 font-bold text-white"
-          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+          className={`${watchType == "Tension" && "bg-cyan-600 font-bold text-white"
+            } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Tension")}
         >
           Tension
         </button>
         <button
-          className={`${
-            watchType == "Other" && "bg-cyan-600 font-bold text-white"
-          } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+          className={`${watchType == "Other" && "bg-cyan-600 font-bold text-white"
+            } w-20 rounded-xl border-2 border-cyan-600 py-2`}
           type="button"
           onClick={() => setValue("type", "Other")}
         >
@@ -198,45 +193,40 @@ export default function EventForm({ id }: { id?: string }) {
       <div className="flex w-full flex-col items-center gap-2">
         <div className="flex gap-3">
           <button
-            className={`${
-              watchPain == 1 && "bg-cyan-100"
-            } h-10 w-10 rounded-full border-4 border-cyan-100 font-bold`}
+            className={`${watchPain == 1 && "bg-cyan-100"
+              } h-10 w-10 rounded-full border-4 border-cyan-100 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 1)}
           >
             1
           </button>
           <button
-            className={`${
-              watchPain == 2 && "bg-cyan-200"
-            } h-10 w-10 rounded-full border-4 border-cyan-200 font-bold`}
+            className={`${watchPain == 2 && "bg-cyan-200"
+              } h-10 w-10 rounded-full border-4 border-cyan-200 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 2)}
           >
             2
           </button>
           <button
-            className={`${
-              watchPain == 3 && "bg-cyan-300"
-            } h-10 w-10 rounded-full border-4 border-cyan-300 font-bold`}
+            className={`${watchPain == 3 && "bg-cyan-300"
+              } h-10 w-10 rounded-full border-4 border-cyan-300 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 3)}
           >
             3
           </button>
           <button
-            className={`${
-              watchPain == 4 && "bg-cyan-400"
-            } h-10 w-10 rounded-full border-4 border-cyan-400 font-bold`}
+            className={`${watchPain == 4 && "bg-cyan-400"
+              } h-10 w-10 rounded-full border-4 border-cyan-400 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 4)}
           >
             4
           </button>
           <button
-            className={`${
-              watchPain == 5 && "bg-cyan-500"
-            } h-10 w-10 rounded-full border-4 border-cyan-500 font-bold`}
+            className={`${watchPain == 5 && "bg-cyan-500"
+              } h-10 w-10 rounded-full border-4 border-cyan-500 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 5)}
           >
@@ -245,45 +235,40 @@ export default function EventForm({ id }: { id?: string }) {
         </div>
         <div className="flex gap-3">
           <button
-            className={`${
-              watchPain == 6 && "bg-cyan-600"
-            } h-10 w-10 rounded-full border-4 border-cyan-600 font-bold`}
+            className={`${watchPain == 6 && "bg-cyan-600"
+              } h-10 w-10 rounded-full border-4 border-cyan-600 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 6)}
           >
             6
           </button>
           <button
-            className={`${
-              watchPain == 7 && "bg-cyan-700"
-            } h-10 w-10 rounded-full border-4 border-cyan-700 font-bold`}
+            className={`${watchPain == 7 && "bg-cyan-700"
+              } h-10 w-10 rounded-full border-4 border-cyan-700 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 7)}
           >
             7
           </button>
           <button
-            className={`${
-              watchPain == 8 && "bg-cyan-800"
-            } h-10 w-10 rounded-full border-4 border-cyan-800 font-bold`}
+            className={`${watchPain == 8 && "bg-cyan-800"
+              } h-10 w-10 rounded-full border-4 border-cyan-800 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 8)}
           >
             8
           </button>
           <button
-            className={`${
-              watchPain == 9 && "bg-cyan-900"
-            } h-10 w-10 rounded-full border-4 border-cyan-900 font-bold`}
+            className={`${watchPain == 9 && "bg-cyan-900"
+              } h-10 w-10 rounded-full border-4 border-cyan-900 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 9)}
           >
             9
           </button>
           <button
-            className={`${
-              watchPain == 10 && "bg-cyan-950"
-            } h-10 w-10 rounded-full border-4 border-cyan-950 font-bold`}
+            className={`${watchPain == 10 && "bg-cyan-950"
+              } h-10 w-10 rounded-full border-4 border-cyan-950 font-bold`}
             type="button"
             onClick={() => setValue("painScale", 10)}
           >
