@@ -60,4 +60,19 @@ export const eventRouter = createTRPCRouter({
         },
       });
     }),
+  getEventByDate: protectedProcedure
+    .input(
+      z.object({
+        startTime: z.date().optional(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      if (input.startTime) {
+        return ctx.prisma.event.findUnique({
+          where: {
+            startTime: input.startTime,
+          },
+        });
+      }
+    }),
 });
