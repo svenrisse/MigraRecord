@@ -36,13 +36,13 @@ export default function Calender() {
   const dates = data?.map((event) => {
     return event.endTime
       ? eachDayOfInterval({
-          start: event.startTime,
-          end: event.endTime,
-        })
+        start: event.startTime,
+        end: event.endTime,
+      })
       : eachDayOfInterval({
-          start: event.startTime,
-          end: event.startTime,
-        });
+        start: event.startTime,
+        end: event.startTime,
+      });
   });
 
   const sameDates = dates?.map((datePair) => {
@@ -131,7 +131,6 @@ export default function Calender() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
-        appElement={document.getElementById("__next") as HTMLElement}
       >
         <EventCard event={selectedData && selectedData} />
       </Modal>
