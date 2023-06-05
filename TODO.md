@@ -3,6 +3,7 @@
 - dashboard
 - print feature
 - list view: buttons for date ranges
+- add auth providers
 
 ---
 
