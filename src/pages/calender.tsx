@@ -36,13 +36,13 @@ export default function Calender() {
   const dates = data?.map((event) => {
     return event.endTime
       ? eachDayOfInterval({
-        start: event.startTime,
-        end: event.endTime,
-      })
+          start: event.startTime,
+          end: event.endTime,
+        })
       : eachDayOfInterval({
-        start: event.startTime,
-        end: event.startTime,
-      });
+          start: event.startTime,
+          end: event.startTime,
+        });
   });
 
   const sameDates = dates?.map((datePair) => {
@@ -123,6 +123,7 @@ export default function Calender() {
             onClickDay={(value) => handleDayClick(value)}
             next2Label={null}
             prev2Label={null}
+            showNeighboringMonth={false}
           />
         </div>
       </main>
