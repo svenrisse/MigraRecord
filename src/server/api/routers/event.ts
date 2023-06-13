@@ -61,7 +61,6 @@ export const eventRouter = createTRPCRouter({
         where: {
           userId: ctx.session.user.id,
           startTime: {
-            lte: new Date(),
             gte: input.limit,
           },
         },
