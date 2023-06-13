@@ -50,7 +50,24 @@ export const eventRouter = createTRPCRouter({
       orderBy: [{ startTime: "desc" }],
     });
   }),
-
+  listEventsInRange: protectedProcedure
+    .input(
+      z.object({
+        limit: z.date(),
+      })
+    )
+    .query(({ input, ctx }) => {
+      return ctx.prisma.event.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            lte: new Date(),
+            gte: input.limit,
+          },
+        },
+        orderBy: [{ startTime: "desc" }],
+      });
+    }),
   getEvent: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
