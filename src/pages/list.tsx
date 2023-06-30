@@ -16,10 +16,11 @@ export default function List() {
   }
 
   const [activeRange, setActiveRange] = useState({
-    range: 0,
+    range: 6,
     all: true,
   });
 
+  // somehow keeps fetching
   const { data } = api.event.listEventsInRange.useQuery({
     all: activeRange.all,
     limit: subMonths(new Date(), activeRange.range),
@@ -40,6 +41,8 @@ export default function List() {
           activeRange={activeRange}
           setActiveRange={setActiveRange}
         />
+        {activeRange.range}
+        {activeRange.all}
         <div className="flex w-10/12 flex-col gap-3 pb-20 pt-7">{events}</div>
       </main>
       <Navbar focused="list" />
