@@ -35,6 +35,7 @@ export default function List() {
             className={`${
               activeRange == "1" && "bg-cyan-600  text-white"
             } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            onClick={() => setActiveRange("1")}
           >
             1M
           </button>
@@ -43,6 +44,7 @@ export default function List() {
             className={`${
               activeRange == "3" && "bg-cyan-600 text-white"
             } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            onClick={() => setActiveRange("3")}
           >
             3M
           </button>
@@ -50,6 +52,7 @@ export default function List() {
             className={`${
               activeRange == "6" && "bg-cyan-600  text-white"
             } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            onClick={() => setActiveRange("6")}
           >
             6M
           </button>
@@ -57,6 +60,7 @@ export default function List() {
             className={`${
               activeRange == "all" && "bg-cyan-600  text-white"
             } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            onClick={() => setActiveRange("all")}
           >
             All
           </button>
