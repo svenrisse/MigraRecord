@@ -1,6 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { eventSchema } from "~/components/EventForm";
-import { z } from "zod";
+import { boolean, z } from "zod";
 
 export const eventRouter = createTRPCRouter({
   addEvent: protectedProcedure.input(eventSchema).mutation(({ ctx, input }) => {
@@ -53,10 +53,19 @@ export const eventRouter = createTRPCRouter({
   listEventsInRange: protectedProcedure
     .input(
       z.object({
-        limit: z.date(),
+        limit: z.date().optional(),
+        all: z.boolean(),
       })
     )
     .query(({ input, ctx }) => {
+      if (input.all) {
+        return ctx.prisma.event.findMany({
+          where: {
+            userId: ctx.session.user.id,
+          },
+          orderBy: [{ startTime: "desc" }],
+        });
+      }
       return ctx.prisma.event.findMany({
         where: {
           userId: ctx.session.user.id,
