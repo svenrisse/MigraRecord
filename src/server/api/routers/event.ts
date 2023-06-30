@@ -1,6 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { eventSchema } from "~/components/EventForm";
-import { boolean, z } from "zod";
+import { z } from "zod";
 
 export const eventRouter = createTRPCRouter({
   addEvent: protectedProcedure.input(eventSchema).mutation(({ ctx, input }) => {
