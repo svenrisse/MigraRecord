@@ -18,12 +18,13 @@ export default function List() {
   const [activeRange, setActiveRange] = useState({
     range: 0,
     all: true,
+    limit: new Date(),
   });
 
   // somehow keeps fetching
   const { data } = api.event.listEventsInRange.useQuery({
     all: activeRange.all,
-    limit: subMonths(new Date(), activeRange.range),
+    limit: activeRange.limit,
   });
 
   const events = data?.map((event) => {
