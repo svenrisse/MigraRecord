@@ -16,7 +16,7 @@ export default function List() {
   }
 
   const [activeRange, setActiveRange] = useState({
-    range: 6,
+    range: 0,
     all: true,
   });
 
