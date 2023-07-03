@@ -38,13 +38,12 @@ export default function List() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
-        <ActiveRange
-          activeRange={activeRange}
-          setActiveRange={setActiveRange}
-        />
-        {activeRange.range}
-        {activeRange.all}
-        <div className="flex w-10/12 flex-col gap-3 pb-20 pt-7">{events}</div>
+        <div className="min-h-screen">
+          <ActiveRange setActiveRange={setActiveRange} />
+        </div>
+        <div className="flex w-10/12 flex-col items-center justify-center gap-3 pb-20 pt-7">
+          {events}
+        </div>
       </main>
       <Navbar focused="list" />
     </>
