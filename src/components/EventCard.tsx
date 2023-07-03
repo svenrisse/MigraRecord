@@ -43,7 +43,7 @@ export default function EventCard({
     mutateAsync({ id: id });
   }
   return (
-    <div className="rounded-md bg-gray-50 p-2 ">
+    <div className="rounded-md bg-gray-50 p-2">
       <div className="flex gap-1">
         <div>{event?.startTime.toLocaleDateString()}</div>
         <div> - </div>
