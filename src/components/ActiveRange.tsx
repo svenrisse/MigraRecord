@@ -59,7 +59,7 @@ export default function ActiveRange({
             setActiveRange({ limit: subMonths(new Date(), 12) });
           }}
         >
-          All
+          12M
         </button>
       </div>
     </>
