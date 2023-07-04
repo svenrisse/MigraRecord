@@ -14,12 +14,10 @@ export default function Dashboard() {
     void router.push("/");
   }
   const [activeRange, setActiveRange] = useState({
-    all: true,
     limit: new Date(),
   });
 
   const { data, isFetching } = api.event.listEventsInRange.useQuery({
-    all: activeRange.all,
     limit: activeRange.limit,
   });
 

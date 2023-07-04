@@ -54,18 +54,9 @@ export const eventRouter = createTRPCRouter({
     .input(
       z.object({
         limit: z.date().optional(),
-        all: z.boolean(),
       })
     )
     .query(({ input, ctx }) => {
-      if (input.all) {
-        return ctx.prisma.event.findMany({
-          where: {
-            userId: ctx.session.user.id,
-          },
-          orderBy: [{ startTime: "desc" }],
-        });
-      }
       return ctx.prisma.event.findMany({
         where: {
           userId: ctx.session.user.id,
