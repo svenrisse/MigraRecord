@@ -1,10 +1,11 @@
 import { subMonths } from "date-fns";
 import { useState } from "react";
+import type { Limit } from "~/pages/list";
 
 export default function ActiveRange({
   setActiveRange,
 }: {
-  setActiveRange: React.Dispatch<React.SetStateAction<any>>;
+  setActiveRange: React.Dispatch<React.SetStateAction<Limit>>;
 }) {
   const [active, setActive] = useState("1");
   return (

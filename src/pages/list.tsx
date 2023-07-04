@@ -7,6 +7,10 @@ import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { TailSpin } from "react-loader-spinner";
 
+export interface Limit {
+  limit: Date;
+}
+
 export default function List() {
   const router = useRouter();
   const { data: authData, status } = useSession();
@@ -15,7 +19,7 @@ export default function List() {
     void router.push("/");
   }
 
-  const [activeRange, setActiveRange] = useState({
+  const [activeRange, setActiveRange] = useState<Limit>({
     limit: new Date(),
   });
 
