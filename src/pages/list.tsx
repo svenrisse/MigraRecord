@@ -16,7 +16,6 @@ export default function List() {
   }
 
   const [activeRange, setActiveRange] = useState({
-    range: 0,
     all: true,
     limit: new Date(),
   });
