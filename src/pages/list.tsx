@@ -29,7 +29,7 @@ export default function List() {
   const events = data?.map((event) => {
     return (
       <>
-        <EventCard event={event} />
+        <EventCard key={event.id} event={event} />
       </>
     );
   });
