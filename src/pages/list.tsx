@@ -21,7 +21,6 @@ export default function List() {
     limit: new Date(),
   });
 
-  // somehow keeps fetching
   const { data } = api.event.listEventsInRange.useQuery({
     all: activeRange.all,
     limit: activeRange.limit,
