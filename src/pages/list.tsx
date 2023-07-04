@@ -6,6 +6,7 @@ import EventCard from "~/components/EventCard";
 import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { subMonths } from "date-fns";
+import { TailSpin } from "react-loader-spinner";
 
 export default function List() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function List() {
     limit: new Date(),
   });
 
-  const { data } = api.event.listEventsInRange.useQuery({
+  const { data, isFetching } = api.event.listEventsInRange.useQuery({
     all: activeRange.all,
     limit: activeRange.limit,
   });
@@ -40,7 +41,14 @@ export default function List() {
         <div className="absolute top-0">
           <ActiveRange setActiveRange={setActiveRange} />
         </div>
-        <div className="flex w-9/12 flex-col gap-3 pb-20 pt-32">{events}</div>
+        {isFetching ? (
+          <div className="rounded-lg bg-slate-200 px-8 py-6">
+            <TailSpin color="cyan" />
+            <p className="">Loading...</p>
+          </div>
+        ) : (
+          <div className="flex w-9/12 flex-col gap-3 pb-20 pt-32">{events}</div>
+        )}
       </main>
       <Navbar focused="list" />
     </>
