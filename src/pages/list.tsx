@@ -5,7 +5,6 @@ import { api } from "../utils/api";
 import EventCard from "~/components/EventCard";
 import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
-import { subMonths } from "date-fns";
 import { TailSpin } from "react-loader-spinner";
 
 export default function List() {
