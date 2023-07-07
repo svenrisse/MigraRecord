@@ -18,7 +18,7 @@ export default function Dashboard() {
   });
 
   const { data: dataTypeCount, isFetching } =
-    api.event.getEventTypeCount.useQuery({
+    api.event.getEventDashboard.useQuery({
       limit: activeRange.limit,
     });
 

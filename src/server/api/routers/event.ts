@@ -91,7 +91,7 @@ export const eventRouter = createTRPCRouter({
         });
       }
     }),
-  getEventTypeCount: protectedProcedure
+  getEventDashboard: protectedProcedure
     .input(z.object({ limit: z.date() }))
     .query(async ({ ctx, input }) => {
       const migraineCount = await ctx.prisma.event.count({
@@ -124,10 +124,23 @@ export const eventRouter = createTRPCRouter({
         },
       });
 
+      const averagePain = await ctx.prisma.event.aggregate({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+        },
+        _avg: {
+          painScale: true,
+        },
+      });
+
       return {
         migraineCount,
         tensionCount,
         otherCount,
+        averagePain,
       };
     }),
 });
