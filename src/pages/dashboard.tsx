@@ -17,10 +17,9 @@ export default function Dashboard() {
     limit: new Date(),
   });
 
-  const { data: dataTypeCount, isFetching } =
-    api.event.getEventDashboard.useQuery({
-      limit: activeRange.limit,
-    });
+  const { data, isFetching } = api.event.getEventDashboard.useQuery({
+    limit: activeRange.limit,
+  });
 
   return (
     <>
