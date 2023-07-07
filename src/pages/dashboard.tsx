@@ -6,6 +6,10 @@ import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { TailSpin } from "react-loader-spinner";
 
+interface ICounts {
+  [ket: string]: number;
+}
+
 export default function Dashboard() {
   const router = useRouter();
   const { data: authData, status } = useSession();
@@ -21,13 +25,19 @@ export default function Dashboard() {
     limit: activeRange.limit,
   });
 
-  const flatMedication = data?.medicationCount.flatMap((event) => {
+  const flatMedications: string[] = [];
+  data?.medicationCount.map((event) => {
     event.medications.map((medication) => {
-      return medication;
+      flatMedications.push(medication);
     });
   });
+  const medicationCounts: ICounts = {};
+  for (const num of flatMedications) {
+    medicationCounts[num] = medicationCounts[num]
+      ? (medicationCounts[num] as number) + 1
+      : 1;
+  }
 
-  console.log(flatMedication);
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
