@@ -136,11 +136,18 @@ export const eventRouter = createTRPCRouter({
         },
       });
 
+      const medicationCount = await ctx.prisma.event.findMany({
+        select: {
+          medications: true,
+        },
+      });
+
       return {
         migraineCount,
         tensionCount,
         otherCount,
         averagePain,
+        medicationCount,
       };
     }),
 });
