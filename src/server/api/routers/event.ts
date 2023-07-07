@@ -91,4 +91,43 @@ export const eventRouter = createTRPCRouter({
         });
       }
     }),
+  getEventTypeCount: protectedProcedure
+    .input(z.object({ limit: z.date() }))
+    .query(async ({ ctx, input }) => {
+      const migraineCount = await ctx.prisma.event.count({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+          type: "Migraine",
+        },
+      });
+
+      const tensionCount = await ctx.prisma.event.count({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+          type: "Tension",
+        },
+      });
+
+      const otherCount = await ctx.prisma.event.count({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+          type: "Other",
+        },
+      });
+
+      return {
+        migraineCount,
+        tensionCount,
+        otherCount,
+      };
+    }),
 });
