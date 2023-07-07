@@ -137,6 +137,12 @@ export const eventRouter = createTRPCRouter({
       });
 
       const medicationCount = await ctx.prisma.event.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+        },
         select: {
           medications: true,
         },
