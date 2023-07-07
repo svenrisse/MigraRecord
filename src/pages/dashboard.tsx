@@ -21,6 +21,13 @@ export default function Dashboard() {
     limit: activeRange.limit,
   });
 
+  const flatMedication = data?.medicationCount.flatMap((event) => {
+    event.medications.map((medication) => {
+      return medication;
+    });
+  });
+
+  console.log(flatMedication);
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
