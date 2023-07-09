@@ -6,6 +6,7 @@ import EventCard from "~/components/EventCard";
 import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { TailSpin } from "react-loader-spinner";
+import { subMonths } from "date-fns";
 
 export interface Limit {
   limit: Date;
@@ -20,7 +21,7 @@ export default function List() {
   }
 
   const [activeRange, setActiveRange] = useState<Limit>({
-    limit: new Date(),
+    limit: subMonths(new Date(), 1),
   });
 
   const { data, isFetching } = api.event.listEventsInRange.useQuery({

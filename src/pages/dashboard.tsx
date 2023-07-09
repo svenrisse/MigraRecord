@@ -5,6 +5,7 @@ import { api } from "../utils/api";
 import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { TailSpin } from "react-loader-spinner";
+import { subMonths } from "date-fns";
 
 interface ICounts {
   [ket: string]: number;
@@ -18,7 +19,7 @@ export default function Dashboard() {
     void router.push("/");
   }
   const [activeRange, setActiveRange] = useState({
-    limit: new Date(),
+    limit: subMonths(new Date(), 1),
   });
 
   const { data, isFetching } = api.event.getEventDashboard.useQuery({
