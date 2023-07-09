@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
+import Modal from "react-modal";
+import { useState } from "react";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -91,9 +93,27 @@ export default function EventForm({ id }: { id?: string }) {
     router.push("/list");
   };
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   const medicationCheckboxes = data?.Medication.map((medication) => {
     return (
-      <button key={createId()}>{medication.text}</button>
+      <button
+        key={createId()}
+        onClick={() => {
+          setModalContent(medication.text);
+          openModal();
+        }}
+      >
+        {medication.text}
+      </button>
       //  <label key={createId()}>
       //   <input
       //     type="checkbox"
@@ -340,6 +360,13 @@ export default function EventForm({ id }: { id?: string }) {
       >
         Save
       </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
+      >
+        {modalContent}
+      </Modal>
     </form>
   );
 }
