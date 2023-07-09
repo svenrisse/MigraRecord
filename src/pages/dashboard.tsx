@@ -31,10 +31,24 @@ export default function Dashboard() {
       flatMedications.push(medication);
     });
   });
+
   const medicationCounts: ICounts = {};
   for (const num of flatMedications) {
     medicationCounts[num] = medicationCounts[num]
       ? (medicationCounts[num] as number) + 1
+      : 1;
+  }
+
+  const flatQuestions: string[] = [];
+  data?.questionCount.map((event) => {
+    event.questions.map((question) => {
+      flatMedications.push(question);
+    });
+  });
+  const questionCounts: ICounts = {};
+  for (const num of flatQuestions) {
+    questionCounts[num] = questionCounts[num]
+      ? (questionCounts[num] as number) + 1
       : 1;
   }
 
