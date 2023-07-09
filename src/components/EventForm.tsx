@@ -15,7 +15,13 @@ export const eventSchema = object({
   endTime: coerce.date().nullish().or(string()),
   type: string().nullish(),
   painScale: number().nullish(),
-  medications: array(string()).or(string()),
+  medications: object({
+    name: string(),
+    taken: object({
+      time: coerce.date(),
+      amount: number(),
+    }).array(),
+  }).array(),
   note: string().nullish(),
   questions: array(string()),
 });
@@ -50,7 +56,7 @@ export default function EventForm({ id }: { id?: string }) {
     setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
     setValue("type", eventData?.type);
     setValue("painScale", eventData?.painScale || null);
-    setValue("medications", eventData?.medications || []);
+    // setValue("medications", eventData?.medications || []);
     setValue("questions", eventData?.questions || []);
     setValue("note", eventData?.notes);
   }, [
@@ -87,23 +93,25 @@ export default function EventForm({ id }: { id?: string }) {
 
   const medicationCheckboxes = data?.Medication.map((medication) => {
     return (
-      <label key={createId()}>
-        <input
-          type="checkbox"
-          value={medication.text}
-          {...register("medications")}
-          className="hidden"
-        />
-        <div
-          className={`${
-            watchMedications &&
-            watchMedications.includes(medication.text) &&
-            "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
-        >
-          {medication.text}
-        </div>
-      </label>
+      <button key={createId()}>{medication.text}</button>
+      //  <label key={createId()}>
+      //   <input
+      //     type="checkbox"
+      //     value={medication.text}
+      //  {...register(`medications`)}
+      //    className="hidden"
+      //   />
+      //   <div
+      //    className={`${
+      //      watchMedications &&
+      //     watchMedications.includes(medication) &&
+      //    "bg-cyan-900 text-white"
+      //  } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
+      //   >
+      //    {medication.text}
+      //   </div>
+      //   <button>Edit Time</button>
+      //  </label>
     );
   });
 
