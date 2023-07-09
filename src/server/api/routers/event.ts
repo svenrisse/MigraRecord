@@ -148,12 +148,25 @@ export const eventRouter = createTRPCRouter({
         },
       });
 
+      const questionCount = await ctx.prisma.event.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          startTime: {
+            gte: input.limit,
+          },
+        },
+        select: {
+          questions: true,
+        },
+      });
+
       return {
         migraineCount,
         tensionCount,
         otherCount,
         averagePain,
         medicationCount,
+        questionCount,
       };
     }),
 });
