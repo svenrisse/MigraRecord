@@ -25,10 +25,6 @@ export default function EventCard({
     return <div key={createId()}>{question}</div>;
   });
 
-  const medications = event?.medications.map((medication) => {
-    return <div key={createId()}>{medication}</div>;
-  });
-
   const utils = api.useContext();
 
   const { mutateAsync, isLoading } = api.event.deleteEvent.useMutation({
@@ -73,7 +69,6 @@ export default function EventCard({
       </div>
       <div>
         <h4>Medications:</h4>
-        <div>{medications}</div>
       </div>
       <div>
         <h4>Questions answered with yes:</h4>

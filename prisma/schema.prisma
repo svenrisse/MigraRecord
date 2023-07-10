@@ -80,17 +80,26 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model EventMedication {
+  id      String   @id @default(cuid())
+  name    String
+  amount  Int
+  time    DateTime
+  Event   Event?   @relation(fields: [eventId], references: [id])
+  eventId String?
+}
+
 model Event {
-  id          String    @id @default(cuid())
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String            @id @default(cuid())
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   type        String?
   painScale   Int?
-  medications String[]
+  medications EventMedication[]
   notes       String?
   questions   String[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  startTime   DateTime  @unique
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  startTime   DateTime          @unique
   endTime     DateTime?
 }
