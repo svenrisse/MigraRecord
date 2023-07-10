@@ -40,20 +40,22 @@ export default function QuestionModal({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center gap-2 font-sans"
       >
-        <select {...register("name")} name="medications">
+        <select {...register("name")} name="medications" required>
           {medicationOptions}
         </select>
         <div>
-          <button>+</button>
+          <button type="button">+</button>
 
           <input
             {...register("amount")}
             type="number"
             placeholder="amount"
             defaultValue={0}
+            min={1}
             className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            required
           />
-          <button>+</button>
+          <button type="button">-</button>
         </div>
         <input
           type="datetime-local"
@@ -61,6 +63,7 @@ export default function QuestionModal({
           className="rounded-md border-2 border-cyan-900 bg-white p-1"
           required
         />
+        <button type="submit">Save</button>
       </form>
     </Modal>
   );
