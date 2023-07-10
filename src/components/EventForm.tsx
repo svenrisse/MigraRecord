@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { api } from "../utils/api";
 import { object, string, array, coerce, number } from "zod";
@@ -8,8 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
-import Modal from "react-modal";
-import { useState } from "react";
+import { DevTool } from "@hookform/devtools";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -17,13 +16,6 @@ export const eventSchema = object({
   endTime: coerce.date().nullish().or(string()),
   type: string().nullish(),
   painScale: number().nullish(),
-  medications: object({
-    name: string(),
-    taken: object({
-      time: coerce.date(),
-      amount: number(),
-    }).array(),
-  }).array(),
   note: string().nullish(),
   questions: array(string()),
 });
@@ -45,7 +37,7 @@ export default function EventForm({ id }: { id?: string }) {
       id: id ? id : "",
     });
 
-  const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
+  const { register, handleSubmit, setValue, watch, control } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
   });
 
@@ -58,7 +50,6 @@ export default function EventForm({ id }: { id?: string }) {
     setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
     setValue("type", eventData?.type);
     setValue("painScale", eventData?.painScale || null);
-    // setValue("medications", eventData?.medications || []);
     setValue("questions", eventData?.questions || []);
     setValue("note", eventData?.notes);
   }, [
@@ -75,65 +66,21 @@ export default function EventForm({ id }: { id?: string }) {
 
   const watchType = watch("type");
   const watchPain = watch("painScale");
-  const watchMedications = watch("medications");
   const watchQuestions = watch("questions");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     void mutateAsync({
       id: data.id,
       note: data.note,
       questions: data.questions,
-      medications: data.medications,
       painScale: data.painScale,
       type: data.type,
       endTime: data.endTime,
       startTime: data.startTime,
     });
+    console.log(data);
     router.push("/list");
   };
-
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const medicationCheckboxes = data?.Medication.map((medication) => {
-    return (
-      <button
-        key={createId()}
-        onClick={() => {
-          setModalContent(medication.text);
-          openModal();
-        }}
-      >
-        {medication.text}
-      </button>
-      //  <label key={createId()}>
-      //   <input
-      //     type="checkbox"
-      //     value={medication.text}
-      //  {...register(`medications`)}
-      //    className="hidden"
-      //   />
-      //   <div
-      //    className={`${
-      //      watchMedications &&
-      //     watchMedications.includes(medication) &&
-      //    "bg-cyan-900 text-white"
-      //  } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1`}
-      //   >
-      //    {medication.text}
-      //   </div>
-      //   <button>Edit Time</button>
-      //  </label>
-    );
-  });
 
   const questionCheckboxes = data?.Questions?.map((question) => {
     return (
@@ -321,19 +268,6 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
 
       <div>
-        <h3 className="my-2 text-gray-500">What medications did you use?</h3>
-        {data?.Medication && data.Medication.length > 0 ? (
-          <div className="flex flex-col items-center gap-1">
-            {medicationCheckboxes}
-          </div>
-        ) : (
-          <span className="flex items-center justify-center font-light text-gray-400">
-            No Medications added yet
-          </span>
-        )}
-      </div>
-
-      <div>
         <h3 className="my-2 text-gray-500">
           Please click on the applying questions:
         </h3>
@@ -360,13 +294,7 @@ export default function EventForm({ id }: { id?: string }) {
       >
         Save
       </button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
-      >
-        {modalContent}
-      </Modal>
+      <DevTool control={control} />
     </form>
   );
 }
