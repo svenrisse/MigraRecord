@@ -26,24 +26,24 @@ export default function Dashboard() {
     limit: activeRange.limit,
   });
 
-  const flatMedications: string[] = [];
-  data?.medicationCount.map((event) => {
-    event.medications.map((medication) => {
-      flatMedications.push(medication);
-    });
-  });
+  //  const flatMedications: string[] = [];
+  ////  data?.medicationCount.map((event) => {
+  //    event.medications.map((medication) => {
+  //     flatMedications.push(medication);
+  //   });
+  // });
 
-  const medicationCounts: ICounts = {};
-  for (const num of flatMedications) {
-    medicationCounts[num] = medicationCounts[num]
-      ? (medicationCounts[num] as number) + 1
-      : 1;
-  }
+  // const medicationCounts: ICounts = {};
+  // for (const num of flatMedications) {
+  //   medicationCounts[num] = medicationCounts[num]
+  //     ? (medicationCounts[num] as number) + 1
+  //     : 1;
+  // }
 
   const flatQuestions: string[] = [];
   data?.questionCount.map((event) => {
     event.questions.map((question) => {
-      flatMedications.push(question);
+      flatQuestions.push(question);
     });
   });
   const questionCounts: ICounts = {};
