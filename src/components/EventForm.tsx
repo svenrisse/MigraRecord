@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
 import { DevTool } from "@hookform/devtools";
+import { addHours } from "date-fns";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -31,6 +32,7 @@ export default function EventForm({ id }: { id?: string }) {
   const { mutateAsync } = api.event.addEvent.useMutation({
     onSuccess: () => {
       utils.event.invalidate(), utils.user.invalidate();
+      router.push("/list");
       // router.push(`/edit/${data?.id}`);
     },
   });
@@ -45,17 +47,15 @@ export default function EventForm({ id }: { id?: string }) {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     void mutateAsync({
       id: data.id,
       note: data.note,
       questions: data.questions,
       painScale: data.painScale,
       type: data.type,
-      endTime: data.endTime,
-      startTime: data.startTime,
+      endTime: addHours(data.endTime as Date, 1),
+      startTime: addHours(data.startTime as Date, 1),
     });
-    console.log(data);
   };
 
   useEffect(() => {
@@ -64,6 +64,7 @@ export default function EventForm({ id }: { id?: string }) {
       "startTime",
       eventData?.startTime.toISOString().slice(0, 16) || ""
     );
+    setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
     setValue("type", eventData?.type);
     setValue("painScale", eventData?.painScale || null);
     setValue("questions", eventData?.questions || []);
