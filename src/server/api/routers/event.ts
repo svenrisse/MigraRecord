@@ -1,7 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { eventSchema } from "~/components/EventForm";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
 
 export const eventRouter = createTRPCRouter({
   addEvent: protectedProcedure.input(eventSchema).mutation(({ ctx, input }) => {
@@ -14,6 +13,8 @@ export const eventRouter = createTRPCRouter({
         type: input.type,
         notes: input.note,
         painScale: input.painScale,
+        medications: input.medications,
+        startTime: input.startTime,
         endTime: input.endTime,
       },
       create: {
@@ -26,6 +27,7 @@ export const eventRouter = createTRPCRouter({
         type: input.type,
         notes: input.note,
         painScale: input.painScale,
+        medications: input.medications,
         startTime: input.startTime,
         endTime: input.endTime,
       },
