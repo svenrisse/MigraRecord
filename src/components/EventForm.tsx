@@ -84,6 +84,14 @@ export default function EventForm({ id }: { id?: string }) {
   const watchPain = watch("painScale");
   const watchQuestions = watch("questions");
 
+  const medicationOptions = data?.Medication.map((medication) => {
+    return (
+      <option key={medication.id} value={medication.text}>
+        {medication.text}
+      </option>
+    );
+  });
+
   const questionCheckboxes = data?.Questions?.map((question) => {
     return (
       <label key={createId()}>
@@ -298,6 +306,7 @@ export default function EventForm({ id }: { id?: string }) {
                 No Medications added yet
               </span>
             )}
+            <select name="medications">{medicationOptions}</select>
           </div>
 
           <div>
