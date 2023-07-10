@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { object, string, coerce, number, z } from "zod";
 import type { SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+import { DevTool } from "@hookform/devtools";
 
 export const questionSchema = object({
   name: string(),
-  amount: number(),
+  amount: string(),
   date: coerce.date(),
 });
 
@@ -21,15 +23,14 @@ export default function QuestionModal({
   closeModal: () => void;
   medicationOptions: JSX.Element[] | undefined;
 }) {
-  const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
+  const [amount, setAmount] = useState(0);
+  const { control, register, handleSubmit, setValue } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
-
-  const watchAmount = watch("amount");
 
   return (
     <Modal
@@ -55,23 +56,24 @@ export default function QuestionModal({
             <button
               type="button"
               className="w-8 rounded-l-lg bg-gray-200"
-              onClick={() => setValue("amount", watchAmount + 1)}
+              onClick={() => setAmount(amount + 1)}
             >
               +
             </button>
 
             <input
               {...register("amount")}
+              value={amount}
               type="number"
               defaultValue={0}
               min={1}
+              max={20}
               className="w-8 py-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              required
             />
             <button
               type="button"
               className="w-8 rounded-r-lg bg-gray-200"
-              onClick={() => setValue("amount", watchAmount - 1)}
+              onClick={() => setAmount(amount - 1)}
             >
               -
             </button>
@@ -90,6 +92,8 @@ export default function QuestionModal({
           </button>
         </div>
       </form>
+
+      <DevTool control={control} />
     </Modal>
   );
 }

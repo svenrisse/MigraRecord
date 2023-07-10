@@ -134,228 +134,231 @@ export default function EventForm({ id }: { id?: string }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-2 font-sans"
-    >
-      {!id ? (
-        <div className="flex flex-col items-center gap-4 py-12">
-          <div>
-            <h4 className="text-center text-gray-500">Enter start time:</h4>
-            <input
-              type="datetime-local"
-              {...register("startTime")}
-              className="rounded-md border-2 border-cyan-900 bg-white p-1"
-              required
-            />
-          </div>
-          <button className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white">
-            Save
-          </button>
-        </div>
-      ) : (
-        <>
-          <div {...register("id")} className="hidden" />
-
-          <div className="flex flex-col items-center gap-1 pt-1">
-            <h4 className="text-gray-500">Start time:</h4>
-            <input
-              type="datetime-local"
-              {...register("startTime")}
-              className="rounded-md border-2 border-cyan-900 bg-white p-1"
-              required
-            />
-            <h4 className="text-gray-500">End time:</h4>
-            <input
-              type="datetime-local"
-              {...register("endTime")}
-              className="rounded-md border-2 border-cyan-900 bg-white p-1"
-            />
-          </div>
-
-          <input {...register("type")} className="hidden" />
-          <h3 className="text-gray-500">What type of headache do you have?</h3>
-
-          <div className="flex w-full justify-evenly">
-            <button
-              className={`${
-                watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
-              } w-20 rounded-xl border-2 border-cyan-600 py-2`}
-              type="button"
-              onClick={() => setValue("type", "Migraine")}
-            >
-              Migraine
-            </button>
-            <button
-              className={`${
-                watchType == "Tension" && "bg-cyan-600 font-bold text-white"
-              } w-20 rounded-xl border-2 border-cyan-600 py-2`}
-              type="button"
-              onClick={() => setValue("type", "Tension")}
-            >
-              Tension
-            </button>
-            <button
-              className={`${
-                watchType == "Other" && "bg-cyan-600 font-bold text-white"
-              } w-20 rounded-xl border-2 border-cyan-600 py-2`}
-              type="button"
-              onClick={() => setValue("type", "Other")}
-            >
-              Other
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col items-center gap-2 font-sans"
+      >
+        {!id ? (
+          <div className="flex flex-col items-center gap-4 py-12">
+            <div>
+              <h4 className="text-center text-gray-500">Enter start time:</h4>
+              <input
+                type="datetime-local"
+                {...register("startTime")}
+                className="rounded-md border-2 border-cyan-900 bg-white p-1"
+                required
+              />
+            </div>
+            <button className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white">
+              Save
             </button>
           </div>
+        ) : (
+          <>
+            <div {...register("id")} className="hidden" />
 
-          <input {...register("painScale")} hidden defaultValue={0} />
-          <h3 className="text-gray-500">Rate your pain:</h3>
-          <div className="flex w-full flex-col items-center gap-2">
-            <div className="flex gap-3">
+            <div className="flex flex-col items-center gap-1 pt-1">
+              <h4 className="text-gray-500">Start time:</h4>
+              <input
+                type="datetime-local"
+                {...register("startTime")}
+                className="rounded-md border-2 border-cyan-900 bg-white p-1"
+                required
+              />
+              <h4 className="text-gray-500">End time:</h4>
+              <input
+                type="datetime-local"
+                {...register("endTime")}
+                className="rounded-md border-2 border-cyan-900 bg-white p-1"
+              />
+            </div>
+
+            <input {...register("type")} className="hidden" />
+            <h3 className="text-gray-500">
+              What type of headache do you have?
+            </h3>
+
+            <div className="flex w-full justify-evenly">
               <button
                 className={`${
-                  watchPain == 1 && "bg-cyan-100"
-                } h-10 w-10 rounded-full border-4 border-cyan-100 font-bold`}
+                  watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
+                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
                 type="button"
-                onClick={() => setValue("painScale", 1)}
+                onClick={() => setValue("type", "Migraine")}
               >
-                1
+                Migraine
               </button>
               <button
                 className={`${
-                  watchPain == 2 && "bg-cyan-200"
-                } h-10 w-10 rounded-full border-4 border-cyan-200 font-bold`}
+                  watchType == "Tension" && "bg-cyan-600 font-bold text-white"
+                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
                 type="button"
-                onClick={() => setValue("painScale", 2)}
+                onClick={() => setValue("type", "Tension")}
               >
-                2
+                Tension
               </button>
               <button
                 className={`${
-                  watchPain == 3 && "bg-cyan-300"
-                } h-10 w-10 rounded-full border-4 border-cyan-300 font-bold`}
+                  watchType == "Other" && "bg-cyan-600 font-bold text-white"
+                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
                 type="button"
-                onClick={() => setValue("painScale", 3)}
+                onClick={() => setValue("type", "Other")}
               >
-                3
-              </button>
-              <button
-                className={`${
-                  watchPain == 4 && "bg-cyan-400"
-                } h-10 w-10 rounded-full border-4 border-cyan-400 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 4)}
-              >
-                4
-              </button>
-              <button
-                className={`${
-                  watchPain == 5 && "bg-cyan-500"
-                } h-10 w-10 rounded-full border-4 border-cyan-500 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 5)}
-              >
-                5
+                Other
               </button>
             </div>
-            <div className="flex gap-3">
-              <button
-                className={`${
-                  watchPain == 6 && "bg-cyan-600"
-                } h-10 w-10 rounded-full border-4 border-cyan-600 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 6)}
-              >
-                6
-              </button>
-              <button
-                className={`${
-                  watchPain == 7 && "bg-cyan-700"
-                } h-10 w-10 rounded-full border-4 border-cyan-700 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 7)}
-              >
-                7
-              </button>
-              <button
-                className={`${
-                  watchPain == 8 && "bg-cyan-800"
-                } h-10 w-10 rounded-full border-4 border-cyan-800 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 8)}
-              >
-                8
-              </button>
-              <button
-                className={`${
-                  watchPain == 9 && "bg-cyan-900"
-                } h-10 w-10 rounded-full border-4 border-cyan-900 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 9)}
-              >
-                9
-              </button>
-              <button
-                className={`${
-                  watchPain == 10 && "bg-cyan-950"
-                } h-10 w-10 rounded-full border-4 border-cyan-950 font-bold`}
-                type="button"
-                onClick={() => setValue("painScale", 10)}
-              >
-                10
-              </button>
-            </div>
-          </div>
 
-          <div>
-            <h3 className="my-2 text-gray-500">
-              What medications did you use?
-            </h3>
-            {data?.Medication && data.Medication.length > 0 ? (
-              <div className="flex flex-col items-center gap-1">Medis</div>
-            ) : (
-              <span className="flex items-center justify-center font-light text-gray-400">
-                No Medications added yet
-              </span>
-            )}
-            <button type="button" onClick={openModal}>
-              Edit Medications
-            </button>
-            <QuestionModal
-              modalIsOpen={modalIsOpen}
-              closeModal={closeModal}
-              medicationOptions={medicationOptions}
-            />
-          </div>
-
-          <div>
-            <h3 className="my-2 text-gray-500">
-              Please click on the applying questions:
-            </h3>
-            {data?.Medication && data.Medication.length > 0 ? (
-              <div className="flex flex-col items-center gap-1">
-                {questionCheckboxes}
+            <input {...register("painScale")} hidden defaultValue={0} />
+            <h3 className="text-gray-500">Rate your pain:</h3>
+            <div className="flex w-full flex-col items-center gap-2">
+              <div className="flex gap-3">
+                <button
+                  className={`${
+                    watchPain == 1 && "bg-cyan-100"
+                  } h-10 w-10 rounded-full border-4 border-cyan-100 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 1)}
+                >
+                  1
+                </button>
+                <button
+                  className={`${
+                    watchPain == 2 && "bg-cyan-200"
+                  } h-10 w-10 rounded-full border-4 border-cyan-200 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 2)}
+                >
+                  2
+                </button>
+                <button
+                  className={`${
+                    watchPain == 3 && "bg-cyan-300"
+                  } h-10 w-10 rounded-full border-4 border-cyan-300 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 3)}
+                >
+                  3
+                </button>
+                <button
+                  className={`${
+                    watchPain == 4 && "bg-cyan-400"
+                  } h-10 w-10 rounded-full border-4 border-cyan-400 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 4)}
+                >
+                  4
+                </button>
+                <button
+                  className={`${
+                    watchPain == 5 && "bg-cyan-500"
+                  } h-10 w-10 rounded-full border-4 border-cyan-500 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 5)}
+                >
+                  5
+                </button>
               </div>
-            ) : (
-              <span className="flex items-center justify-center font-light text-gray-400">
-                No Questions added yet
-              </span>
-            )}
-          </div>
+              <div className="flex gap-3">
+                <button
+                  className={`${
+                    watchPain == 6 && "bg-cyan-600"
+                  } h-10 w-10 rounded-full border-4 border-cyan-600 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 6)}
+                >
+                  6
+                </button>
+                <button
+                  className={`${
+                    watchPain == 7 && "bg-cyan-700"
+                  } h-10 w-10 rounded-full border-4 border-cyan-700 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 7)}
+                >
+                  7
+                </button>
+                <button
+                  className={`${
+                    watchPain == 8 && "bg-cyan-800"
+                  } h-10 w-10 rounded-full border-4 border-cyan-800 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 8)}
+                >
+                  8
+                </button>
+                <button
+                  className={`${
+                    watchPain == 9 && "bg-cyan-900"
+                  } h-10 w-10 rounded-full border-4 border-cyan-900 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 9)}
+                >
+                  9
+                </button>
+                <button
+                  className={`${
+                    watchPain == 10 && "bg-cyan-950"
+                  } h-10 w-10 rounded-full border-4 border-cyan-950 font-bold`}
+                  type="button"
+                  onClick={() => setValue("painScale", 10)}
+                >
+                  10
+                </button>
+              </div>
+            </div>
 
-          <h3 className="text-gray-500">Notes:</h3>
-          <textarea
-            className="rounded-lg border-2 border-cyan-900 p-1"
-            {...register("note")}
-          />
+            <div>
+              <h3 className="my-2 text-gray-500">
+                What medications did you use?
+              </h3>
+              {data?.Medication && data.Medication.length > 0 ? (
+                <div className="flex flex-col items-center gap-1">Medis</div>
+              ) : (
+                <span className="flex items-center justify-center font-light text-gray-400">
+                  No Medications added yet
+                </span>
+              )}
+              <button type="button" onClick={openModal}>
+                Edit Medications
+              </button>
+            </div>
 
-          <button
-            type="submit"
-            className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
-          >
-            Save
-          </button>
-        </>
-      )}
-      <DevTool control={control} />
-    </form>
+            <div>
+              <h3 className="my-2 text-gray-500">
+                Please click on the applying questions:
+              </h3>
+              {data?.Medication && data.Medication.length > 0 ? (
+                <div className="flex flex-col items-center gap-1">
+                  {questionCheckboxes}
+                </div>
+              ) : (
+                <span className="flex items-center justify-center font-light text-gray-400">
+                  No Questions added yet
+                </span>
+              )}
+            </div>
+
+            <h3 className="text-gray-500">Notes:</h3>
+            <textarea
+              className="rounded-lg border-2 border-cyan-900 p-1"
+              {...register("note")}
+            />
+
+            <button
+              type="submit"
+              className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
+            >
+              Save
+            </button>
+          </>
+        )}
+      </form>
+      <QuestionModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        medicationOptions={medicationOptions}
+      />
+    </>
   );
 }
