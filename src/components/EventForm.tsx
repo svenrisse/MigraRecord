@@ -27,11 +27,14 @@ export default function EventForm({ id }: { id?: string }) {
   const utils = api.useContext();
 
   const { data, isInitialLoading } = api.user.getUserData.useQuery();
+
   const { mutateAsync } = api.event.addEvent.useMutation({
     onSuccess: () => {
       utils.event.invalidate(), utils.user.invalidate();
+      // router.push(`/edit/${data?.id}`);
     },
   });
+
   const { data: eventData, isLoading: eventLoading } =
     api.event.getEvent.useQuery({
       id: id ? id : "",
@@ -41,13 +44,26 @@ export default function EventForm({ id }: { id?: string }) {
     resolver: zodResolver(eventSchema),
   });
 
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    void mutateAsync({
+      id: data.id,
+      note: data.note,
+      questions: data.questions,
+      painScale: data.painScale,
+      type: data.type,
+      endTime: data.endTime,
+      startTime: data.startTime,
+    });
+    console.log(data);
+  };
+
   useEffect(() => {
     setValue("id", eventData?.id || "");
     setValue(
       "startTime",
       eventData?.startTime.toISOString().slice(0, 16) || ""
     );
-    setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
     setValue("type", eventData?.type);
     setValue("painScale", eventData?.painScale || null);
     setValue("questions", eventData?.questions || []);
@@ -66,19 +82,6 @@ export default function EventForm({ id }: { id?: string }) {
   const watchType = watch("type");
   const watchPain = watch("painScale");
   const watchQuestions = watch("questions");
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    void mutateAsync({
-      id: data.id,
-      note: data.note,
-      questions: data.questions,
-      painScale: data.painScale,
-      type: data.type,
-      endTime: data.endTime,
-      startTime: data.startTime,
-    });
-  };
 
   const questionCheckboxes = data?.Questions?.map((question) => {
     return (
@@ -110,6 +113,7 @@ export default function EventForm({ id }: { id?: string }) {
       </div>
     );
   }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
