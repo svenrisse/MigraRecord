@@ -10,6 +10,8 @@ import { TailSpin } from "react-loader-spinner";
 import { useEffect } from "react";
 import { DevTool } from "@hookform/devtools";
 import { addHours } from "date-fns";
+import { useState } from "react";
+import QuestionModal from "./QuestionModal";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -24,16 +26,24 @@ export const eventSchema = object({
 type Inputs = z.infer<typeof eventSchema>;
 
 export default function EventForm({ id }: { id?: string }) {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   const router = useRouter();
   const utils = api.useContext();
 
   const { data, isInitialLoading } = api.user.getUserData.useQuery();
 
   const { mutateAsync } = api.event.addEvent.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       utils.event.invalidate(), utils.user.invalidate();
-      router.push("/list");
-      // router.push(`/edit/${data?.id}`);
+      router.push(`/edit/${data?.id}`);
     },
   });
 
@@ -306,7 +316,14 @@ export default function EventForm({ id }: { id?: string }) {
                 No Medications added yet
               </span>
             )}
-            <select name="medications">{medicationOptions}</select>
+            <button type="button" onClick={openModal}>
+              Edit Medications
+            </button>
+            <QuestionModal
+              modalIsOpen={modalIsOpen}
+              closeModal={closeModal}
+              medicationOptions={medicationOptions}
+            />
           </div>
 
           <div>
