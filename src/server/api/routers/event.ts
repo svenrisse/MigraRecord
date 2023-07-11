@@ -167,4 +167,27 @@ export const eventRouter = createTRPCRouter({
         questionCount,
       };
     }),
+  addEventMedication: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        amount: z.number(),
+        time: z.date(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.eventMedication.create({
+        data: {
+          amount: input.amount,
+          name: input.name,
+          time: input.time,
+          Event: {
+            connect: {
+              id: input.id,
+            },
+          },
+        },
+      });
+    }),
 });
