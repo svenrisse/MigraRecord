@@ -1,8 +1,5 @@
 ## Migraine-Tracker built in Typescript with the T3 Stack
 
-Still in the early stages :)
-
-- [Typescript](https://www.typescriptlang.org/)
 - [Create-T3-App](https://create.t3.gg/)
 - [React](https://reactjs.org/)
 - [Next.js](https://nextjs.org)
