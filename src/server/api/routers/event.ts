@@ -190,4 +190,17 @@ export const eventRouter = createTRPCRouter({
         },
       });
     }),
+  getEventMedications: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.eventMedication.findMany({
+        where: {
+          eventId: input.id,
+        },
+      });
+    }),
 });
