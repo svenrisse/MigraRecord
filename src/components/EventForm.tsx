@@ -131,6 +131,7 @@ export default function EventForm({ id }: { id: string }) {
         key={medication.id}
         medication={medication}
         id={medication.id}
+        showDelete={true}
       />
     );
   });

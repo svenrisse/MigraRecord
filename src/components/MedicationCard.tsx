@@ -4,6 +4,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 export default function MedicationCard({
   medication,
   id,
+  showDelete,
 }: {
   medication: {
     name: string;
@@ -11,6 +12,7 @@ export default function MedicationCard({
     time: Date;
   };
   id: string;
+  showDelete: boolean;
 }) {
   const utils = api.useContext();
   const { mutateAsync } = api.eventMedication.deleteEventMedication.useMutation(
@@ -40,9 +42,11 @@ export default function MedicationCard({
           {medication.time.toLocaleString().slice(0, 5)}
         </div>
       </div>
-      <button onClick={handleDelete}>
-        <BsFillTrashFill size="1rem" className="cursor-pointer" />
-      </button>
+      {showDelete && (
+        <button onClick={handleDelete}>
+          <BsFillTrashFill size="1rem" className="cursor-pointer" />
+        </button>
+      )}
     </div>
   );
 }

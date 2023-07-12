@@ -47,6 +47,7 @@ export default function EventCard({
         key={medication.id}
         medication={medication}
         id={medication.id}
+        showDelete={false}
       />
     );
   });
