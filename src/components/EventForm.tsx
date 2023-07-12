@@ -313,13 +313,23 @@ export default function EventForm({ id }: { id: string }) {
               </div>
             </div>
 
-            <div>
+            <div className="flex flex-col items-center">
               <h3 className="my-2 text-gray-500">
                 What medications did you use?
               </h3>
-              <div>{eventMedications}</div>
-              <button type="button" onClick={openModal}>
-                Edit Medications
+              {eventMedications ? (
+                <div className="flex flex-col gap-1">{eventMedications}</div>
+              ) : (
+                <span text-sm text-gray-500>
+                  None yet
+                </span>
+              )}
+              <button
+                className="rounded-xl border-2 bg-cyan-600 px-4 py-2 text-sm font-bold text-white"
+                type="button"
+                onClick={openModal}
+              >
+                Edit
               </button>
             </div>
 
