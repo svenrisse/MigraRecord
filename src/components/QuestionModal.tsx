@@ -5,6 +5,7 @@ import { object, string, coerce, number, z } from "zod";
 import type { SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { DevTool } from "@hookform/devtools";
+import { api } from "~/utils/api";
 
 export const questionSchema = object({
   name: string(),
@@ -31,6 +32,8 @@ export default function QuestionModal({
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
+
+  const { mutateAsync } = api.eventMedication.addEventMedication.useMutation()
 
   return (
     <Modal
