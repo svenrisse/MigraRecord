@@ -126,7 +126,13 @@ export default function EventForm({ id }: { id: string }) {
   });
 
   const eventMedications = eventData?.medications.map((medication) => {
-    return <MedicationCard key={medication.id} medication={medication} />;
+    return (
+      <MedicationCard
+        key={medication.id}
+        medication={medication}
+        id={medication.id}
+      />
+    );
   });
 
   if (isInitialLoading || eventLoading) {

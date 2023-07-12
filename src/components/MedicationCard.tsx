@@ -1,12 +1,31 @@
+import { api } from "~/utils/api";
+import { BsFillTrashFill } from "react-icons/bs";
+
 export default function MedicationCard({
   medication,
+  id,
 }: {
   medication: {
     name: string;
     amount: number;
     time: Date;
   };
+  id: string;
 }) {
+  const utils = api.useContext();
+  const { mutateAsync } = api.eventMedication.deleteEventMedication.useMutation(
+    {
+      onSuccess() {
+        utils.event.invalidate();
+      },
+    }
+  );
+
+  function handleDelete() {
+    mutateAsync({
+      id: id,
+    });
+  }
   return (
     <div className="flex items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 bg-white px-2 py-1">
       <div>
@@ -21,6 +40,9 @@ export default function MedicationCard({
           {medication.time.toLocaleString().slice(0, 5)}
         </div>
       </div>
+      <button onClick={handleDelete}>
+        <BsFillTrashFill size="1rem" className="cursor-pointer" />
+      </button>
     </div>
   );
 }
