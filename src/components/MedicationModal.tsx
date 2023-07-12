@@ -87,7 +87,7 @@ export default function MedicationModal({
             type="submit"
             className="rounded-xl bg-cyan-600 px-4 py-2 font-bold text-white"
           >
-            {!isLoading ? (
+            {isLoading ? (
               <svg
                 className="h-5 w-5 animate-spin text-white"
                 xmlns="http://www.w3.org/2000/svg"

@@ -349,7 +349,7 @@ export default function EventForm({ id }: { id: string }) {
               type="submit"
               className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
             >
-              {!isLoading ? (
+              {isLoading ? (
                 <svg
                   className="h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
