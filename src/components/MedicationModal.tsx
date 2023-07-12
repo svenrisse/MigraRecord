@@ -15,25 +15,32 @@ export const questionSchema = object({
 
 type Inputs = z.infer<typeof questionSchema>;
 
-export default function QuestionModal({
+export default function MedicationModal({
   modalIsOpen,
   closeModal,
   medicationOptions,
+  id,
 }: {
   modalIsOpen: boolean;
   closeModal: () => void;
   medicationOptions: JSX.Element[] | undefined;
+  id: string;
 }) {
-  const [amount, setAmount] = useState(0);
   const { control, register, handleSubmit, setValue } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    mutateAsync({
+      id: id,
+      amount: parseInt(data.amount),
+      name: data.name,
+      time: data.date,
+    });
   };
 
-  const { mutateAsync } = api.eventMedication.addEventMedication.useMutation()
+  const { mutateAsync } = api.eventMedication.addEventMedication.useMutation();
 
   return (
     <Modal
@@ -56,30 +63,14 @@ export default function QuestionModal({
             {medicationOptions}
           </select>
           <div className="flex font-bold">
-            <button
-              type="button"
-              className="w-8 rounded-l-lg bg-gray-200"
-              onClick={() => setAmount(amount + 1)}
-            >
-              +
-            </button>
-
             <input
               {...register("amount")}
-              value={amount}
               type="number"
               defaultValue={0}
               min={1}
               max={20}
-              className="w-8 py-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="lg w-8 rounded border-2 border-cyan-900 py-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
-            <button
-              type="button"
-              className="w-8 rounded-r-lg bg-gray-200"
-              onClick={() => setAmount(amount - 1)}
-            >
-              -
-            </button>
           </div>
           <input
             type="datetime-local"
