@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import MedicationCard from "~/components/MedicationCard";
+import PainButton from "./PainButton";
 
 export default function EventCard({
   event,
@@ -77,18 +78,31 @@ export default function EventCard({
           )}
         </div>
       </div>
-      <div className="flex gap-2">
-        <h4>Type:</h4>
+      <div className="flex justify-center py-2">
         {event?.type ? (
-          <div>{event.type}</div>
+          <div
+            className={`${event.type === "Migraine" && "bg-cyan-600"} ${
+              event.type === "Tension" && "bg-blue-800"
+            } ${
+              event.type === "Other" && "bg-cyan-900"
+            } rounded-lg px-2 py-1 font-bold text-white`}
+          >
+            {event.type}
+          </div>
         ) : (
-          <div className="text-gray-500">None</div>
+          <div className="rounded-lg border-2 border-cyan-900 px-2 py-1 text-gray-500">
+            No Type
+          </div>
         )}
       </div>
       <div className="flex gap-2">
         <h4>Pain:</h4>
         {event?.painScale ? (
-          <div>{event.painScale}</div>
+          <PainButton
+            number={event.painScale}
+            key={createId()}
+            disable={true}
+          />
         ) : (
           <div className="text-gray-500">None</div>
         )}
