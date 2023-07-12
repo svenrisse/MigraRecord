@@ -12,6 +12,7 @@ import { DevTool } from "@hookform/devtools";
 import { addHours } from "date-fns";
 import { useState } from "react";
 import MedicationModal from "./MedicationModal";
+import MedicationCard from "./MedicationCard";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -122,6 +123,10 @@ export default function EventForm({ id }: { id: string }) {
         </div>
       </label>
     );
+  });
+
+  const eventMedications = eventData?.medications.map((medication) => {
+    return <MedicationCard key={medication.id} medication={medication} />;
   });
 
   if (isInitialLoading || eventLoading) {
@@ -312,13 +317,7 @@ export default function EventForm({ id }: { id: string }) {
               <h3 className="my-2 text-gray-500">
                 What medications did you use?
               </h3>
-              {data?.Medication && data.Medication.length > 0 ? (
-                <div className="flex flex-col items-center gap-1">Medis</div>
-              ) : (
-                <span className="flex items-center justify-center font-light text-gray-400">
-                  No Medications added yet
-                </span>
-              )}
+              <div>{eventMedications}</div>
               <button type="button" onClick={openModal}>
                 Edit Medications
               </button>
