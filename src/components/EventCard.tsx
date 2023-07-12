@@ -2,6 +2,8 @@ import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 import { createId } from "@paralleldrive/cuid2";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
+import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
 import Link from "next/link";
 import Modal from "react-modal";
 import { useState } from "react";
@@ -84,10 +86,10 @@ export default function EventCard({
       </div>
       <div className="flex">
         <button onClick={openModal}>
-          <RiDeleteBin5Fill size="1.5rem" className="cursor-pointer" />
+          <BsFillTrashFill size="1.5rem" className="cursor-pointer" />
         </button>
         <Link href={`/edit/${event && event.id}`}>
-          <RiEdit2Fill size={"1.5rem"} />
+          <AiFillEdit size={"1.5rem"} />
         </Link>
       </div>
       <Modal
