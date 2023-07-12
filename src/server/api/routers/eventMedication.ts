@@ -25,6 +25,19 @@ export const eventMedicationRouter = createTRPCRouter({
         },
       });
     }),
+  deleteEventMedication: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.eventMedication.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
   getEventMedications: protectedProcedure
     .input(
       z.object({
