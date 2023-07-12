@@ -37,9 +37,9 @@ export default function MedicationCard({
       <div className="flex items-center gap-1 border-l-2 border-gray-300 px-2">
         <span className="text-sm text-gray-600">@</span>
         <div>
-          {medication.time.toLocaleString().slice(11, 17)}
+          {medication.time.toLocaleTimeString().slice(0, 5)}
           <span>, </span>
-          {medication.time.toLocaleString().slice(0, 5)}
+          {medication.time.toLocaleDateString().slice(0, 5)}
         </div>
       </div>
       {showDelete && (
