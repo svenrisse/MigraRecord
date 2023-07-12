@@ -203,8 +203,8 @@ export default function EventForm({ id }: { id: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Tension" && "bg-cyan-600 font-bold text-white"
-                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+                  watchType == "Tension" && "bg-blue-800 font-bold text-white"
+                } w-20 rounded-xl border-2 border-blue-800 py-2`}
                 type="button"
                 onClick={() => setValue("type", "Tension")}
               >
@@ -212,8 +212,8 @@ export default function EventForm({ id }: { id: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Other" && "bg-cyan-600 font-bold text-white"
-                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+                  watchType == "Other" && "bg-cyan-900 font-bold text-white"
+                } w-20 rounded-xl border-2 border-cyan-900 py-2`}
                 type="button"
                 onClick={() => setValue("type", "Other")}
               >
