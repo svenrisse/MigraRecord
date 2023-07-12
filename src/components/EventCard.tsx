@@ -54,14 +54,26 @@ export default function EventCard({
 
   return (
     <div className="rounded-md bg-gray-50 p-2">
-      <div className="flex gap-1">
-        <div>{event?.startTime.toLocaleDateString()}</div>
-        <div> - </div>
+      <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1">
+          <div>{event?.startTime.toLocaleDateString()}</div>
+          <div className="text-sm">
+            {event?.startTime.toLocaleTimeString().slice(0, 5)}
+          </div>
+        </div>
+        <div className="font-bold"> - </div>
         <div>
           {event?.endTime ? (
-            <div>{event?.endTime?.toLocaleDateString()}</div>
+            <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1">
+              <div>{event?.endTime?.toLocaleDateString()}</div>
+              <div className="text-sm">
+                {event.endTime.toLocaleTimeString().slice(0, 5)}
+              </div>
+            </div>
           ) : (
-            <div className="text-gray-500">No End Time</div>
+            <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1  text-gray-500">
+              No End Time
+            </div>
           )}
         </div>
       </div>
