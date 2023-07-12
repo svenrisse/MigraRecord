@@ -62,6 +62,9 @@ export const eventRouter = createTRPCRouter({
             gte: input.limit,
           },
         },
+        include: {
+          medications: true,
+        },
         orderBy: [{ startTime: "desc" }],
       });
     }),
