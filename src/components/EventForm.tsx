@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { DevTool } from "@hookform/devtools";
 import { addHours } from "date-fns";
 import { useState } from "react";
-import QuestionModal from "./QuestionModal";
+import MedicationModal from "./MedicationModal";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -25,7 +25,7 @@ export const eventSchema = object({
 
 type Inputs = z.infer<typeof eventSchema>;
 
-export default function EventForm({ id }: { id?: string }) {
+export default function EventForm({ id }: { id: string }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -40,7 +40,7 @@ export default function EventForm({ id }: { id?: string }) {
 
   const { data, isInitialLoading } = api.user.getUserData.useQuery();
 
-  const { mutateAsync } = api.event.addEvent.useMutation({
+  const { mutateAsync, isLoading } = api.event.addEvent.useMutation({
     onSuccess: (data) => {
       utils.event.invalidate(), utils.user.invalidate();
       router.push(`/edit/${data?.id}`);
@@ -63,8 +63,8 @@ export default function EventForm({ id }: { id?: string }) {
       questions: data.questions,
       painScale: data.painScale,
       type: data.type,
-      endTime: addHours(data.endTime as Date, 1),
-      startTime: addHours(data.startTime as Date, 1),
+      endTime: addHours(data.endTime as Date, 2),
+      startTime: addHours(data.startTime as Date, 2),
     });
   };
 
@@ -349,15 +349,39 @@ export default function EventForm({ id }: { id?: string }) {
               type="submit"
               className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
             >
-              Save
+              {!isLoading ? (
+                <svg
+                  className="h-5 w-5 animate-spin text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              ) : (
+                <div>Save</div>
+              )}
             </button>
           </>
         )}
       </form>
-      <QuestionModal
+      <MedicationModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         medicationOptions={medicationOptions}
+        id={id}
       />
     </>
   );
