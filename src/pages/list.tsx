@@ -24,7 +24,7 @@ export default function List() {
     limit: subMonths(new Date(), 1),
   });
 
-  const { data, isFetching } = api.event.listEventsInRange.useQuery({
+  const { data, isInitialLoading } = api.event.listEventsInRange.useQuery({
     limit: activeRange.limit,
   });
 
@@ -42,7 +42,7 @@ export default function List() {
         <div className="absolute top-0">
           <ActiveRange setActiveRange={setActiveRange} />
         </div>
-        {isFetching ? (
+        {isInitialLoading ? (
           <div className="rounded-lg bg-slate-200 px-8 py-6">
             <TailSpin color="cyan" />
             <p className="">Loading...</p>
