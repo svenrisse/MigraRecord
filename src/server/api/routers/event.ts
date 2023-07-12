@@ -92,6 +92,9 @@ export const eventRouter = createTRPCRouter({
           where: {
             startTime: input.startTime,
           },
+          include: {
+            medications: true,
+          },
         });
       }
     }),
