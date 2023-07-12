@@ -1,7 +1,6 @@
 import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 import { createId } from "@paralleldrive/cuid2";
-import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import Link from "next/link";
