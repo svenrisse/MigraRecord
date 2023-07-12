@@ -61,7 +61,7 @@ export default function MedicationModal({
         <div className="flex flex-col items-center gap-4">
           <select
             {...register("name")}
-            name="medications"
+            name="name"
             required
             className="w-min rounded-md border-2 border-cyan-900 bg-white p-1"
           >
