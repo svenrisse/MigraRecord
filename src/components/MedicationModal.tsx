@@ -20,11 +20,13 @@ export default function MedicationModal({
   closeModal,
   medicationOptions,
   id,
+  eventMedications,
 }: {
   modalIsOpen: boolean;
   closeModal: () => void;
   medicationOptions: JSX.Element[] | undefined;
   id: string;
+  eventMedications: JSX.Element[] | undefined;
 }) {
   const { control, reset, register, handleSubmit, setValue } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
@@ -51,12 +53,15 @@ export default function MedicationModal({
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      className="fixed inset-x-0 top-1/2 mx-auto w-10/12 rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
+      className="fixed inset-x-0 top-1/4 mx-auto w-10/12 rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
       appElement={document.getElementById("__next") as HTMLElement}
     >
+      <div className="mb-3 flex flex-col items-center gap-1">
+        {eventMedications}
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 font-sans"
+        className="flex flex-col gap-2 border-t-2 border-gray-400 pt-4 font-sans"
       >
         <div className="flex flex-col items-center gap-4">
           <select
@@ -109,7 +114,7 @@ export default function MedicationModal({
                 ></path>
               </svg>
             ) : (
-              <div>Save</div>
+              <div>Add</div>
             )}
           </button>
         </div>

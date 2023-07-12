@@ -391,6 +391,7 @@ export default function EventForm({ id }: { id: string }) {
         closeModal={closeModal}
         medicationOptions={medicationOptions}
         id={id}
+        eventMedications={eventMedications}
       />
     </>
   );

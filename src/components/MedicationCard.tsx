@@ -8,7 +8,7 @@ export default function MedicationCard({
   };
 }) {
   return (
-    <div className="flex items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 px-2 py-1">
+    <div className="flex items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 bg-white px-2 py-1">
       <div>
         {medication.amount} <span className="text-sm text-gray-600">x</span>
       </div>
