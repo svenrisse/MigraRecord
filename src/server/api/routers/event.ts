@@ -72,6 +72,9 @@ export const eventRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
+        include: {
+          medications: true,
+        },
       });
     }),
   getEventByDate: protectedProcedure
