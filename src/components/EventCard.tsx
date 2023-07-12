@@ -7,6 +7,7 @@ import Link from "next/link";
 import Modal from "react-modal";
 import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
+import MedicationCard from "~/components/MedicationCard";
 
 export default function EventCard({
   event,
@@ -22,10 +23,6 @@ export default function EventCard({
     setIsOpen(false);
   }
 
-  const questions = event?.questions.map((question) => {
-    return <div key={createId()}>{question}</div>;
-  });
-
   const utils = api.useContext();
 
   const { mutateAsync, isLoading } = api.event.deleteEvent.useMutation({
@@ -39,6 +36,21 @@ export default function EventCard({
     e.stopPropagation();
     mutateAsync({ id: id });
   }
+
+  const questions = event?.questions.map((question) => {
+    return <div key={createId()}>{question}</div>;
+  });
+
+  const eventMedications = event?.medications.map((medication) => {
+    return (
+      <MedicationCard
+        key={medication.id}
+        medication={medication}
+        id={medication.id}
+      />
+    );
+  });
+
   return (
     <div className="rounded-md bg-gray-50 p-2">
       <div className="flex gap-1">
@@ -68,8 +80,12 @@ export default function EventCard({
           <div className="text-gray-500">None</div>
         )}
       </div>
-      <div>
-        <h4>Medications:</h4>
+      <div className="flex flex-col items-center">
+        <h4 className="text-sm text-gray-500">Medications:</h4>
+
+        <div className="flex flex-col items-center">
+          <div className="flex flex-col gap-1">{eventMedications}</div>
+        </div>
       </div>
       <div>
         <h4>Questions answered with yes:</h4>
