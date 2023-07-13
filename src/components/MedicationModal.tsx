@@ -28,6 +28,7 @@ export default function MedicationModal({
   id: string;
   eventMedications: JSX.Element[] | undefined;
 }) {
+  const utils = api.useContext();
   const { control, reset, register, handleSubmit, setValue } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
   });
@@ -45,6 +46,7 @@ export default function MedicationModal({
   const { mutateAsync, isLoading } =
     api.eventMedication.addEventMedication.useMutation({
       onSuccess() {
+        utils.event.invalidate();
         reset();
       },
     });
