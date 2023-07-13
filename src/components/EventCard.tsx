@@ -78,14 +78,14 @@ export default function EventCard({
           )}
         </div>
       </div>
-      <div className="flex justify-center py-2">
+      <div className="mr-6 flex items-center justify-center gap-4 py-4">
         {event?.type ? (
           <div
             className={`${event.type === "Migraine" && "bg-cyan-600"} ${
               event.type === "Tension" && "bg-blue-800"
             } ${
               event.type === "Other" && "bg-cyan-900"
-            } rounded-lg px-2 py-1 font-bold text-white`}
+            } rounded-lg px-4 py-1 font-bold text-white`}
           >
             {event.type}
           </div>
@@ -94,9 +94,6 @@ export default function EventCard({
             No Type
           </div>
         )}
-      </div>
-      <div className="flex gap-2">
-        <h4>Pain:</h4>
         {event?.painScale ? (
           <PainButton
             number={event.painScale}
@@ -104,7 +101,12 @@ export default function EventCard({
             disable={true}
           />
         ) : (
-          <div className="text-gray-500">None</div>
+          <div
+            className=" flex h-10 w-10 items-center justify-center rounded-full border-4 border-gray-500 font-bold text-gray-500"
+            title="Pain"
+          >
+            ?
+          </div>
         )}
       </div>
       <div className="flex flex-col items-center">
