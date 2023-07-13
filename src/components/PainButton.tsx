@@ -22,7 +22,7 @@ export default function PainButton({
   return (
     <button
       className={`bg${colors[number - 1]} border${colors[number - 1]} ${
-        number > 8 && "text-white"
+        number > 6 && "text-white"
       } h-10 w-10 rounded-full border-4 font-bold`}
       type="button"
       onClick={() => handleClick && handleClick(1)}
