@@ -325,7 +325,9 @@ export default function EventForm({ id }: { id?: string }) {
                 What medications did you use?
               </h3>
               {eventMedications ? (
-                <div className="flex flex-col gap-1">{eventMedications}</div>
+                <div className="flex flex-col items-center gap-1">
+                  {eventMedications}
+                </div>
               ) : (
                 <span text-sm text-gray-500>
                   None yet
@@ -397,7 +399,7 @@ export default function EventForm({ id }: { id?: string }) {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         medicationOptions={medicationOptions}
-        id={id as string}
+        id={typeof id !== undefined ? (id as string) : ""}
         eventMedications={eventMedications}
       />
     </>
