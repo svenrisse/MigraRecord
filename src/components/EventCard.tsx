@@ -109,17 +109,16 @@ export default function EventCard({
       </div>
       <div className="flex flex-col items-center">
         <h4 className="text-sm text-gray-500">Medications:</h4>
-
         <div className="flex flex-col items-center gap-1">
           {eventMedications}
         </div>
       </div>
-      <div>
-        <h4>Questions answered with yes:</h4>
-        <div>{questions}</div>
+      <div className="flex flex-col items-center">
+        <h4 className="text-sm text-gray-500">Questions:</h4>
+        <div className="flex flex-col items-center gap-1">{questions}</div>
       </div>
-      <div className="flex gap-2">
-        <h4>Note:</h4>
+      <div className="flex flex-col items-center">
+        <h4 className="text-sm text-gray-500">Note:</h4>
         {event?.notes ? (
           <p>{event.notes}</p>
         ) : (
