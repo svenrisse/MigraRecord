@@ -81,11 +81,9 @@ export default function EventCard({
       <div className="mr-6 flex items-center justify-center gap-4 py-4">
         {event?.type ? (
           <div
-            className={`${event.type === "Migraine" && "bg-cyan-600"} ${
-              event.type === "Tension" && "bg-blue-800"
-            } ${
-              event.type === "Other" && "bg-cyan-900"
-            } rounded-lg px-4 py-1 font-bold text-white`}
+            className={`${event.type === "Migraine" && "bg-cyan-600"} ${event.type === "Tension" && "bg-blue-800"
+              } ${event.type === "Other" && "bg-cyan-900"
+              } rounded-lg px-4 py-1 font-bold text-white`}
           >
             {event.type}
           </div>
@@ -112,8 +110,8 @@ export default function EventCard({
       <div className="flex flex-col items-center">
         <h4 className="text-sm text-gray-500">Medications:</h4>
 
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col gap-1">{eventMedications}</div>
+        <div className="flex flex-col items-center gap-1">
+          {eventMedications}
         </div>
       </div>
       <div>
