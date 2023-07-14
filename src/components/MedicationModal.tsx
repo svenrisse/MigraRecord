@@ -1,9 +1,9 @@
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { object, string, coerce, number, z } from "zod";
+import { object, string, coerce } from "zod";
+import type { z } from "zod";
 import type { SubmitHandler } from "react-hook-form";
-import { useState } from "react";
 import { DevTool } from "@hookform/devtools";
 import { api } from "~/utils/api";
 
@@ -29,7 +29,7 @@ export default function MedicationModal({
   eventMedications: JSX.Element[] | undefined;
 }) {
   const utils = api.useContext();
-  const { control, reset, register, handleSubmit, setValue } = useForm<Inputs>({
+  const { control, reset, register, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
   });
 
