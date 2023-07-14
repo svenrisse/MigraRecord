@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SettingsCard from "~/components/SettingsCard";
 
 export const settingsSchema = object({
-  content: string().min(1),
+  content: string().min(1).max(22),
 });
 
 type Inputs = z.infer<typeof settingsSchema>;
