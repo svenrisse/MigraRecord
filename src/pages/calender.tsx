@@ -142,7 +142,14 @@ export default function Calender() {
         onRequestClose={closeModal}
         className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
       >
-        <EventCard event={selectedData && selectedData} />
+        {singleEventIsLoading ? (
+          <div className="flex flex-col items-center justify-center py-4">
+            <TailSpin color="cyan" />
+            <p>Loading...</p>
+          </div>
+        ) : (
+          <EventCard event={selectedData && selectedData} />
+        )}
       </Modal>
     </>
   );
