@@ -8,6 +8,7 @@ import type { View } from "react-calendar/dist/cjs/shared/types";
 import { useState } from "react";
 import Modal from "react-modal";
 import EventCard from "~/components/EventCard";
+import { TailSpin } from "react-loader-spinner";
 
 export default function Calender() {
   const router = useRouter();
@@ -27,11 +28,12 @@ export default function Calender() {
     setIsOpen(false);
   }
 
-  const { data: selectedData } = api.event.getEventByDate.useQuery({
-    startTime: modalContent,
-  });
+  const { data: selectedData, isLoading: singleEventIsLoading } =
+    api.event.getEventByDate.useQuery({
+      startTime: modalContent,
+    });
 
-  const { data } = api.event.listEvents.useQuery();
+  const { data, isLoading: eventsIsLoading } = api.event.listEvents.useQuery();
 
   const dates = data?.map((event) => {
     return event.endTime
@@ -118,13 +120,20 @@ export default function Calender() {
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
         <div className="w-11/12 rounded-lg bg-gray-50 px-2 py-4">
-          <Calendar
-            tileClassName={tileClassName}
-            onClickDay={(value) => handleDayClick(value)}
-            next2Label={null}
-            prev2Label={null}
-            showNeighboringMonth={false}
-          />
+          {eventsIsLoading ? (
+            <div className="flex flex-col items-center justify-center py-4">
+              <TailSpin color="cyan" />
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <Calendar
+              tileClassName={tileClassName}
+              onClickDay={(value) => handleDayClick(value)}
+              next2Label={null}
+              prev2Label={null}
+              showNeighboringMonth={false}
+            />
+          )}
         </div>
       </main>
       <Navbar focused="calender" />
