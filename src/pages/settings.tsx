@@ -20,14 +20,29 @@ type Inputs = z.infer<typeof settingsSchema>;
 
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
-  const { mutateAsync: mutateQuestion, isLoading: questionIsLoading } =
+
+  const { mutateAsync: addQuestion, isLoading: questionIsLoading } =
     api.user.addQuestion.useMutation({
       onSuccess: () => {
         utils.user.getUserData.invalidate();
       },
     });
-  const { mutateAsync: mutateMedication, isLoading: medicationIsLoading } =
+
+  const { mutateAsync: deleteQuestion } = api.user.deleteQuestion.useMutation({
+    onSuccess: () => {
+      utils.user.getUserData.invalidate();
+    },
+  });
+
+  const { mutateAsync: addMedication, isLoading: medicationIsLoading } =
     api.user.addMedication.useMutation({
+      onSuccess: () => {
+        utils.user.getUserData.invalidate();
+      },
+    });
+
+  const { mutateAsync: deleteMedication } =
+    api.user.deleteMedication.useMutation({
       onSuccess: () => {
         utils.user.getUserData.invalidate();
       },
@@ -36,11 +51,25 @@ export default function Settings() {
   const utils = api.useContext();
 
   const userQuestions = data?.Questions.map((question) => {
-    return <SettingsCard key={question.id} content={question.text} />;
+    return (
+      <SettingsCard
+        key={question.id}
+        content={question.text}
+        id={question.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
   });
 
   const userMedications = data?.Medication.map((medication) => {
-    return <SettingsCard key={medication.id} content={medication.text} />;
+    return (
+      <SettingsCard
+        key={medication.id}
+        content={medication.text}
+        id={medication.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
   });
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -66,13 +95,21 @@ export default function Settings() {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (modalContent === "questions") {
-      mutateQuestion({ text: data.content });
+      addQuestion({ text: data.content });
       setValue("content", "");
       return;
     }
-    mutateMedication({ text: data.content });
+    addMedication({ text: data.content });
     setValue("content", "");
   };
+
+  function handleDeleteClick(id: string) {
+    if (modalContent === "questions") {
+      deleteQuestion({ id: id });
+      return;
+    }
+    deleteMedication({ id: id });
+  }
 
   return (
     <>
