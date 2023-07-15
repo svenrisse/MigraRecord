@@ -27,6 +27,15 @@ export const userRouter = createTRPCRouter({
         },
       });
     }),
+  deleteQuestion: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.question.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
   addMedication: protectedProcedure
     .input(z.object({ text: z.string() }))
     .mutation(({ ctx, input }) => {
@@ -38,6 +47,15 @@ export const userRouter = createTRPCRouter({
               id: ctx.session.user.id,
             },
           },
+        },
+      });
+    }),
+  deleteMedication: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.medication.delete({
+        where: {
+          id: input.id,
         },
       });
     }),
