@@ -38,7 +38,7 @@ export default function EventCard({
     mutateAsync({ id: id });
   }
 
-  const questions = event?.questions.map((question) => {
+  const eventQuestions = event?.questions.map((question) => {
     return <div key={createId()}>{question}</div>;
   });
 
@@ -81,9 +81,11 @@ export default function EventCard({
       <div className="mr-6 flex items-center justify-center gap-4 py-4">
         {event?.type ? (
           <div
-            className={`${event.type === "Migraine" && "bg-cyan-600"} ${event.type === "Tension" && "bg-blue-800"
-              } ${event.type === "Other" && "bg-cyan-900"
-              } rounded-lg px-4 py-1 font-bold text-white`}
+            className={`${event.type === "Migraine" && "bg-cyan-600"} ${
+              event.type === "Tension" && "bg-blue-800"
+            } ${
+              event.type === "Other" && "bg-cyan-900"
+            } rounded-lg px-4 py-1 font-bold text-white`}
           >
             {event.type}
           </div>
@@ -108,23 +110,33 @@ export default function EventCard({
         )}
       </div>
       <div className="flex flex-col items-center">
-        <h4 className="text-sm text-gray-500">Medications:</h4>
-        <div className="flex flex-col items-center gap-1">
-          {eventMedications}
-        </div>
-      </div>
-      <div className="flex flex-col items-center">
-        <h4 className="text-sm text-gray-500">Questions:</h4>
-        <div className="flex flex-col items-center gap-1">{questions}</div>
-      </div>
-      <div className="flex flex-col items-center">
-        <h4 className="text-sm text-gray-500">Note:</h4>
-        {event?.notes ? (
-          <p>{event.notes}</p>
+        {eventMedications?.length !== 0 ? (
+          <div className="flex flex-col items-center gap-1">
+            <h4 className="text-sm text-gray-500">Medications:</h4>
+            {eventMedications}
+          </div>
         ) : (
-          <div className="text-gray-500">None</div>
+          <h4 className="text-sm text-gray-500">No Medications</h4>
         )}
       </div>
+      <div className="flex flex-col items-center pt-3">
+        {eventQuestions?.length !== 0 ? (
+          <div className="flex flex-col items-center gap-1">
+            <h4 className="text-sm text-gray-500">Questions:</h4>
+            {eventQuestions}
+          </div>
+        ) : (
+          <h4 className="text-sm text-gray-500">No Questions</h4>
+        )}
+      </div>
+      {event?.notes && (
+        <div className="flex flex-col items-center py-2">
+          <h4>Note:</h4>
+          <div className="w-10/12 text-center">
+            <p className="rounded-lg border-2 border-cyan-900">{event.notes}</p>
+          </div>
+        </div>
+      )}
       <div className="flex">
         <button onClick={openModal}>
           <BsFillTrashFill size="1.5rem" className="cursor-pointer" />
