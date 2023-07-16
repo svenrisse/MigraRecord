@@ -137,12 +137,18 @@ export default function EventCard({
           </div>
         </div>
       )}
-      <div className="flex py-2">
+      <div className="flex px-4 py-2">
         <button onClick={openModal}>
-          <BsFillTrashFill size="1.5rem" className="cursor-pointer" />
+          <BsFillTrashFill
+            size={"1.6rem"}
+            className="cursor-pointer fill-cyan-900"
+          />
         </button>
-        <Link href={`/edit/${event && event.id}`}>
-          <AiFillEdit size={"1.5rem"} />
+        <Link href={`/edit/${event && event.id}`} className="ml-auto">
+          <AiFillEdit
+            size={"1.7rem"}
+            className="cursor-pointer fill-cyan-900"
+          />
         </Link>
       </div>
       <Modal
