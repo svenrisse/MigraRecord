@@ -39,7 +39,14 @@ export default function EventCard({
   }
 
   const eventQuestions = event?.questions.map((question) => {
-    return <div key={createId()}>{question}</div>;
+    return (
+      <div
+        className="rounded-lg bg-cyan-900 px-2 py-1 text-sm font-bold text-white "
+        key={createId()}
+      >
+        {question}
+      </div>
+    );
   });
 
   const eventMedications = event?.medications.map((medication) => {
@@ -117,8 +124,8 @@ export default function EventCard({
         </div>
       )}
       {eventQuestions?.length !== 0 && (
-        <div className="flex flex-col items-center">
-          <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center py-1">
+          <div className="flex w-9/12 flex-wrap justify-center gap-1">
             {eventQuestions}
           </div>
         </div>
