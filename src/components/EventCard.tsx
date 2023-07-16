@@ -78,7 +78,7 @@ export default function EventCard({
           )}
         </div>
       </div>
-      <div className="mr-6 flex items-center justify-center gap-4 py-4">
+      <div className="mr-6 flex items-center justify-center gap-4 py-3">
         {event?.type ? (
           <div
             className={`${event.type === "Migraine" && "bg-cyan-600"} ${
@@ -109,35 +109,28 @@ export default function EventCard({
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center">
-        {eventMedications?.length !== 0 ? (
+      {eventMedications?.length !== 0 && (
+        <div className="flex flex-col items-center py-2">
           <div className="flex flex-col items-center gap-1">
-            <h4 className="text-sm text-gray-500">Medications:</h4>
             {eventMedications}
           </div>
-        ) : (
-          <h4 className="text-sm text-gray-500">No Medications</h4>
-        )}
-      </div>
-      <div className="flex flex-col items-center pt-3">
-        {eventQuestions?.length !== 0 ? (
+        </div>
+      )}
+      {eventQuestions?.length !== 0 && (
+        <div className="flex flex-col items-center">
           <div className="flex flex-col items-center gap-1">
-            <h4 className="text-sm text-gray-500">Questions:</h4>
             {eventQuestions}
           </div>
-        ) : (
-          <h4 className="text-sm text-gray-500">No Questions</h4>
-        )}
-      </div>
+        </div>
+      )}
       {event?.notes && (
         <div className="flex flex-col items-center py-2">
-          <h4>Note:</h4>
           <div className="w-10/12 text-center">
             <p className="rounded-lg border-2 border-cyan-900">{event.notes}</p>
           </div>
         </div>
       )}
-      <div className="flex">
+      <div className="flex py-2">
         <button onClick={openModal}>
           <BsFillTrashFill size="1.5rem" className="cursor-pointer" />
         </button>
