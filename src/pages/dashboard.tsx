@@ -8,7 +8,8 @@ import { TailSpin } from "react-loader-spinner";
 import { subMonths } from "date-fns";
 
 interface ICounts {
-  [ket: string]: number;
+  name: string;
+  amount: number;
 }
 
 export default function Dashboard() {
@@ -26,19 +27,19 @@ export default function Dashboard() {
     limit: activeRange.limit,
   });
 
-  //  const flatMedications: string[] = [];
-  ////  data?.medicationCount.map((event) => {
-  //    event.medications.map((medication) => {
-  //     flatMedications.push(medication);
-  //   });
-  // });
+  const flatMedications: string[] = [];
+  data?.medicationCount.map((event) => {
+    event.medications.map((medication) => {
+      flatMedications.push(medication.name);
+    });
+  });
 
   // const medicationCounts: ICounts = {};
   // for (const num of flatMedications) {
   //   medicationCounts[num] = medicationCounts[num]
-  //     ? (medicationCounts[num] as number) + 1
-  //     : 1;
-  // }
+  //   ? (medicationCounts[num] as number) + 1
+  //  : 1;
+  //  }
 
   const flatQuestions: string[] = [];
   data?.questionCount.map((event) => {
@@ -46,12 +47,13 @@ export default function Dashboard() {
       flatQuestions.push(question);
     });
   });
-  const questionCounts: ICounts = {};
-  for (const num of flatQuestions) {
-    questionCounts[num] = questionCounts[num]
-      ? (questionCounts[num] as number) + 1
-      : 1;
-  }
+
+  //const questionCounts: ICounts = {};
+  //for (const num of flatQuestions) {
+  // questionCounts[num] = questionCounts[num]
+  //  ? (questionCounts[num] as number) + 1
+  //  : 1;
+  // }
 
   return (
     <>
