@@ -35,9 +35,10 @@ export default function MedicationModal({
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    console.log(parseFloat(data.amount));
     mutateAsync({
       id: id,
-      amount: parseInt(data.amount),
+      amount: parseFloat(data.amount),
       name: data.name,
       time: data.date,
     });
@@ -78,6 +79,7 @@ export default function MedicationModal({
             <input
               {...register("amount")}
               type="number"
+              step={"0.1"}
               defaultValue={0}
               min={1}
               max={20}
