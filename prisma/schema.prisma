@@ -83,7 +83,7 @@ model VerificationToken {
 model EventMedication {
   id      String   @id @default(cuid())
   name    String
-  amount  Float?
+  amount  Float
   time    DateTime
   Event   Event?   @relation(fields: [eventId], references: [id])
   eventId String?
