@@ -1,3 +1,4 @@
+import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 import { BsFillTrashFill } from "react-icons/bs";
 
@@ -6,11 +7,7 @@ export default function MedicationCard({
   id,
   showDelete,
 }: {
-  medication: {
-    name: string;
-    amount: number;
-    time: Date;
-  };
+  medication: RouterOutputs["eventMedication"]["getEventMedications"][number];
   id: string;
   showDelete: boolean;
 }) {
