@@ -75,7 +75,12 @@ export default function EventForm({ id }: { id?: string }) {
       "startTime",
       moment(eventData?.startTime).toISOString(true).slice(0, 16) || ""
     );
-    setValue("endTime", eventData?.endTime?.toISOString().slice(0, 16) || null);
+    setValue(
+      "endTime",
+      eventData?.endTime
+        ? moment(eventData?.endTime).toISOString(true).slice(0, 16)
+        : null
+    );
     setValue("type", eventData?.type);
     setValue("painScale", eventData?.painScale || null);
     setValue("questions", eventData?.questions || []);
