@@ -49,9 +49,12 @@ export default function EventForm({ id }: { id?: string }) {
   });
 
   const { data: eventData, isLoading: eventLoading } =
-    api.event.getEvent.useQuery({
-      id: id ? id : "",
-    });
+    api.event.getEvent.useQuery(
+      {
+        id: id ? id : "",
+      },
+      { refetchOnWindowFocus: false }
+    );
 
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
