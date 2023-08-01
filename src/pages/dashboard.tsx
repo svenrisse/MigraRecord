@@ -67,8 +67,8 @@ export default function Dashboard() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <div className="flex w-9/12 flex-col gap-3 pb-20 pt-32">
-            dashboard
+          <div className="flex w-9/12 flex-col gap-3 rounded-xl bg-slate-200 py-4 text-center text-sm font-bold">
+            Dashboard is coming soon, thank you for your patience :)
           </div>
         )}
       </main>
