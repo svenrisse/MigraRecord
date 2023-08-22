@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { api } from "~/utils/api";
 import { object, string } from "zod";
-
 import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SettingsCard from "~/components/SettingsCard";
