@@ -99,81 +99,18 @@ export const eventRouter = createTRPCRouter({
       }
     }),
   getEventDashboard: protectedProcedure
-    .input(z.object({ limit: z.date() }))
+    .input(z.object({ start: z.date(), end: z.date() }))
     .query(async ({ ctx, input }) => {
-      const migraineCount = await ctx.prisma.event.count({
+      return ctx.prisma.event.findMany({
         where: {
           userId: ctx.session.user.id,
           startTime: {
-            gte: input.limit,
+            gte: input.start,
           },
-          type: "Migraine",
-        },
-      });
-
-      const tensionCount = await ctx.prisma.event.count({
-        where: {
-          userId: ctx.session.user.id,
-          startTime: {
-            gte: input.limit,
-          },
-          type: "Tension",
-        },
-      });
-
-      const otherCount = await ctx.prisma.event.count({
-        where: {
-          userId: ctx.session.user.id,
-          startTime: {
-            gte: input.limit,
-          },
-          type: "Other",
-        },
-      });
-
-      const averagePain = await ctx.prisma.event.aggregate({
-        where: {
-          userId: ctx.session.user.id,
-          startTime: {
-            gte: input.limit,
+          endTime: {
+            lte: input.end,
           },
         },
-        _avg: {
-          painScale: true,
-        },
       });
-
-      const medicationCount = await ctx.prisma.event.findMany({
-        where: {
-          userId: ctx.session.user.id,
-          startTime: {
-            gte: input.limit,
-          },
-        },
-        select: {
-          medications: true,
-        },
-      });
-
-      const questionCount = await ctx.prisma.event.findMany({
-        where: {
-          userId: ctx.session.user.id,
-          startTime: {
-            gte: input.limit,
-          },
-        },
-        select: {
-          questions: true,
-        },
-      });
-
-      return {
-        migraineCount,
-        tensionCount,
-        otherCount,
-        averagePain,
-        medicationCount,
-        questionCount,
-      };
     }),
 });
