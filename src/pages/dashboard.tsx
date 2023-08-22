@@ -9,8 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
-import { subMonths } from "date-fns";
+import { getMonth, subMonths } from "date-fns";
 import { useState } from "react";
+import { format } from "date-fns";
 
 export const dashboardSchema = object({
   startDate: coerce.date(),
@@ -47,6 +48,22 @@ export default function Dashboard() {
       endDate: data.endDate,
     });
   };
+
+  const avgPain: { [key: string]: number } = {};
+
+  function calcPain() {
+    data?.forEach((event) => {
+      const temp = format(event.startTime, "LLLL");
+      console.log(temp);
+      if (event.painScale) {
+        avgPain[temp] = event.painScale;
+      }
+    });
+
+    console.log(avgPain);
+  }
+
+  calcPain();
 
   return (
     <>
