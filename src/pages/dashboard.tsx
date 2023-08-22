@@ -10,6 +10,7 @@ import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
 import { subMonths } from "date-fns";
+import { useState } from "react";
 
 export const dashboardSchema = object({
   startDate: coerce.date(),
@@ -26,10 +27,17 @@ export default function Dashboard() {
     void router.push("/");
   }
 
-  /* const { data, isFetching } = api.event.getEventDashboard.useQuery({
-     limit: activeRange.limit,
-   });
- 
+  const [dates, setDates] = useState<Inputs>({
+    startDate: subMonths(new Date(), 1),
+    endDate: new Date(),
+  });
+
+  const { data, isFetching } = api.event.getEventDashboard.useQuery({
+    start: dates.startDate,
+    end: dates.endDate,
+  });
+
+  /*
   const flatMedications: string[] = [];
    data?.medicationCount.map((event) => {
      event.medications.map((medication) => {
@@ -64,51 +72,91 @@ export default function Dashboard() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    setDates({
+      startDate: data.startDate,
+      endDate: data.endDate,
+    });
   };
 
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
         <div className="absolute top-12 rounded-xl bg-white p-2">
-          <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4">
-            <div className="flex flex-col items-center">
-              <input
-                type="date"
-                required
-                {...register("startDate")}
-                className="rounded-md border-2 border-cyan-900 bg-white p-1"
-                defaultValue={subMonths(new Date(), 1)
-                  .toISOString()
-                  .substring(0, 10)}
-                id="startDate"
-              />
-              <label htmlFor="startDate" className="text-gray-500">
-                Start Date
-              </label>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center"
+          >
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <input
+                  type="date"
+                  required
+                  {...register("startDate")}
+                  className="rounded-md border-2 border-cyan-900 bg-white p-1"
+                  defaultValue={subMonths(new Date(), 1)
+                    .toISOString()
+                    .substring(0, 10)}
+                  id="startDate"
+                />
+                <label htmlFor="startDate" className="text-gray-500">
+                  Start Date
+                </label>
+              </div>
+              <div className="flex flex-col items-center">
+                <input
+                  type="date"
+                  required
+                  {...register("endDate")}
+                  className="rounded-md border-2 border-cyan-900 bg-white p-1"
+                  defaultValue={new Date().toISOString().substring(0, 10)}
+                  id="endDate"
+                />
+                <label htmlFor="endDate" className="text-gray-500">
+                  End Date
+                </label>
+              </div>
             </div>
-            <div className="flex flex-col items-center">
-              <input
-                type="date"
-                required
-                {...register("endDate")}
-                className="rounded-md border-2 border-cyan-900 bg-white p-1"
-                defaultValue={new Date().toISOString().substring(0, 10)}
-                id="endDate"
-              />
-              <label htmlFor="endDate" className="text-gray-500">
-                End Date
-              </label>
-            </div>
+            <button
+              type="submit"
+              className="mb-1 rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
+            >
+              {!router ? (
+                <svg
+                  className="h-5 w-5 animate-spin text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              ) : (
+                <div>Save</div>
+              )}
+            </button>
           </form>
         </div>
-        <div className="rounded-lg bg-slate-200 px-8 py-6">
-          <TailSpin color="cyan" />
-          <p className="">Loading...</p>
-        </div>
-        <div className="flex w-9/12 flex-col gap-3 rounded-xl bg-slate-200 py-4 text-center text-sm font-bold">
-          Dashboard is coming soon, thank you for your patience :)
-        </div>
+        {isFetching ? (
+          <div className="rounded-lg bg-slate-200 px-8 py-6">
+            <TailSpin color="cyan" />
+            <p className="">Loading...</p>
+          </div>
+        ) : (
+          <div className="flex w-9/12 flex-col gap-3 rounded-xl bg-slate-200 py-4 text-center text-sm font-bold">
+            Dashboard is coming soon, thank you for your patience :)
+          </div>
+        )}
       </main>
       <Navbar focused="dashboard" />
 
