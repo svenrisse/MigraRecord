@@ -9,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
-import { getMonth, subMonths } from "date-fns";
-import { useEffect, useState } from "react";
+import { subMonths } from "date-fns";
+import { useState } from "react";
 import { format } from "date-fns";
 
 export const dashboardSchema = object({
@@ -33,8 +33,6 @@ export default function Dashboard() {
     endDate: new Date(),
   });
 
-  const [monthCounts, setMonthCounts] = useState();
-
   const { data, isFetching } = api.event.getEventDashboard.useQuery(
     {
       start: dates.startDate,
@@ -45,7 +43,7 @@ export default function Dashboard() {
     }
   );
 
-  const { register, handleSubmit, setValue, control } = useForm<Inputs>({
+  const { register, handleSubmit, control } = useForm<Inputs>({
     resolver: zodResolver(dashboardSchema),
   });
 
