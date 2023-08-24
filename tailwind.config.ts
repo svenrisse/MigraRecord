@@ -5,5 +5,17 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+          primary: "#0891b2",
+          secondary: "#164e63",
+          accent: "#1e40af",
+        },
+      },
+    ],
+  },
 } satisfies Config;
