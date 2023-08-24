@@ -60,7 +60,7 @@ export default function Dashboard() {
   data?.forEach((event) => {
     const temp = format(event.startTime, "LLLL");
     console.log(temp);
-    count[temp] = count[temp] ? count[temp] + 1 : 1;
+    count[temp] = count[temp] ? count[temp]! + 1 : 1;
   });
 
   const avgPain: { [key: string]: number } = {};
@@ -70,13 +70,13 @@ export default function Dashboard() {
       const temp = format(event.startTime, "LLLL");
       if (event.painScale) {
         avgPain[temp] = avgPain[temp]
-          ? avgPain[temp] + event.painScale
+          ? avgPain[temp]! + event.painScale
           : event.painScale;
       }
     });
 
     for (const month in avgPain) {
-      avgPain[month] = avgPain[month] / count[month];
+      avgPain[month] = avgPain[month]! / count[month]!;
     }
 
     console.log(count);
