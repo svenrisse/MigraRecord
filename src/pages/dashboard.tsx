@@ -10,7 +10,7 @@ import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
 import { getMonth, subMonths } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
 export const dashboardSchema = object({
@@ -33,10 +33,17 @@ export default function Dashboard() {
     endDate: new Date(),
   });
 
-  const { data, isFetching } = api.event.getEventDashboard.useQuery({
-    start: dates.startDate,
-    end: dates.endDate,
-  });
+  const [monthCounts, setMonthCounts] = useState();
+
+  const { data, isFetching } = api.event.getEventDashboard.useQuery(
+    {
+      start: dates.startDate,
+      end: dates.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const { register, handleSubmit, setValue, control } = useForm<Inputs>({
     resolver: zodResolver(dashboardSchema),
@@ -49,17 +56,30 @@ export default function Dashboard() {
     });
   };
 
+  const count: { [key: string]: number } = {};
+  data?.forEach((event) => {
+    const temp = format(event.startTime, "LLLL");
+    console.log(temp);
+    count[temp] = count[temp] ? count[temp] + 1 : 1;
+  });
+
   const avgPain: { [key: string]: number } = {};
 
   function calcPain() {
     data?.forEach((event) => {
       const temp = format(event.startTime, "LLLL");
-      console.log(temp);
       if (event.painScale) {
-        avgPain[temp] = event.painScale;
+        avgPain[temp] = avgPain[temp]
+          ? avgPain[temp] + event.painScale
+          : event.painScale;
       }
     });
 
+    for (const month in avgPain) {
+      avgPain[month] = avgPain[month] / count[month];
+    }
+
+    console.log(count);
     console.log(avgPain);
   }
 
