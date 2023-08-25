@@ -9,7 +9,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
-import { subMonths, differenceInMinutes } from "date-fns";
+import {
+  subMonths,
+  differenceInMinutes,
+  intervalToDuration,
+  formatDuration,
+} from "date-fns";
 import { useState } from "react";
 import { format } from "date-fns";
 
@@ -57,11 +62,12 @@ export default function Dashboard() {
   const count: { [key: string]: number } = {};
   data?.forEach((event) => {
     const temp = format(event.startTime, "LLLL");
-    console.log(temp);
     count[temp] = count[temp] ? count[temp]! + 1 : 1;
   });
 
   const avgPain: { [key: string]: number } = {};
+  const totalDuration: { [key: string]: number | string } = {};
+  const avgDuration: { [key: string]: number | string } = {};
 
   function calcPain() {
     data?.forEach((event) => {
@@ -78,20 +84,34 @@ export default function Dashboard() {
     }
   }
 
-  const totalDuration: { [key: string]: number } = {};
-
   function calcDuration() {
     data?.forEach((event) => {
       if (event.endTime) {
         const difference = differenceInMinutes(event.endTime, event.startTime);
         const temp = format(event.startTime, "LLLL");
         totalDuration[temp] = totalDuration[temp]
-          ? totalDuration[temp]! + difference
+          ? (totalDuration[temp]! as number) + difference
           : difference;
       }
     });
-    console.log("total:", totalDuration);
 
+    for (const month in totalDuration) {
+      avgDuration[month] = (totalDuration[month]! as number) / count[month]!;
+      avgDuration[month] = formatDuration(
+        intervalToDuration({
+          start: 0,
+          end: (avgDuration[month] as number) * 60000,
+        })
+      );
+      totalDuration[month] = formatDuration(
+        intervalToDuration({
+          start: 0,
+          end: (totalDuration[month] as number) * 60000,
+        })
+      );
+    }
+    console.log("Avg:", avgDuration);
+    console.log("Total:", totalDuration);
   }
 
   calcPain();
