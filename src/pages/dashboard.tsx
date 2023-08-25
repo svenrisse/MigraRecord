@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { coerce, object } from "zod";
 import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
-import { subMonths } from "date-fns";
+import { subMonths, differenceInMinutes } from "date-fns";
 import { useState } from "react";
 import { format } from "date-fns";
 
@@ -76,12 +76,26 @@ export default function Dashboard() {
     for (const month in avgPain) {
       avgPain[month] = avgPain[month]! / count[month]!;
     }
+  }
 
-    console.log(count);
-    console.log(avgPain);
+  const totalDuration: { [key: string]: number } = {};
+
+  function calcDuration() {
+    data?.forEach((event) => {
+      if (event.endTime) {
+        const difference = differenceInMinutes(event.endTime, event.startTime);
+        const temp = format(event.startTime, "LLLL");
+        totalDuration[temp] = totalDuration[temp]
+          ? totalDuration[temp]! + difference
+          : difference;
+      }
+    });
+    console.log("total:", totalDuration);
+
   }
 
   calcPain();
+  calcDuration();
 
   return (
     <>
