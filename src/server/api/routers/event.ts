@@ -105,12 +105,11 @@ export const eventRouter = createTRPCRouter({
         where: {
           userId: ctx.session.user.id,
           startTime: {
+            lte: input.end,
             gte: input.start,
           },
-          endTime: {
-            lte: input.end,
-          },
         },
+        orderBy: [{ startTime: "asc" }],
       });
     }),
 });
