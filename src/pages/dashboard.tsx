@@ -17,9 +17,9 @@ import {
 } from "date-fns";
 import { useState } from "react";
 import { format } from "date-fns";
+import { createId } from "@paralleldrive/cuid2";
 
 export const dashboardSchema = object({
-  startDate: coerce.date(),
   endDate: coerce.date(),
 });
 
@@ -34,13 +34,12 @@ export default function Dashboard() {
   }
 
   const [dates, setDates] = useState<Inputs>({
-    startDate: subMonths(new Date(), 1),
     endDate: new Date(),
   });
 
   const { data, isFetching } = api.event.getEventDashboard.useQuery(
     {
-      start: dates.startDate,
+      start: subMonths(dates.endDate, 3),
       end: dates.endDate,
     },
     {
@@ -54,7 +53,6 @@ export default function Dashboard() {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setDates({
-      startDate: data.startDate,
       endDate: data.endDate,
     });
   };
@@ -68,6 +66,7 @@ export default function Dashboard() {
   const avgPain: { [key: string]: number } = {};
   const totalDuration: { [key: string]: number | string } = {};
   const avgDuration: { [key: string]: number | string } = {};
+  const medicationAmount: { [key: string]: number } = {};
 
   function calcPain() {
     data?.forEach((event) => {
@@ -82,6 +81,9 @@ export default function Dashboard() {
     for (const month in avgPain) {
       avgPain[month] = avgPain[month]! / count[month]!;
     }
+
+    console.log(count);
+    console.log(avgPain);
   }
 
   function calcDuration() {
@@ -102,21 +104,58 @@ export default function Dashboard() {
           start: 0,
           end: (avgDuration[month] as number) * 60000,
         })
-      );
+      )
+        .replace(" minutes", "m")
+        .replace(" minute", "m")
+        .replace(" hours", "h")
+        .replace(" hour", "h")
+        .replace(" days", "d")
+        .replace(" day", "d");
       totalDuration[month] = formatDuration(
         intervalToDuration({
           start: 0,
           end: (totalDuration[month] as number) * 60000,
         })
-      );
+      )
+        .replace(" minutes", "m")
+        .replace(" minute", "m")
+        .replace(" hours", "h")
+        .replace(" hour", "h")
+        .replace(" days", "d")
+        .replace(" day", "d");
     }
-    console.log("Avg:", avgDuration);
-    console.log("Total:", totalDuration);
   }
 
   calcPain();
   calcDuration();
 
+  const timeData = Object.keys(totalDuration).map((month) => {
+    return (
+      <div className="stat place-items-center" key={createId()}>
+        <div className="stat-title">{month}</div>
+        <div className="stat-value text-sm">{totalDuration[month]}</div>
+        <div className="stat-desc">avg: {avgDuration[month]}</div>
+      </div>
+    );
+  });
+
+  const countData = Object.keys(count).map((month) => {
+    return (
+      <div className="stat place-items-center" key={createId()}>
+        <div className="stat-title">{month}</div>
+        <div className="stat-value">{count[month]}</div>
+      </div>
+    );
+  });
+
+  const painData = Object.keys(avgPain).map((month) => {
+    return (
+      <div className="stat place-items-center" key={createId()}>
+        <div className="stat-title">{month}</div>
+        <div className="stat-value">{avgPain[month]?.toPrecision(2)}</div>
+      </div>
+    );
+  });
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
@@ -126,21 +165,6 @@ export default function Dashboard() {
             className="flex flex-col items-center"
           >
             <div className="flex gap-4">
-              <div className="flex flex-col items-center">
-                <input
-                  type="date"
-                  required
-                  {...register("startDate")}
-                  className="rounded-md border-2 border-cyan-900 bg-white p-1"
-                  defaultValue={subMonths(new Date(), 1)
-                    .toISOString()
-                    .substring(0, 10)}
-                  id="startDate"
-                />
-                <label htmlFor="startDate" className="text-gray-500">
-                  Start Date
-                </label>
-              </div>
               <div className="flex flex-col items-center">
                 <input
                   type="date"
@@ -159,7 +183,7 @@ export default function Dashboard() {
               type="submit"
               className="mb-1 rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
             >
-              {!router ? (
+              {isFetching ? (
                 <svg
                   className="h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
@@ -192,8 +216,20 @@ export default function Dashboard() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <div className="flex w-9/12 flex-col gap-3 rounded-xl bg-slate-200 py-4 text-center text-sm font-bold">
-            Dashboard is coming soon, thank you for your patience :)
+          <div>
+            <div className="rounded-xl bg-slate-200 p-3 text-lg">
+              <h3 className="pb-2 font-bold">Amount</h3>
+              <div className="stats shadow">{countData}</div>
+            </div>
+            <div className="rounded-xl bg-slate-200 p-3 text-lg">
+              <h3 className="pb-2 font-bold">Duration</h3>
+              <div className="stats shadow">{timeData}</div>
+            </div>
+
+            <div className="rounded-xl bg-slate-200 p-3 text-lg">
+              <h3 className="pb-2 font-bold">Avg. Pain</h3>
+              <div className="stats shadow">{painData}</div>
+            </div>
           </div>
         )}
       </main>
