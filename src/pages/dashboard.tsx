@@ -103,7 +103,8 @@ export default function Dashboard() {
         intervalToDuration({
           start: 0,
           end: (avgDuration[month] as number) * 60000,
-        })
+        }),
+        { format: ["days", "hours", "minutes"] }
       )
         .replace(" minutes", "m")
         .replace(" minute", "m")
@@ -143,7 +144,7 @@ export default function Dashboard() {
     return (
       <div className="stat place-items-center" key={createId()}>
         <div className="stat-title">{month}</div>
-        <div className="stat-value">{count[month]}</div>
+        <div className="stat-value text-xl">{count[month]}</div>
       </div>
     );
   });
@@ -152,7 +153,9 @@ export default function Dashboard() {
     return (
       <div className="stat place-items-center" key={createId()}>
         <div className="stat-title">{month}</div>
-        <div className="stat-value">{avgPain[month]?.toPrecision(2)}</div>
+        <div className="stat-value text-xl">
+          {avgPain[month]?.toPrecision(2)}
+        </div>
       </div>
     );
   });
@@ -216,19 +219,19 @@ export default function Dashboard() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <div>
-            <div className="rounded-xl bg-slate-200 p-3 text-lg">
-              <h3 className="pb-2 font-bold">Amount</h3>
-              <div className="stats shadow">{countData}</div>
+          <div className="mt-12 flex flex-col gap-2">
+            <div className="rounded-xl bg-white px-1 py-2 text-lg">
+              <h3 className="py-1 font-bold">Amount</h3>
+              <div className="stats min-w-full border shadow">{countData}</div>
             </div>
-            <div className="rounded-xl bg-slate-200 p-3 text-lg">
-              <h3 className="pb-2 font-bold">Duration</h3>
-              <div className="stats shadow">{timeData}</div>
+            <div className="rounded-xl bg-white px-1 py-2 text-lg">
+              <h3 className="py-1 font-bold">Duration</h3>
+              <div className="stats min-w-full border shadow">{timeData}</div>
             </div>
 
-            <div className="rounded-xl bg-slate-200 p-3 text-lg">
-              <h3 className="pb-2 font-bold">Avg. Pain</h3>
-              <div className="stats shadow">{painData}</div>
+            <div className="rounded-xl bg-white px-1 py-2 text-lg">
+              <h3 className="py-1 font-bold">Avg. Pain</h3>
+              <div className="stats min-w-full border shadow">{painData}</div>
             </div>
           </div>
         )}
