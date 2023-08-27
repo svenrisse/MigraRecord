@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
+import EventCard from "~/components/EventCard";
 import { api } from "../utils/api";
 import { TailSpin } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
@@ -171,10 +172,19 @@ export default function Dashboard() {
       </div>
     );
   });
+
+  const events = data?.map((event) => {
+    return (
+      <>
+        <EventCard key={event.id} event={event} />
+      </>
+    );
+  });
+
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
-        <div className="absolute top-12 rounded-xl bg-white p-2">
+      <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490] py-8">
+        <div className="rounded-xl bg-white p-2">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-center"
@@ -231,21 +241,29 @@ export default function Dashboard() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <div className="mt-12 flex flex-col gap-2">
-            <div className="rounded-xl bg-white px-1 py-2 text-lg">
-              <h3 className="py-1 font-bold">Amount</h3>
-              <div className="stats min-w-full border shadow">{countData}</div>
-            </div>
-            <div className="rounded-xl bg-white px-1 py-2 text-lg">
-              <h3 className="py-1 font-bold">Duration</h3>
-              <div className="stats min-w-full border shadow">{timeData}</div>
+          <>
+            <div className="mt-12 flex flex-col gap-2">
+              <div className="rounded-xl bg-white px-1 py-2 text-lg">
+                <h3 className="p-1 font-bold">Amount</h3>
+                <div className="stats min-w-full border shadow">
+                  {countData}
+                </div>
+              </div>
+              <div className="rounded-xl bg-white px-1 py-2 text-lg">
+                <h3 className="p-1 font-bold">Duration</h3>
+                <div className="stats min-w-full border shadow">{timeData}</div>
+              </div>
+
+              <div className="rounded-xl bg-white px-1 py-2 text-lg">
+                <h3 className="p-1 font-bold">Avg. Pain</h3>
+                <div className="stats min-w-full border shadow">{painData}</div>
+              </div>
             </div>
 
-            <div className="rounded-xl bg-white px-1 py-2 text-lg">
-              <h3 className="py-1 font-bold">Avg. Pain</h3>
-              <div className="stats min-w-full border shadow">{painData}</div>
+            <div className="flex w-9/12 flex-col gap-3 pb-20 pt-8">
+              {events?.reverse()}
             </div>
-          </div>
+          </>
         )}
       </main>
       <Navbar focused="dashboard" />
