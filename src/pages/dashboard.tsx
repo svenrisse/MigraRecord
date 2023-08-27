@@ -68,6 +68,17 @@ export default function Dashboard() {
   const avgDuration: { [key: string]: number | string } = {};
   const medicationAmount: { [key: string]: number } = {};
 
+  function calcMedAmount() {
+    data?.forEach((event) => {
+      const temp = format(event.startTime, "LLLL");
+      if (event.medications) {
+        medicationAmount[temp] = medicationAmount[temp]
+          ? medicationAmount[temp]! + 1
+          : 1;
+      }
+    });
+  }
+
   function calcPain() {
     data?.forEach((event) => {
       const temp = format(event.startTime, "LLLL");
@@ -129,6 +140,7 @@ export default function Dashboard() {
 
   calcPain();
   calcDuration();
+  calcMedAmount();
 
   const timeData = Object.keys(totalDuration).map((month) => {
     return (
