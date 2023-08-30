@@ -9,37 +9,52 @@ import { MdSpaceDashboard } from "react-icons/md";
 
 export default function Navbar({ focused }: { focused?: string }) {
   return (
-    <div className="fixed bottom-0 flex w-screen justify-evenly rounded-t-lg bg-slate-300 pt-1">
-      <Link href={"/dashboard"}>
-        <MdSpaceDashboard
-          size={"3rem"}
-          className={focused == "dashboard" ? "fill-cyan-700" : ""}
-        />
-      </Link>
-      <Link href={"/addevent"}>
-        <AiFillPlusCircle
-          size={"3rem"}
-          className={focused == "addevent" ? "fill-cyan-700" : ""}
-        />
-      </Link>
-      <Link href={"/list"}>
-        <AiOutlineUnorderedList
-          size={"3rem"}
-          className={focused == "list" ? "fill-cyan-700" : ""}
-        />
-      </Link>
-      <Link href={"/calender"}>
-        <AiFillCalendar
-          size={"3rem"}
-          className={focused == "calender" ? "fill-cyan-700" : ""}
-        />
-      </Link>
-      <Link href={"/settings"}>
-        <AiFillSetting
-          size={"3rem"}
-          className={focused == "settings" ? "fill-cyan-700" : ""}
-        />
-      </Link>
+    <div className="btm-nav bg-background">
+      <button
+        className={`${
+          focused === "dashboard" && "active border-t-2"
+        }  bg-background text-primary`}
+      >
+        <Link href={"/dashboard"}>
+          <MdSpaceDashboard size={"3rem"} />
+        </Link>
+      </button>
+      <button
+        className={`${
+          focused === "addevent" && "active border-t-2"
+        }  bg-background text-primary`}
+      >
+        <Link href={"/addevent"}>
+          <AiFillPlusCircle size={"3rem"} />
+        </Link>
+      </button>
+      <button
+        className={`${
+          focused === "list" && "active border-t-2"
+        }  bg-background text-primary`}
+      >
+        <Link href={"/list"}>
+          <AiOutlineUnorderedList size={"3rem"} />
+        </Link>
+      </button>
+      <button
+        className={`${
+          focused === "calender" && "active border-t-2"
+        }  bg-background text-primary`}
+      >
+        <Link href={"/calender"}>
+          <AiFillCalendar size={"3rem"} />
+        </Link>
+      </button>
+      <button
+        className={`${
+          focused === "settings" && "active border-t-2"
+        }  bg-background text-primary`}
+      >
+        <Link href={"/settings"}>
+          <AiFillSetting size={"3rem"} />
+        </Link>
+      </button>
     </div>
   );
 }
