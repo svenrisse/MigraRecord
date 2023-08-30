@@ -2,16 +2,16 @@ import type { settingsInput as Inputs } from "~/types/types";
 import { settingsFormSchema as settingsSchema } from "~/types/types";
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Modal from "react-modal";
-
+import { useTheme } from "next-themes";
 export default function Settings() {
+  const { theme, setTheme } = useTheme();
   const { data } = api.user.getUserData.useQuery();
 
   const { mutateAsync: addQuestion, isLoading: questionIsLoading } =
@@ -65,15 +65,7 @@ export default function Settings() {
     );
   });
 
-  const [modalIsOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   const router = useRouter();
   const { data: authData, status } = useSession();
@@ -106,13 +98,13 @@ export default function Settings() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-background">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-base-100">
         <div className="flex w-11/12 flex-col items-center gap-5">
           <button
             className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("medications");
-              openModal();
+              window.my_modal_2.showModal();
             }}
           >
             Edit Medications
@@ -121,10 +113,16 @@ export default function Settings() {
             className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("questions");
-              openModal();
+              window.my_modal_2.showModal();
             }}
           >
             Edit Questions
+          </button>
+          <button className="btn" onClick={() => setTheme("customlight")}>
+            Light Mode
+          </button>
+          <button className="btn" onClick={() => setTheme("customdark")}>
+            Dark Mode
           </button>
           <button
             className="btn-error btn w-36 font-bold text-white"
@@ -133,67 +131,49 @@ export default function Settings() {
             Logout
           </button>
         </div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
-        >
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
-            <div>
-              {modalContent === "questions" ? (
-                <div className="flex flex-col items-center gap-2">
-                  {userQuestions}
-                </div>
-              ) : (
-                <div className="flex flex-col items-center gap-2">
-                  {userMedications}
-                </div>
-              )}
-            </div>
-            <div className="flex h-10 gap-4 px-2">
-              <input
-                type="text"
-                className="w-10/12 rounded-lg text-center"
-                placeholder="Add new..."
-                {...register("content")}
-                min={1}
-              ></input>
-              <button
-                className="w-14 rounded-xl bg-cyan-600 px-4 py-2"
-                type="submit"
-                disabled={questionIsLoading || medicationIsLoading}
-              >
-                {medicationIsLoading || questionIsLoading ? (
-                  <svg
-                    className="h-5 w-5 animate-spin text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
+        {/* Open the modal using ID.showModal() method */}
+        <dialog id="my_modal_2" className="modal">
+          <form method="dialog" className="modal-box bg-background">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
+              <div>
+                {modalContent === "questions" ? (
+                  <div className="flex flex-col items-center gap-2">
+                    {userQuestions}
+                  </div>
                 ) : (
-                  <div>+</div>
+                  <div className="flex flex-col items-center gap-2">
+                    {userMedications}
+                  </div>
                 )}
-              </button>
-            </div>
+              </div>
+              <div className="flex items-center gap-4 px-2">
+                <input
+                  type="text"
+                  className="input-bordered input-primary input w-10/12 bg-background"
+                  placeholder="Add new..."
+                  {...register("content")}
+                  min={1}
+                ></input>
+                <div
+                  className="btn-primary btn text-xl text-white"
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  {medicationIsLoading || questionIsLoading ? (
+                    <span className="loading loading-spinner loading-lg"></span>
+                  ) : (
+                    <div>+</div>
+                  )}
+                </div>
+              </div>
+            </form>
           </form>
-        </Modal>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
       </main>
       <Navbar focused="settings" />
     </>
