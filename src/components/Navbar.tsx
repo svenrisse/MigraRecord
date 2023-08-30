@@ -9,11 +9,11 @@ import { MdSpaceDashboard } from "react-icons/md";
 
 export default function Navbar({ focused }: { focused?: string }) {
   return (
-    <div className="btm-nav bg-background">
+    <div className="btm-nav">
       <button
         className={`${
           focused === "dashboard" && "active border-t-2"
-        }  bg-background text-primary`}
+        }  bg-base-100 text-primary`}
       >
         <Link href={"/dashboard"}>
           <MdSpaceDashboard size={"3rem"} />
@@ -22,7 +22,7 @@ export default function Navbar({ focused }: { focused?: string }) {
       <button
         className={`${
           focused === "addevent" && "active border-t-2"
-        }  bg-background text-primary`}
+        }  bg-base-100 text-primary`}
       >
         <Link href={"/addevent"}>
           <AiFillPlusCircle size={"3rem"} />
@@ -31,7 +31,7 @@ export default function Navbar({ focused }: { focused?: string }) {
       <button
         className={`${
           focused === "list" && "active border-t-2"
-        }  bg-background text-primary`}
+        }  bg-base-100 text-primary`}
       >
         <Link href={"/list"}>
           <AiOutlineUnorderedList size={"3rem"} />
@@ -40,7 +40,7 @@ export default function Navbar({ focused }: { focused?: string }) {
       <button
         className={`${
           focused === "calender" && "active border-t-2"
-        }  bg-background text-primary`}
+        }  bg-base-100 text-primary`}
       >
         <Link href={"/calender"}>
           <AiFillCalendar size={"3rem"} />
@@ -49,7 +49,7 @@ export default function Navbar({ focused }: { focused?: string }) {
       <button
         className={`${
           focused === "settings" && "active border-t-2"
-        }  bg-background text-primary`}
+        }  bg-base-100 text-primary`}
       >
         <Link href={"/settings"}>
           <AiFillSetting size={"3rem"} />
