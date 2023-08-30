@@ -26,3 +26,9 @@ export const questionFormSchema = object({
 });
 
 export type questionInputs = z.infer<typeof questionFormSchema>;
+
+export const settingsFormSchema = object({
+  content: string().min(1).max(22),
+});
+
+export type settingsInput = z.infer<typeof settingsFormSchema>;
