@@ -1,6 +1,6 @@
 import type { dashboardInputs as Inputs } from "../types/types";
 import { dashboardFormSchema as dashboardSchema } from "../types/types";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
@@ -19,6 +19,7 @@ import {
 } from "date-fns";
 import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
+import { useReactToPrint } from "react-to-print";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -30,6 +31,11 @@ export default function Dashboard() {
 
   const [dates, setDates] = useState<Inputs>({
     endDate: new Date(),
+  });
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
   });
 
   const { data, isFetching } = api.event.getEventDashboard.useQuery(
@@ -243,6 +249,7 @@ export default function Dashboard() {
                 <div>Save</div>
               )}
             </button>
+            <button onClick={handlePrint}>Print</button>
           </form>
         </div>
         {isFetching ? (
@@ -251,7 +258,7 @@ export default function Dashboard() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <>
+          <div className="flex flex-col items-center" ref={componentRef}>
             <div className="mt-12 flex flex-col gap-2">
               <div className="rounded-xl bg-white px-1 py-2 text-lg">
                 <div className="flex items-center">
@@ -275,10 +282,10 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="flex w-9/12 flex-col gap-3 pb-20 pt-8">
+            <div className="flex w-9/12 flex-col items-center gap-3 pb-20 pt-8 lg:flex-row lg:flex-wrap">
               {events?.reverse()}
             </div>
-          </>
+          </div>
         )}
       </main>
       <Navbar focused="dashboard" />
