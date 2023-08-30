@@ -150,7 +150,7 @@ export default function Settings() {
         </div>
         {/* Open the modal using ID.showModal() method */}
         <dialog id="my_modal_2" className="modal">
-          <form method="dialog" className="modal-box bg-background">
+          <form method="dialog" className="modal-box bg-base-100">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
@@ -169,7 +169,7 @@ export default function Settings() {
               <div className="flex items-center gap-4 px-2">
                 <input
                   type="text"
-                  className="input-bordered input-primary input w-10/12 bg-background"
+                  className="input-bordered input-primary input w-10/12 bg-base-100"
                   placeholder="Add new..."
                   {...register("content")}
                   min={1}
