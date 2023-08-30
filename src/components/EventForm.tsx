@@ -1,8 +1,8 @@
+import type { eventInputs as Inputs } from "../types/types";
+import { dashboardFormSchema as eventSchema } from "../types/types";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { api } from "../utils/api";
-import { object, string, array, coerce, number } from "zod";
-import type { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -13,18 +13,6 @@ import { useState } from "react";
 import MedicationModal from "./MedicationModal";
 import MedicationCard from "./MedicationCard";
 import moment from "moment";
-
-export const eventSchema = object({
-  id: string().optional(),
-  startTime: coerce.date().or(string()),
-  endTime: coerce.date().nullish().or(string()),
-  type: string().nullish(),
-  painScale: number().nullish(),
-  note: string().nullish(),
-  questions: array(string()),
-});
-
-type Inputs = z.infer<typeof eventSchema>;
 
 export default function EventForm({ id }: { id?: string }) {
   const [modalIsOpen, setIsOpen] = useState(false);
