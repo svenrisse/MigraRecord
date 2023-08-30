@@ -20,6 +20,7 @@ import {
 import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
 import { useReactToPrint } from "react-to-print";
+import { AiFillPrinter } from "react-icons/ai";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -249,9 +250,14 @@ export default function Dashboard() {
                 <div>Save</div>
               )}
             </button>
-            <button onClick={handlePrint}>Print</button>
           </form>
         </div>
+        <button
+          className="btn-success btn absolute right-4 top-10"
+          onClick={handlePrint}
+        >
+          <AiFillPrinter size={"2rem"} />
+        </button>
         {isFetching ? (
           <div className="rounded-lg bg-slate-200 px-8 py-6">
             <TailSpin color="cyan" />
