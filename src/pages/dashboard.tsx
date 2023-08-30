@@ -1,3 +1,6 @@
+import type { dashboardInputs as Inputs } from "../types/types";
+import { dashboardFormSchema as dashboardSchema } from "../types/types";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
@@ -7,8 +10,6 @@ import { TailSpin } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { coerce, object } from "zod";
-import type { z } from "zod";
 import { DevTool } from "@hookform/devtools";
 import {
   subMonths,
@@ -16,15 +17,8 @@ import {
   intervalToDuration,
   formatDuration,
 } from "date-fns";
-import { useState } from "react";
 import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
-
-export const dashboardSchema = object({
-  endDate: coerce.date(),
-});
-
-type Inputs = z.infer<typeof dashboardSchema>;
 
 export default function Dashboard() {
   const router = useRouter();
