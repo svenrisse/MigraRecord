@@ -107,9 +107,9 @@ export default function Settings() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-center bg-background">
-        <div className="flex w-11/12 flex-col items-center gap-3 rounded-lg bg-gray-50 px-2 py-4">
+        <div className="flex w-11/12 flex-col items-center gap-5">
           <button
-            className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
+            className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("medications");
               openModal();
@@ -118,7 +118,7 @@ export default function Settings() {
             Edit Medications
           </button>
           <button
-            className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white"
+            className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("questions");
               openModal();
@@ -127,7 +127,7 @@ export default function Settings() {
             Edit Questions
           </button>
           <button
-            className="rounded-xl border-2 bg-red-400 px-4 py-2 font-bold text-white"
+            className="btn-error btn w-36 font-bold text-white"
             onClick={() => void signOut()}
           >
             Logout
