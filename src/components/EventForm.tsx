@@ -1,18 +1,17 @@
 import type { eventInputs as Inputs } from "../types/types";
 import { dashboardFormSchema as eventSchema } from "../types/types";
-import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
-import { api } from "../utils/api";
-import { createId } from "@paralleldrive/cuid2";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
-import { TailSpin } from "react-loader-spinner";
-import { useEffect } from "react";
-import { addHours } from "date-fns";
-import { useState } from "react";
 import MedicationModal from "./MedicationModal";
 import MedicationCard from "./MedicationCard";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { api } from "../utils/api";
+import { TailSpin } from "react-loader-spinner";
+import { useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import moment from "moment";
+import { createId } from "@paralleldrive/cuid2";
 
 export default function EventForm({ id }: { id?: string }) {
   const [modalIsOpen, setIsOpen] = useState(false);
