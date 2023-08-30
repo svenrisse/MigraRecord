@@ -67,15 +67,29 @@ export default function Dashboard() {
   const avgPain: { [key: string]: number } = {};
   const totalDuration: { [key: string]: number | string } = {};
   const avgDuration: { [key: string]: number | string } = {};
-  const medicationAmount: { [key: string]: number } = {};
+  const migraineAmount: { [key: string]: number } = {};
+  const tensionAmount: { [key: string]: number } = {};
+  const otherAmount: { [key: string]: number } = {};
 
   function calcMedAmount() {
     data?.forEach((event) => {
       const temp = format(event.startTime, "LLLL");
       if (event.medications) {
-        medicationAmount[temp] = medicationAmount[temp]
-          ? medicationAmount[temp]! + 1
-          : 1;
+        switch (event.type) {
+          case "Migraine":
+            migraineAmount[temp] = migraineAmount[temp]
+              ? migraineAmount[temp]! + 1
+              : 1;
+            break;
+          case "Tension":
+            tensionAmount[temp] = tensionAmount[temp]
+              ? tensionAmount[temp]! + 1
+              : 1;
+            break;
+          case "Other":
+            otherAmount[temp] = otherAmount[temp] ? otherAmount[temp]! + 1 : 1;
+            break;
+        }
       }
     });
   }
@@ -93,9 +107,6 @@ export default function Dashboard() {
     for (const month in avgPain) {
       avgPain[month] = avgPain[month]! / count[month]!;
     }
-
-    console.log(count);
-    console.log(avgPain);
   }
 
   function calcDuration() {
@@ -158,6 +169,11 @@ export default function Dashboard() {
       <div className="stat place-items-center" key={createId()}>
         <div className="stat-title">{month}</div>
         <div className="stat-value text-xl">{count[month]}</div>
+        <div className="stat-desc">
+          {migraineAmount[month] ? migraineAmount[month] : 0} /{" "}
+          {tensionAmount[month] ? tensionAmount[month] : 0} /{" "}
+          {otherAmount[month] ? otherAmount[month] : 0}
+        </div>
       </div>
     );
   });
@@ -244,7 +260,12 @@ export default function Dashboard() {
           <>
             <div className="mt-12 flex flex-col gap-2">
               <div className="rounded-xl bg-white px-1 py-2 text-lg">
-                <h3 className="p-1 font-bold">Amount</h3>
+                <div className="flex items-center">
+                  <h3 className="p-1 font-bold">Amount</h3>
+                  <h4 className="ml-auto px-4 text-xs text-gray-500">
+                    Migraine / Tension / Other
+                  </h4>
+                </div>
                 <div className="stats min-w-full border shadow">
                   {countData}
                 </div>
