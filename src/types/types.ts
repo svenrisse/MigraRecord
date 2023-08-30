@@ -18,3 +18,11 @@ export const eventFormSchema = object({
 });
 
 export type eventInputs = z.infer<typeof eventFormSchema>;
+
+export const questionFormSchema = object({
+  name: string(),
+  amount: string(),
+  date: coerce.date(),
+});
+
+export type questionInputs = z.infer<typeof questionFormSchema>;
