@@ -108,7 +108,11 @@ export default function Settings() {
             className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("medications");
-              window.my_modal_2.showModal();
+              if (window) {
+                (
+                  document.getElementById("my_modal_2") as HTMLFormElement
+                ).showModal();
+              }
             }}
           >
             Edit Medications
@@ -117,7 +121,11 @@ export default function Settings() {
             className="btn-primary btn w-36 font-bold text-white"
             onClick={() => {
               setModalContent("questions");
-              window.my_modal_2.showModal();
+              if (window) {
+                (
+                  document.getElementById("my_modal_2") as HTMLFormElement
+                ).showModal();
+              }
             }}
           >
             Edit Questions
