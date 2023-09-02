@@ -165,11 +165,11 @@ export default function Settings() {
             >
               <div>
                 {modalContent === "questions" ? (
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col items-center gap-4">
                     {userQuestions}
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="flex flex-col items-center gap-4">
                     {userMedications}
                   </div>
                 )}
@@ -177,7 +177,7 @@ export default function Settings() {
               <div className="flex items-center gap-4 px-2">
                 <input
                   type="text"
-                  className="input-bordered input-primary input w-10/12 bg-base-100"
+                  className="input-bordered input-primary input w-10/12 bg-base-100 text-base-200"
                   placeholder="Add new..."
                   {...register("content")}
                   min={1}
