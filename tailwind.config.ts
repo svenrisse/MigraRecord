@@ -18,6 +18,7 @@ export default {
           secondary: "#164e63",
           accent: "#1e40af",
           "base-100": "#002233",
+          "base-200": "#ffffff"
         },
       },
       {
@@ -26,6 +27,7 @@ export default {
           secondary: "#164e63",
           accent: "#1e40af",
           "base-100": "#ffffff",
+          "base-200": "#002233"
         },
       },
     ],
