@@ -102,7 +102,13 @@ export default function Settings() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-base-100">
+      <main
+        className={`${
+          theme === "customlight"
+            ? "bg-[url('/blob-scene-white.svg')]"
+            : "bg-[url('/blob-scene.svg')]"
+        } flex min-h-screen flex-col items-center justify-center`}
+      >
         <div className="flex w-11/12 flex-col items-center gap-5">
           <button
             className="btn-primary btn w-36 font-bold text-white"
