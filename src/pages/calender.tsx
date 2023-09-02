@@ -10,7 +10,10 @@ import Modal from "react-modal";
 import EventCard from "~/components/EventCard";
 import { TailSpin } from "react-loader-spinner";
 
+import { useTheme } from "next-themes";
 export default function Calender() {
+  const { theme } = useTheme();
+
   const router = useRouter();
   const { data: authData, status } = useSession();
 
@@ -118,8 +121,14 @@ export default function Calender() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
-        <div className="w-11/12 rounded-lg bg-gray-50 px-2 py-4">
+      <main
+        className={`${
+          theme === "customlight"
+            ? "bg-[url('/blob-scene-white.svg')]"
+            : "bg-[url('/blob-scene.svg')]"
+        } flex min-h-screen flex-col items-center justify-center`}
+      >
+        <div className="w-11/12 rounded-lg bg-base-100 px-2 py-4">
           {eventsIsLoading ? (
             <div className="flex flex-col items-center justify-center py-4">
               <TailSpin color="cyan" />
