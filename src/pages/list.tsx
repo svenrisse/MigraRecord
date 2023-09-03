@@ -51,8 +51,8 @@ export default function List() {
           <ActiveRange setActiveRange={setActiveRange} />
         </div>
         {isInitialLoading ? (
-          <div className="rounded-lg bg-slate-200 px-8 py-6">
-            <TailSpin color="cyan" />
+          <div className="flex flex-col items-center rounded-lg bg-base-100 px-8 py-6 shadow-2xl">
+            <span className="loading loading-spinner loading-lg"></span>
             <p className="">Loading...</p>
           </div>
         ) : (
