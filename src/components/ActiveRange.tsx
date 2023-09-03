@@ -10,11 +10,11 @@ export default function ActiveRange({
   const [active, setActive] = useState("1");
   return (
     <>
-      <div className="mt-6 flex gap-4 rounded-xl bg-gray-50 px-2 py-2">
+      <div className="mt-6 flex gap-4 rounded-xl px-2 py-2">
         <button
           className={`${
-            active === "1" && "bg-cyan-600  text-white"
-          } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            active === "1" && "border-primary bg-primary text-white"
+          } btn-secondary btn w-16 font-extrabold`}
           onClick={() => {
             setActive("1");
             setActiveRange({
@@ -24,11 +24,10 @@ export default function ActiveRange({
         >
           1M
         </button>
-
         <button
           className={`${
-            active === "3" && "bg-cyan-600 text-white"
-          } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            active === "3" && "border-primary bg-primary text-white"
+          } btn-secondary btn w-16 font-extrabold`}
           onClick={() => {
             setActive("3");
             setActiveRange({
@@ -38,10 +37,11 @@ export default function ActiveRange({
         >
           3M
         </button>
+
         <button
           className={`${
-            active === "6" && "bg-cyan-600  text-white"
-          } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            active === "6" && "border-primary bg-primary text-white"
+          } btn-secondary btn w-16 font-extrabold`}
           onClick={() => {
             setActive("6");
             setActiveRange({
@@ -51,13 +51,16 @@ export default function ActiveRange({
         >
           6M
         </button>
+
         <button
           className={`${
-            active === "12" && "bg-cyan-600  text-white"
-          } rounded-xl  border-2 border-cyan-600 px-4 py-2 font-bold`}
+            active === "12" && "border-primary bg-primary text-white"
+          } btn-secondary btn w-16 font-extrabold`}
           onClick={() => {
             setActive("12");
-            setActiveRange({ limit: subMonths(new Date(), 12) });
+            setActiveRange({
+              limit: subMonths(new Date(), 12),
+            });
           }}
         >
           12M
