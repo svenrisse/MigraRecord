@@ -23,7 +23,7 @@ export default function Addevent() {
             : "bg-[url('/blob-scene.svg')]"
         } flex min-h-screen flex-col items-center justify-center bg-fixed pb-20 pt-6`}
       >
-        <div className="flex w-10/12 flex-col items-center rounded-xl bg-gray-50">
+        <div className="flex w-10/12 flex-col items-center rounded-xl bg-base-100">
           <EventForm id={id as string} />
         </div>
       </main>
