@@ -120,7 +120,7 @@ export default function Calender() {
           theme === "customlight"
             ? "bg-[url('/blob-scene-white.svg')]"
             : "bg-[url('/blob-scene.svg')]"
-        } flex min-h-screen flex-col items-center justify-center`}
+        } flex min-h-screen flex-col items-center justify-center bg-fixed`}
       >
         <div className="w-11/12 rounded-lg bg-base-100 px-2 py-4 shadow-2xl">
           {eventsIsLoading ? (

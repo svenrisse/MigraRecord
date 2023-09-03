@@ -107,7 +107,7 @@ export default function Settings() {
           theme === "customlight"
             ? "bg-[url('/blob-scene-white.svg')]"
             : "bg-[url('/blob-scene.svg')]"
-        } flex min-h-screen flex-col items-center justify-center`}
+        } flex min-h-screen flex-col items-center justify-center bg-fixed`}
       >
         <div className="flex w-11/12 flex-col items-center gap-5">
           <button
