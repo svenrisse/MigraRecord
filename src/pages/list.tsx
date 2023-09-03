@@ -7,12 +7,14 @@ import { useState } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { TailSpin } from "react-loader-spinner";
 import { subMonths } from "date-fns";
+import { useTheme } from "next-themes";
 
 export interface Limit {
   limit: Date;
 }
 
 export default function List() {
+  const { theme } = useTheme();
   const router = useRouter();
   const { data: authData, status } = useSession();
 
@@ -38,7 +40,13 @@ export default function List() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
+      <main
+        className={`${
+          theme === "customlight"
+            ? "bg-[url('/blob-scene-white.svg')]"
+            : "bg-[url('/blob-scene.svg')]"
+        } flex min-h-screen flex-col items-center justify-center`}
+      >
         <div className="absolute top-0">
           <ActiveRange setActiveRange={setActiveRange} />
         </div>
