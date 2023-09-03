@@ -45,7 +45,7 @@ export default function List() {
           theme === "customlight"
             ? "bg-[url('/blob-scene-white.svg')]"
             : "bg-[url('/blob-scene.svg')]"
-        } flex min-h-screen flex-col items-center justify-center`}
+        } flex min-h-screen flex-col items-center justify-center bg-fixed`}
       >
         <div className="absolute top-0">
           <ActiveRange setActiveRange={setActiveRange} />
