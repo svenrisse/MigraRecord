@@ -26,7 +26,7 @@ export default function MedicationCard({
     });
   }
   return (
-    <div className="flex w-11/12 items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 bg-white px-2 py-1">
+    <div className="flex w-11/12 items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 bg-secondary px-2 py-1 font-semibold text-white">
       <div className="flex items-center justify-start">
         <div className="w-4 text-center text-sm">{medication.amount} </div>
         <span className="w-4 text-center text-sm text-gray-600">x</span>
