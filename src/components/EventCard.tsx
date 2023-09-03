@@ -62,7 +62,7 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full max-w-md rounded-xl bg-gray-50 p-2">
+      <div className="w-full max-w-md rounded-xl bg-base-100 p-2 shadow-2xl">
         <div className="flex items-center justify-center gap-2">
           <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1">
             <div>{event?.startTime.toLocaleDateString()}</div>
