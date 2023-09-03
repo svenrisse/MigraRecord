@@ -111,8 +111,8 @@ export default function EventForm({ id }: { id?: string }) {
           className={`${
             watchQuestions &&
             watchQuestions.includes(question.text) &&
-            "bg-cyan-900 text-white"
-          } cursor-pointer rounded-xl border-2 border-cyan-900 px-2 py-1 text-center`}
+            "bg-secondary text-white"
+          } cursor-pointer rounded-xl border-2 border-secondary px-2 py-1 text-center`}
         >
           {question.text}
         </div>
@@ -149,15 +149,19 @@ export default function EventForm({ id }: { id?: string }) {
         {!id ? (
           <div className="flex flex-col items-center gap-4 py-12">
             <div>
-              <h4 className="text-center text-gray-500">Enter start time:</h4>
-              <input
-                type="datetime-local"
-                {...register("startTime")}
-                className="rounded-md border-2 border-cyan-900 bg-white p-1"
-                required
-              />
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Start Time</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  className="input-bordered input-primary input w-full max-w-xs"
+                  {...register("startTime")}
+                  required
+                />
+              </div>
             </div>
-            <button className="rounded-xl border-2 bg-cyan-600 px-4 py-2 font-bold text-white">
+            <button className="btn-primary btn font-bold text-white">
               Save
             </button>
           </div>
