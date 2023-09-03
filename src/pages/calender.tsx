@@ -128,7 +128,7 @@ export default function Calender() {
             : "bg-[url('/blob-scene.svg')]"
         } flex min-h-screen flex-col items-center justify-center`}
       >
-        <div className="w-11/12 rounded-lg bg-base-100 px-2 py-4">
+        <div className="w-11/12 rounded-lg bg-base-100 px-2 py-4 shadow-2xl">
           {eventsIsLoading ? (
             <div className="flex flex-col items-center justify-center py-4">
               <TailSpin color="cyan" />
