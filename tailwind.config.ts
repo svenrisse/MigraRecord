@@ -16,18 +16,18 @@ export default {
         customdark: {
           primary: "#0891b2",
           secondary: "#164e63",
-          accent: "#1e40af",
+          accent: "#22d3ee",
           "base-100": "#002233",
-          "base-200": "#ffffff"
+          "base-200": "#ffffff",
         },
       },
       {
         customlight: {
-          primary: "#0891b2",
+          primary: "#06b6d4",
           secondary: "#164e63",
-          accent: "#1e40af",
-          "base-100": "#ffffff",
-          "base-200": "#002233"
+          accent: "#22d3ee",
+          "base-100": "#f5f5f5",
+          "base-200": "#002233",
         },
       },
     ],
