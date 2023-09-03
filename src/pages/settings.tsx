@@ -147,7 +147,7 @@ export default function Settings() {
               </svg>
             ) : (
               <svg
-                className="h-10 w-10 fill-current"
+                className="h-10 w-10 fill-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
