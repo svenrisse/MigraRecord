@@ -1,5 +1,3 @@
-import type { settingsInput as Inputs } from "~/types/types";
-import { settingsFormSchema as settingsSchema } from "~/types/types";
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
 import { useState } from "react";
@@ -10,6 +8,14 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Modal from "react-modal";
+import { string, object } from "zod";
+import type { z } from "zod";
+
+export const settingsSchema = object({
+  content: string().min(1).max(22),
+});
+
+export type Inputs = z.infer<typeof settingsSchema>;
 
 export default function Settings() {
   const { data } = api.user.getUserData.useQuery();

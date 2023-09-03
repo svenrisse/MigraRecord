@@ -1,5 +1,3 @@
-import type { dashboardInputs as Inputs } from "../types/types";
-import { dashboardFormSchema as dashboardSchema } from "../types/types";
 import { useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -21,6 +19,14 @@ import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
 import { useReactToPrint } from "react-to-print";
 import { AiFillPrinter } from "react-icons/ai";
+import { coerce, object } from "zod";
+import type { z } from "zod";
+
+export const dashboardSchema = object({
+  endDate: coerce.date(),
+});
+
+export type Inputs = z.infer<typeof dashboardSchema>;
 
 export default function Dashboard() {
   const router = useRouter();

@@ -1,11 +1,19 @@
-import type { questionInputs as Inputs } from "~/types/types";
-import { questionFormSchema as questionSchema } from "~/types/types";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { api } from "~/utils/api";
+import { string, coerce, object } from "zod";
+import type { z } from "zod";
+
+export const questionSchema = object({
+  name: string(),
+  amount: string(),
+  date: coerce.date(),
+});
+
+export type Inputs = z.infer<typeof questionSchema>;
 
 export default function MedicationModal({
   modalIsOpen,
