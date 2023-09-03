@@ -14,7 +14,7 @@ export default function ActiveRange({
         <button
           className={`${
             active === "1" && "border-primary bg-primary text-white"
-          } btn-secondary btn w-16 font-extrabold`}
+          } btn-secondary btn w-16 font-extrabold shadow-2xl`}
           onClick={() => {
             setActive("1");
             setActiveRange({
@@ -27,7 +27,7 @@ export default function ActiveRange({
         <button
           className={`${
             active === "3" && "border-primary bg-primary text-white"
-          } btn-secondary btn w-16 font-extrabold`}
+          } btn-secondary btn w-16 font-extrabold shadow-2xl`}
           onClick={() => {
             setActive("3");
             setActiveRange({
@@ -41,7 +41,7 @@ export default function ActiveRange({
         <button
           className={`${
             active === "6" && "border-primary bg-primary text-white"
-          } btn-secondary btn w-16 font-extrabold`}
+          } btn-secondary btn w-16 font-extrabold shadow-2xl`}
           onClick={() => {
             setActive("6");
             setActiveRange({
@@ -55,7 +55,7 @@ export default function ActiveRange({
         <button
           className={`${
             active === "12" && "border-primary bg-primary text-white"
-          } btn-secondary btn w-16 font-extrabold`}
+          } btn-secondary btn w-16 font-extrabold shadow-2xl`}
           onClick={() => {
             setActive("12");
             setActiveRange({
