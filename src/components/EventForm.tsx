@@ -155,7 +155,7 @@ export default function EventForm({ id }: { id?: string }) {
                 </label>
                 <input
                   type="datetime-local"
-                  className="input-bordered input-primary input w-full max-w-xs"
+                  className="input-bordered input-primary input w-full max-w-xs font-semibold"
                   {...register("startTime")}
                   required
                 />
@@ -170,31 +170,38 @@ export default function EventForm({ id }: { id?: string }) {
             <div {...register("id")} className="hidden" />
 
             <div className="flex flex-col items-center gap-1 pt-1">
-              <h4 className="text-gray-500">Start time:</h4>
-              <input
-                type="datetime-local"
-                {...register("startTime")}
-                className="rounded-md border-2 border-cyan-900 bg-white p-1"
-                required
-              />
-              <h4 className="text-gray-500">End time:</h4>
-              <input
-                type="datetime-local"
-                {...register("endTime")}
-                className="rounded-md border-2 border-cyan-900 bg-white p-1"
-              />
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Start Time</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  className="input-bordered input-primary input w-full max-w-xs font-semibold"
+                  {...register("startTime")}
+                  required
+                />
+              </div>
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">End Time</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  className="input-bordered input-primary input w-full max-w-xs font-semibold"
+                  {...register("endTime")}
+                />
+              </div>
             </div>
-
             <input {...register("type")} className="hidden" />
             <h3 className="text-gray-500">
               What type of headache do you have?
             </h3>
 
-            <div className="flex w-full justify-evenly">
+            <div className="flex w-full gap-3">
               <button
                 className={`${
-                  watchType == "Migraine" && "bg-cyan-600 font-bold text-white"
-                } w-20 rounded-xl border-2 border-cyan-600 py-2`}
+                  watchType == "Migraine" && "bg-cyan-400 font-bold"
+                }  btn-accent btn w-20 bg-base-100`}
                 type="button"
                 onClick={() => setValue("type", "Migraine")}
               >
@@ -202,8 +209,8 @@ export default function EventForm({ id }: { id?: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Tension" && "bg-blue-800 font-bold text-white"
-                } w-20 rounded-xl border-2 border-blue-800 py-2`}
+                  watchType == "Tension" && "bg-primary font-bold"
+                } btn-primary  btn w-20 bg-base-100 `}
                 type="button"
                 onClick={() => setValue("type", "Tension")}
               >
@@ -211,8 +218,8 @@ export default function EventForm({ id }: { id?: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Other" && "bg-cyan-900 font-bold text-white"
-                } w-20 rounded-xl border-2 border-cyan-900 py-2`}
+                  watchType == "Other" && "bg-secondary font-bold"
+                } btn-secondary btn w-20 bg-base-100 text-black`}
                 type="button"
                 onClick={() => setValue("type", "Other")}
               >
