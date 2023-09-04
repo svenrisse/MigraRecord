@@ -19,6 +19,7 @@ export default {
           accent: "#22d3ee",
           "base-100": "#002233",
           "base-200": "#ffffff",
+          "base-300": "black",
         },
       },
       {
@@ -28,6 +29,7 @@ export default {
           accent: "#22d3ee",
           "base-100": "#f5f5f5",
           "base-200": "#002233",
+          "base-300": "white",
         },
       },
     ],
