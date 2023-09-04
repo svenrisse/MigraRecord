@@ -12,8 +12,10 @@ import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import moment from "moment";
 import { createId } from "@paralleldrive/cuid2";
+import { useTheme } from "next-themes";
 
 export default function EventForm({ id }: { id?: string }) {
+  const { theme } = useTheme();
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -197,7 +199,7 @@ export default function EventForm({ id }: { id?: string }) {
               What type of headache do you have?
             </h3>
 
-            <div className="flex w-full gap-3">
+            <div className="flex w-full justify-center gap-3">
               <button
                 className={`${
                   watchType == "Migraine" && "bg-cyan-400 font-bold"
@@ -226,15 +228,14 @@ export default function EventForm({ id }: { id?: string }) {
                 Other
               </button>
             </div>
-
             <input {...register("painScale")} hidden defaultValue={0} />
             <h3 className="text-gray-500">Rate your pain:</h3>
             <div className="flex w-full flex-col items-center gap-2">
-              <div className="flex gap-3">
+              <div className="flex w-11/12 flex-wrap justify-center gap-2">
                 <button
                   className={`${
-                    watchPain == 1 && "bg-cyan-100"
-                  } h-10 w-10 rounded-full border-4 border-cyan-100 font-bold`}
+                    watchPain == 1 && "bg-cyan-100 text-base-300"
+                  } btn-outline btn-md btn-circle btn border-cyan-100 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 1)}
                 >
@@ -242,8 +243,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 2 && "bg-cyan-200"
-                  } h-10 w-10 rounded-full border-4 border-cyan-200 font-bold`}
+                    watchPain == 2 && "bg-cyan-200 text-base-300"
+                  } btn-outline btn-circle btn border-cyan-200 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 2)}
                 >
@@ -251,8 +252,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 3 && "bg-cyan-300"
-                  } h-10 w-10 rounded-full border-4 border-cyan-300 font-bold`}
+                    watchPain == 3 && "bg-cyan-300 text-base-300"
+                  } btn-outline btn-circle btn border-cyan-300 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 3)}
                 >
@@ -260,8 +261,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 4 && "bg-cyan-400"
-                  } h-10 w-10 rounded-full border-4 border-cyan-400 font-bold`}
+                    watchPain == 4 && "bg-cyan-400 text-base-300"
+                  } btn-outline btn-circle btn border-cyan-400 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 4)}
                 >
@@ -269,19 +270,17 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 5 && "bg-cyan-500"
-                  } h-10 w-10 rounded-full border-4 border-cyan-500 font-bold`}
+                    watchPain == 5 && "bg-cyan-500 text-base-300"
+                  } btn-outline btn-circle btn border-cyan-500 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 5)}
                 >
                   5
                 </button>
-              </div>
-              <div className="flex gap-3">
                 <button
                   className={`${
-                    watchPain == 6 && "bg-cyan-600"
-                  } h-10 w-10 rounded-full border-4 border-cyan-600 font-bold`}
+                    watchPain == 6 && "bg-cyan-600 text-white"
+                  } btn-outline btn-circle btn border-cyan-600 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 6)}
                 >
@@ -289,8 +288,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 7 && "bg-cyan-700"
-                  } h-10 w-10 rounded-full border-4 border-cyan-700 font-bold`}
+                    watchPain == 7 && "bg-cyan-700 text-white"
+                  } btn-outline btn-circle btn border-cyan-700 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 7)}
                 >
@@ -298,8 +297,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 8 && "bg-cyan-800"
-                  } h-10 w-10 rounded-full border-4 border-cyan-800 font-bold`}
+                    watchPain == 8 && "bg-cyan-800 text-white"
+                  } btn-outline btn-circle btn border-cyan-800 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 8)}
                 >
@@ -307,8 +306,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 9 && "bg-cyan-900"
-                  } h-10 w-10 rounded-full border-4 border-cyan-900 font-bold`}
+                    watchPain == 9 && "bg-cyan-900 text-white"
+                  } btn-outline btn-circle btn border-cyan-900 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 9)}
                 >
@@ -316,8 +315,8 @@ export default function EventForm({ id }: { id?: string }) {
                 </button>
                 <button
                   className={`${
-                    watchPain == 10 && "bg-cyan-950"
-                  } h-10 w-10 rounded-full border-4 border-cyan-950 font-bold`}
+                    watchPain == 10 && "bg-cyan-950 text-white"
+                  } btn-outline btn-circle btn border-cyan-950 font-bold`}
                   type="button"
                   onClick={() => setValue("painScale", 10)}
                 >
