@@ -202,8 +202,8 @@ export default function EventForm({ id }: { id?: string }) {
             <div className="flex w-full justify-center gap-3">
               <button
                 className={`${
-                  watchType == "Migraine" && "bg-cyan-400 font-bold"
-                }  btn-accent btn w-20 bg-base-100`}
+                  watchType == "Migraine" && "bg-cyan-400 font-extrabold"
+                }  btn-accent btn w-20 bg-base-100 text-base-200`}
                 type="button"
                 onClick={() => setValue("type", "Migraine")}
               >
@@ -211,8 +211,8 @@ export default function EventForm({ id }: { id?: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Tension" && "bg-primary font-bold"
-                } btn-primary  btn w-20 bg-base-100 `}
+                  watchType == "Tension" && "bg-primary font-extrabold"
+                } btn-primary  btn w-20 bg-base-100 text-base-200 `}
                 type="button"
                 onClick={() => setValue("type", "Tension")}
               >
@@ -220,8 +220,8 @@ export default function EventForm({ id }: { id?: string }) {
               </button>
               <button
                 className={`${
-                  watchType == "Other" && "bg-secondary font-bold"
-                } btn-secondary btn w-20 bg-base-100 text-black`}
+                  watchType == "Other" && "bg-secondary font-extrabold"
+                } btn-secondary btn w-20 bg-base-100 text-base-200`}
                 type="button"
                 onClick={() => setValue("type", "Other")}
               >
