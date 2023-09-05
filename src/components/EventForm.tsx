@@ -339,14 +339,19 @@ export default function EventForm({ id }: { id?: string }) {
                 </span>
               )}
               <button
-                className="rounded-xl border-2 bg-cyan-600 px-4 py-2 text-sm font-bold text-white"
+                className="btn-primary btn-sm btn font-bold text-white"
                 type="button"
-                onClick={openModal}
+                onClick={() => {
+                  if (window) {
+                    (
+                      document.getElementById("my_modal_2") as HTMLFormElement
+                    ).showModal();
+                  }
+                }}
               >
                 Edit
               </button>
             </div>
-
             <div>
               <h3 className="my-1 text-gray-500">
                 Please click on the applying questions:
@@ -400,13 +405,19 @@ export default function EventForm({ id }: { id?: string }) {
           </>
         )}
       </form>
-      <MedicationModal
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        medicationOptions={medicationOptions}
-        id={typeof id !== undefined ? (id as string) : ""}
-        eventMedications={eventMedications}
-      />
+
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box">
+          <MedicationModal
+            medicationOptions={medicationOptions}
+            id={typeof id !== undefined ? (id as string) : ""}
+            eventMedications={eventMedications}
+          />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   );
 }
