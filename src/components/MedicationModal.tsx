@@ -1,27 +1,21 @@
 import type { questionInputs as Inputs } from "~/types/types";
 import { questionFormSchema as questionSchema } from "~/types/types";
-import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import { api } from "~/utils/api";
 
 export default function MedicationModal({
-  modalIsOpen,
-  closeModal,
   medicationOptions,
   id,
   eventMedications,
 }: {
-  modalIsOpen: boolean;
-  closeModal: () => void;
   medicationOptions: JSX.Element[] | undefined;
   id: string;
   eventMedications: JSX.Element[] | undefined;
 }) {
   const utils = api.useContext();
-  const { control, reset, register, handleSubmit } = useForm<Inputs>({
+  const { reset, register, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(questionSchema),
   });
 
@@ -45,25 +39,21 @@ export default function MedicationModal({
     });
 
   return (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      className="fixed inset-x-0 top-1/4 mx-auto w-10/12 rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
-      appElement={document.getElementById("__next") as HTMLElement}
-    >
+    <div>
       <div className="mb-3 flex flex-col items-center gap-1">
         {eventMedications}
       </div>
+      <div className="divider"></div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 border-t-2 border-gray-400 pt-4 font-sans"
+        className="flex flex-col gap-2 pt-4 font-sans"
       >
         <div className="flex flex-col items-center gap-4">
           <select
             {...register("name")}
             name="name"
             required
-            className="w-min rounded-md border-2 border-cyan-900 bg-white p-1"
+            className="select-primary select select-sm w-min"
           >
             {medicationOptions}
           </select>
@@ -75,18 +65,18 @@ export default function MedicationModal({
               defaultValue={0}
               min={1}
               max={20}
-              className="lg w-8 rounded border-2 border-cyan-900 py-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="input-primary input h-10 w-10 p-0 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
           </div>
           <input
             type="datetime-local"
             {...register("date")}
-            className="rounded-md border-2 border-cyan-900 bg-white p-1"
+            className="input-bordered input-primary input input-sm max-w-xs font-semibold"
             required
           />
           <button
             type="submit"
-            className="rounded-xl bg-cyan-600 px-4 py-2 font-bold text-white"
+            className="btn-primary btn font-bold text-white"
           >
             {isLoading ? (
               <svg
@@ -115,8 +105,6 @@ export default function MedicationModal({
           </button>
         </div>
       </form>
-
-      <DevTool control={control} />
-    </Modal>
+    </div>
   );
 }
