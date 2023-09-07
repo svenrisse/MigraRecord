@@ -90,7 +90,7 @@ export default function EventCard({
           {event?.type ? (
             <div
               className={`${event.type === "Migraine" && "bg-primary"} ${
-                event.type === "Tension" && "bg-accent"
+                event.type === "Tension" && "bg-accent text-neutral-900"
               } ${
                 event.type === "Other" && "bg-secondary"
               } rounded-lg px-4 py-1 font-bold text-white`}
