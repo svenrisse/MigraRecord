@@ -26,15 +26,15 @@ export default function MedicationCard({
     });
   }
   return (
-    <div className="flex w-11/12 items-center justify-center gap-3 rounded-xl border-2 border-cyan-900 bg-secondary px-2 py-1 font-semibold text-white">
-      <div className="flex items-center justify-start">
+    <div className="flex w-11/12 items-center gap-3 rounded-xl border border-secondary bg-base-100 px-2 py-1 font-semibold text-base-200">
+      <div className="flex w-1/2 items-center justify-start">
         <div className="w-4 text-center text-sm">{medication.amount} </div>
         <span className="w-4 text-center text-sm text-gray-600">x</span>
 
         <div className="w-20 pl-1 text-center text-xs">{medication.name}</div>
       </div>
-      <div className="flex w-32 items-center gap-1 border-l-2 border-gray-300 pl-1">
-        <span className="text-sm text-gray-600">@</span>
+      <div className="divider divider-horizontal"></div>
+      <div className="flex w-1/2 items-center gap-1 pl-1">
         <div className="text-sm">
           {medication.time.toLocaleTimeString().slice(0, 5)}
           <span>, </span>
