@@ -3,7 +3,6 @@ import { dashboardFormSchema as eventSchema } from "../types/types";
 import MedicationModal from "./MedicationModal";
 import MedicationCard from "./MedicationCard";
 import { useEffect } from "react";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { api } from "../utils/api";
 import { TailSpin } from "react-loader-spinner";
@@ -12,19 +11,8 @@ import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import moment from "moment";
 import { createId } from "@paralleldrive/cuid2";
-import { useTheme } from "next-themes";
 
 export default function EventForm({ id }: { id?: string }) {
-  const { theme } = useTheme();
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
-
   const router = useRouter();
   const utils = api.useContext();
 
@@ -102,23 +90,17 @@ export default function EventForm({ id }: { id?: string }) {
 
   const questionCheckboxes = data?.Questions?.map((question) => {
     return (
-      <label key={createId()}>
-        <input
-          type="checkbox"
-          value={question.text}
-          {...register("questions")}
-          className="hidden"
-        />
-        <div
-          className={`${
-            watchQuestions &&
-            watchQuestions.includes(question.text) &&
-            "bg-secondary text-white"
-          } cursor-pointer rounded-xl border-2 border-secondary px-2 py-1 text-center`}
-        >
-          {question.text}
-        </div>
-      </label>
+      <div className="form-control w-6/12" key={createId()}>
+        <label className="label cursor-pointer">
+          <span className="label-text">{question.text}</span>
+          <input
+            type="checkbox"
+            value={question.text}
+            {...register("questions")}
+            className="checkbox-secondary checkbox"
+          />
+        </label>
+      </div>
     );
   });
 
@@ -339,7 +321,7 @@ export default function EventForm({ id }: { id?: string }) {
                 </span>
               )}
               <button
-                className="btn-primary btn-sm btn font-bold text-white"
+                className="btn-primary btn-sm btn mt-2 font-bold text-white"
                 type="button"
                 onClick={() => {
                   if (window) {
@@ -367,9 +349,9 @@ export default function EventForm({ id }: { id?: string }) {
               )}
             </div>
 
-            <h3 className="text-gray-500">Notes:</h3>
             <textarea
-              className="rounded-lg border-2 border-cyan-900 p-1"
+              className="textarea-primary textarea"
+              placeholder="Note"
               {...register("note")}
             />
 
