@@ -208,7 +208,7 @@ export default function Dashboard() {
           theme === "customlight"
             ? "bg-[url('/blob-scene-white.svg')]"
             : "bg-[url('/blob-scene.svg')]"
-        } flex min-h-screen flex-col items-center justify-center bg-fixed py-8`}
+        } flex min-h-screen flex-col items-center bg-fixed py-8`}
       >
         <div className="rounded-xl bg-base-100 p-2">
           <form
@@ -249,12 +249,11 @@ export default function Dashboard() {
           <AiFillPrinter size={"2rem"} />
         </button>
         {isFetching ? (
-          <div className="rounded-lg bg-slate-200 px-8 py-6">
-            <TailSpin color="cyan" />
-            <p className="">Loading...</p>
+          <div className="rounded-lg px-8 py-40">
+            <span className="loading loading-ring"></span>
           </div>
         ) : (
-          <div className="flex flex-col items-center" ref={componentRef}>
+          <div className="flex flex-col items-center py-6" ref={componentRef}>
             <div className="mt-4 flex flex-col gap-2">
               <div className="rounded-xl px-1 py-2 text-lg">
                 <div className="flex items-center">
