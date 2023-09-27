@@ -1,6 +1,4 @@
 
-import type { questionInputs as Inputs } from "~/types/types";
-import { questionFormSchema as questionSchema } from "~/types/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
