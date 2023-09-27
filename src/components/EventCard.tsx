@@ -9,6 +9,7 @@ import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import MedicationCard from "~/components/MedicationCard";
 import PainButton from "./PainButton";
+import { intervalToDuration, formatDuration } from "date-fns";
 
 export default function EventCard({
   event,
@@ -60,6 +61,22 @@ export default function EventCard({
     );
   });
 
+  const duration =
+    event?.endTime &&
+    formatDuration(
+      intervalToDuration({
+        start: event?.startTime as Date,
+        end: event?.endTime as Date,
+      }),
+      { format: ["days", "hours", "minutes"] }
+    )
+      .replace(" minutes", "m")
+      .replace(" minute", "m")
+      .replace(" hours", "h")
+      .replace(" hour", "h")
+      .replace(" days", "d")
+      .replace(" day", "d");
+
   return (
     <>
       <div className="w-full max-w-md rounded-xl bg-base-100 p-2 shadow-2xl">
@@ -89,11 +106,9 @@ export default function EventCard({
         <div className="mr-6 flex items-center justify-center gap-4 py-2">
           {event?.type ? (
             <div
-              className={`${event.type === "Migraine" && "bg-primary"} ${
-                event.type === "Tension" && "bg-accent text-neutral-900"
-              } ${
-                event.type === "Other" && "bg-secondary"
-              } rounded-lg px-4 py-1 font-bold text-white`}
+              className={`${event.type === "Migraine" && "bg-primary"} ${event.type === "Tension" && "bg-accent text-neutral-900"
+                } ${event.type === "Other" && "bg-secondary"
+                } rounded-lg px-4 py-1 font-bold text-white`}
             >
               {event.type}
             </div>
