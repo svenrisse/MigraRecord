@@ -8,6 +8,14 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
+import { string, object } from "zod";
+import type { z } from "zod";
+
+export const settingsFormSchema = object({
+  content: string().min(1).max(22),
+});
+
+export type settingsInput = z.infer<typeof settingsFormSchema>;
 
 export default function Settings() {
   const { theme, setTheme } = useTheme();
@@ -73,11 +81,11 @@ export default function Settings() {
     void router.push("/");
   }
 
-  const { register, handleSubmit, setValue } = useForm<Inputs>({
-    resolver: zodResolver(settingsSchema),
+  const { register, handleSubmit, setValue } = useForm<settingsInput>({
+    resolver: zodResolver(settingsFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<settingsInput> = (data) => {
     if (modalContent === "questions") {
       addQuestion({ text: data.content });
       setValue("content", "");
