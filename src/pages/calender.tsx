@@ -6,11 +6,12 @@ import { eachDayOfInterval, isSameDay, isWithinInterval } from "date-fns";
 import { api } from "../utils/api";
 import type { View } from "react-calendar/dist/cjs/shared/types";
 import { useState } from "react";
-import Modal from "react-modal";
 import EventCard from "~/components/EventCard";
-import { TailSpin } from "react-loader-spinner";
 
+import { useTheme } from "next-themes";
 export default function Calender() {
+  const { theme } = useTheme();
+
   const router = useRouter();
   const { data: authData, status } = useSession();
 
@@ -19,14 +20,6 @@ export default function Calender() {
   }
 
   const [modalContent, setModalContent] = useState<Date>();
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   const { data: selectedData, isLoading: singleEventIsLoading } =
     api.event.getEventByDate.useQuery({
@@ -110,20 +103,30 @@ export default function Calender() {
           })) ||
         isSameDay(value, event.startTime)
       ) {
-        openModal();
         setModalContent(event.startTime);
+        if (window) {
+          (
+            document.getElementById("my_modal_2") as HTMLFormElement
+          ).showModal();
+        }
       }
     });
   }
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0ea5e9] to-[#0e7490]">
-        <div className="w-11/12 rounded-lg bg-gray-50 px-2 py-4">
+      <main
+        className={`${
+          theme === "customlight"
+            ? "bg-[url('/blob-scene-white.svg')]"
+            : "bg-[url('/blob-scene.svg')]"
+        } flex min-h-screen flex-col items-center justify-center bg-fixed`}
+      >
+        <div className="w-11/12 rounded-lg bg-base-100 px-2 py-4 shadow-2xl">
           {eventsIsLoading ? (
-            <div className="flex flex-col items-center justify-center py-4">
-              <TailSpin color="cyan" />
-              <p>Loading...</p>
+            <div className="flex flex-col items-center rounded-lg px-8 py-6 shadow-2xl">
+              <span className="loading loading-spinner loading-lg"></span>
+              <p className="">Loading...</p>
             </div>
           ) : (
             <Calendar
@@ -137,20 +140,21 @@ export default function Calender() {
         </div>
       </main>
       <Navbar focused="calender" />
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        className="fixed inset-x-0 top-1/4 mx-auto flex w-3/4 flex-col items-center rounded-lg border-0 bg-slate-300 py-8 md:w-5/12 lg:w-1/4 lg:py-12 xl:w-1/5 2xl:w-1/6"
-      >
-        {singleEventIsLoading ? (
-          <div className="flex flex-col items-center justify-center py-4">
-            <TailSpin color="cyan" />
-            <p>Loading...</p>
-          </div>
-        ) : (
-          <EventCard event={selectedData && selectedData} />
-        )}
-      </Modal>
+      <dialog id="my_modal_2" className="modal">
+        <form method="dialog" className="modal-box">
+          {singleEventIsLoading ? (
+            <div className="flex flex-col items-center rounded-lg bg-base-100 px-8 py-6 shadow-2xl">
+              <span className="loading loading-spinner loading-lg"></span>
+              <p className="">Loading...</p>
+            </div>
+          ) : (
+            <EventCard event={selectedData && selectedData} />
+          )}
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </>
   );
 }

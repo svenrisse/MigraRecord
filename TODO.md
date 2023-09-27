@@ -1,9 +1,9 @@
 #A: Features
 
-- dashboard
-- print feature
-- list view: buttons for date ranges
-- add auth providers
+- calender colors for types
+- lightest = migraine, darkest = other
+- legend
+- duration in list
 
 ---
 
@@ -12,5 +12,3 @@
 ---
 
 #C: Changes
-
-- calender colors for types

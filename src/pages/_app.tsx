@@ -3,7 +3,7 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
-
+import { ThemeProvider } from "next-themes";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
@@ -23,9 +23,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <ThemeProvider defaultTheme="system">
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </ThemeProvider>
       <ReactQueryDevtools position="top-left" />
     </>
   );

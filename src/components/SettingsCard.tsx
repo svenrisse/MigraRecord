@@ -11,11 +11,12 @@ export default function SettingsCard({
 }) {
   return (
     <>
-      <div className="flex w-10/12 items-center rounded-lg bg-gray-50 px-2 py-2 text-sm">
+      <div className="text-md flex w-11/12 items-center rounded-lg bg-primary px-3 py-3 font-bold text-base-100">
         <div>{content}</div>
         <BsFillTrashFill
           className="ml-auto"
           onClick={() => handleDeleteClick(id)}
+          size={"1.25rem"}
         />
       </div>
     </>

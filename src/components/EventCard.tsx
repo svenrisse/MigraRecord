@@ -62,9 +62,9 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full max-w-md rounded-xl bg-gray-50 p-2">
-        <div className="flex items-center justify-center gap-2">
-          <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1">
+      <div className="w-full max-w-md rounded-xl bg-base-100 p-2 shadow-2xl">
+        <div className="flex items-center justify-center gap-2 font-semibold">
+          <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
             <div>{event?.startTime.toLocaleDateString()}</div>
             <div className="text-sm">
               {event?.startTime.toLocaleTimeString().slice(0, 5)}
@@ -73,14 +73,14 @@ export default function EventCard({
           <div className="font-bold"> - </div>
           <div>
             {event?.endTime ? (
-              <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1">
+              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
                 <div>{event?.endTime?.toLocaleDateString()}</div>
                 <div className="text-sm">
                   {event.endTime.toLocaleTimeString().slice(0, 5)}
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center rounded-lg border-2 border-cyan-900 px-2 py-1  text-gray-500">
+              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1  text-gray-500">
                 No End Time
               </div>
             )}
@@ -89,16 +89,16 @@ export default function EventCard({
         <div className="mr-6 flex items-center justify-center gap-4 py-2">
           {event?.type ? (
             <div
-              className={`${event.type === "Migraine" && "bg-cyan-600"} ${
-                event.type === "Tension" && "bg-blue-800"
+              className={`${event.type === "Migraine" && "bg-primary"} ${
+                event.type === "Tension" && "bg-accent text-neutral-900"
               } ${
-                event.type === "Other" && "bg-cyan-900"
+                event.type === "Other" && "bg-secondary"
               } rounded-lg px-4 py-1 font-bold text-white`}
             >
               {event.type}
             </div>
           ) : (
-            <div className="rounded-lg border-2 border-cyan-900 px-2 py-1 text-gray-500">
+            <div className="rounded-lg border-2 border-secondary px-2 py-1 text-gray-500">
               No Type
             </div>
           )}
@@ -110,7 +110,7 @@ export default function EventCard({
             />
           ) : (
             <div
-              className=" flex h-10 w-10 items-center justify-center rounded-full border-4 border-gray-500 font-bold text-gray-500"
+              className=" flex h-10 w-10 items-center justify-center rounded-full border-4 border-secondary font-bold text-gray-500"
               title="Pain"
             >
               ?
@@ -144,13 +144,13 @@ export default function EventCard({
           <button onClick={openModal}>
             <BsFillTrashFill
               size={"1.6rem"}
-              className="cursor-pointer fill-cyan-900"
+              className="cursor-pointer fill-secondary"
             />
           </button>
           <Link href={`/edit/${event && event.id}`} className="ml-auto">
             <AiFillEdit
               size={"1.7rem"}
-              className="cursor-pointer fill-cyan-900"
+              className="cursor-pointer fill-secondary"
             />
           </Link>
         </div>
