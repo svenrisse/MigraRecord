@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import EventCard from "~/components/EventCard";
 import { api } from "../utils/api";
-import { TailSpin } from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
