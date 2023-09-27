@@ -1,5 +1,3 @@
-import type { settingsInput as Inputs } from "~/types/types";
-import { settingsFormSchema as settingsSchema } from "~/types/types";
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
 import { useState } from "react";
@@ -10,6 +8,7 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
+
 export default function Settings() {
   const { theme, setTheme } = useTheme();
   const { data } = api.user.getUserData.useQuery();

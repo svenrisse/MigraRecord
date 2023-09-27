@@ -1,5 +1,3 @@
-import type { dashboardInputs as Inputs } from "../types/types";
-import { dashboardFormSchema as dashboardSchema } from "../types/types";
 import { useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -20,7 +18,9 @@ import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
 import { useReactToPrint } from "react-to-print";
 import { AiFillPrinter } from "react-icons/ai";
+
 import { useTheme } from "next-themes";
+
 
 export default function Dashboard() {
   const { theme } = useTheme();
