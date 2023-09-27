@@ -90,7 +90,6 @@ export default function EventForm({ id }: { id?: string }) {
 
   const watchType = watch("type");
   const watchPain = watch("painScale");
-  const watchQuestions = watch("questions");
 
   const medicationOptions = data?.Medication.map((medication) => {
     return (
