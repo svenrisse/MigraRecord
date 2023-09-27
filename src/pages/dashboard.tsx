@@ -18,9 +18,15 @@ import { format } from "date-fns";
 import { createId } from "@paralleldrive/cuid2";
 import { useReactToPrint } from "react-to-print";
 import { AiFillPrinter } from "react-icons/ai";
-
 import { useTheme } from "next-themes";
+import { coerce, object } from "zod";
+import type { z } from "zod";
 
+export const dashboardFormSchema = object({
+  endDate: coerce.date(),
+});
+
+export type dashboardInputs = z.infer<typeof dashboardFormSchema>;
 
 export default function Dashboard() {
   const { theme } = useTheme();
@@ -32,7 +38,7 @@ export default function Dashboard() {
     void router.push("/");
   }
 
-  const [dates, setDates] = useState<Inputs>({
+  const [dates, setDates] = useState<dashboardInputs>({
     endDate: new Date(),
   });
 
@@ -51,11 +57,11 @@ export default function Dashboard() {
     }
   );
 
-  const { register, handleSubmit, control } = useForm<Inputs>({
-    resolver: zodResolver(dashboardSchema),
+  const { register, handleSubmit, control } = useForm<dashboardInputs>({
+    resolver: zodResolver(dashboardFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<dashboardInputs> = (data) => {
     setDates({
       endDate: data.endDate,
     });
