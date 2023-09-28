@@ -80,35 +80,40 @@ export default function EventCard({
   return (
     <>
       <div className="w-full max-w-md rounded-xl bg-base-100 p-2 shadow-2xl">
-        <div className="flex items-center justify-center gap-2 font-semibold">
-          <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
-            <div>{event?.startTime.toLocaleDateString()}</div>
-            <div className="text-sm">
-              {event?.startTime.toLocaleTimeString().slice(0, 5)}
+        <div className="flex flex-col items-center">
+          <div className="flex items-center justify-center gap-2 font-semibold">
+            <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
+              <div>{event?.startTime.toLocaleDateString()}</div>
+              <div className="text-sm">
+                {event?.startTime.toLocaleTimeString().slice(0, 5)}
+              </div>
+            </div>
+            <div className="font-bold"> - </div>
+            <div>
+              {event?.endTime ? (
+                <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
+                  <div>{event?.endTime?.toLocaleDateString()}</div>
+                  <div className="text-sm">
+                    {event.endTime.toLocaleTimeString().slice(0, 5)}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1  text-gray-500">
+                  No End Time
+                </div>
+              )}
             </div>
           </div>
-          <div className="font-bold"> - </div>
-          <div>
-            {event?.endTime ? (
-              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
-                <div>{event?.endTime?.toLocaleDateString()}</div>
-                <div className="text-sm">
-                  {event.endTime.toLocaleTimeString().slice(0, 5)}
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1  text-gray-500">
-                No End Time
-              </div>
-            )}
-          </div>
+          <div className="py-1 text-sm text-gray-500">{duration}</div>
         </div>
-        <div className="mr-6 flex items-center justify-center gap-4 py-2">
+        <div className="mr-6 flex items-center justify-center gap-4 pb-2 pt-1">
           {event?.type ? (
             <div
-              className={`${event.type === "Migraine" && "bg-primary"} ${event.type === "Tension" && "bg-accent text-neutral-900"
-                } ${event.type === "Other" && "bg-secondary"
-                } rounded-lg px-4 py-1 font-bold text-white`}
+              className={`${event.type === "Migraine" && "bg-primary"} ${
+                event.type === "Tension" && "bg-accent text-neutral-900"
+              } ${
+                event.type === "Other" && "bg-secondary"
+              } rounded-lg px-4 py-1 font-bold text-white`}
             >
               {event.type}
             </div>
