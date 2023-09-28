@@ -9,6 +9,7 @@ import { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import MedicationCard from "~/components/MedicationCard";
 import PainButton from "./PainButton";
+import { intervalToDuration, formatDuration } from "date-fns";
 
 export default function EventCard({
   event,
@@ -60,33 +61,52 @@ export default function EventCard({
     );
   });
 
+  const duration =
+    event?.endTime &&
+    formatDuration(
+      intervalToDuration({
+        start: event?.startTime as Date,
+        end: event?.endTime as Date,
+      }),
+      { format: ["days", "hours", "minutes"] }
+    )
+      .replace(" minutes", "m")
+      .replace(" minute", "m")
+      .replace(" hours", "h")
+      .replace(" hour", "h")
+      .replace(" days", "d")
+      .replace(" day", "d");
+
   return (
     <>
       <div className="w-full max-w-md rounded-xl bg-base-100 p-2 shadow-2xl">
-        <div className="flex items-center justify-center gap-2 font-semibold">
-          <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
-            <div>{event?.startTime.toLocaleDateString()}</div>
-            <div className="text-sm">
-              {event?.startTime.toLocaleTimeString().slice(0, 5)}
+        <div className="flex flex-col items-center">
+          <div className="flex items-center justify-center gap-2 font-semibold">
+            <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
+              <div>{event?.startTime.toLocaleDateString()}</div>
+              <div className="text-sm">
+                {event?.startTime.toLocaleTimeString().slice(0, 5)}
+              </div>
+            </div>
+            <div className="font-bold"> - </div>
+            <div>
+              {event?.endTime ? (
+                <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
+                  <div>{event?.endTime?.toLocaleDateString()}</div>
+                  <div className="text-sm">
+                    {event.endTime.toLocaleTimeString().slice(0, 5)}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1  text-gray-500">
+                  No End Time
+                </div>
+              )}
             </div>
           </div>
-          <div className="font-bold"> - </div>
-          <div>
-            {event?.endTime ? (
-              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1">
-                <div>{event?.endTime?.toLocaleDateString()}</div>
-                <div className="text-sm">
-                  {event.endTime.toLocaleTimeString().slice(0, 5)}
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center rounded-lg border-2 border-secondary px-2 py-1  text-gray-500">
-                No End Time
-              </div>
-            )}
-          </div>
+          <div className="py-1 text-sm text-gray-500">{duration}</div>
         </div>
-        <div className="mr-6 flex items-center justify-center gap-4 py-2">
+        <div className="mr-6 flex items-center justify-center gap-4 pb-2 pt-1">
           {event?.type ? (
             <div
               className={`${event.type === "Migraine" && "bg-primary"} ${
