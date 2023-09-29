@@ -209,11 +209,10 @@ export default function Dashboard() {
   return (
     <>
       <main
-        className={`${
-          theme === "customlight"
-            ? "bg-[url('/blob-scene-white.svg')]"
-            : "bg-[url('/blob-scene.svg')]"
-        } flex min-h-screen flex-col items-center bg-fixed py-8`}
+        className={`${theme === "customlight"
+            ? "bg-[url('/blob-scene-customlight-phone.svg')] md:bg-[url('/blob-scene-customlight-tablet.svg')] lg:bg-[url('/blob-scene-customlight-laptop.svg')] xl:bg-[url('/blob-scene-customlight-big.svg')] 2xl:bg-[url('/blob-scene-customlight-huge.svg')]"
+            : "bg-[url('/blob-scene-customdark-phone.svg')] md:bg-[url('/blob-scene-customdark-tablet.svg')] lg:bg-[url('/blob-scene-customdark-laptop.svg')] xl:bg-[url('/blob-scene-customdark-big.svg')] 2xl:bg-[url('/blob-scene-customdark-huge.svg')]"
+          } flex min-h-screen flex-col items-center bg-fixed py-8`}
       >
         <div className="rounded-xl bg-base-100 p-2">
           <form
