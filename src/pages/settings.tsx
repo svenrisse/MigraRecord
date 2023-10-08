@@ -62,7 +62,12 @@ export default function Settings() {
       },
     });
 
-  const { register, handleSubmit, setValue } = useForm<settingsInput>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<settingsInput>({
     resolver: zodResolver(settingsFormSchema),
   });
 
@@ -199,10 +204,13 @@ export default function Settings() {
               <div className="flex items-center gap-4 px-2">
                 <input
                   type="text"
-                  className="input-bordered input-primary input w-10/12 bg-base-100 text-base-200"
+                  className={`${
+                    errors.content && "input-error"
+                  } input-bordered input-primary input w-10/12 bg-base-100 text-base-200`}
                   placeholder="Add new..."
                   {...register("content")}
                   min={1}
+                  max={25}
                 ></input>
                 <div
                   className="btn-primary btn text-xl text-white"
