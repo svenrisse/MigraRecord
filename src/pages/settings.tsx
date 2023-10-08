@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
 import { string, object } from "zod";
 import type { z } from "zod";
+import autoAnimate from "@formkit/auto-animate";
 
 export const settingsFormSchema = object({
   content: string().min(1).max(22),
@@ -20,6 +21,17 @@ export type settingsInput = z.infer<typeof settingsFormSchema>;
 export default function Settings() {
   const { theme, setTheme } = useTheme();
   const { data } = api.user.getUserData.useQuery();
+  const utils = api.useContext();
+  const parent = useRef(null);
+
+  const [modalContent, setModalContent] = useState("");
+
+  const router = useRouter();
+  const { data: authData, status } = useSession();
+
+  if (!authData && typeof window !== "undefined" && status !== "loading") {
+    void router.push("/");
+  }
 
   const { mutateAsync: addQuestion, isLoading: questionIsLoading } =
     api.user.addQuestion.useMutation({
@@ -48,39 +60,6 @@ export default function Settings() {
       },
     });
 
-  const utils = api.useContext();
-
-  const userQuestions = data?.Questions.map((question) => {
-    return (
-      <SettingsCard
-        key={question.id}
-        content={question.text}
-        id={question.id}
-        handleDeleteClick={handleDeleteClick}
-      />
-    );
-  });
-
-  const userMedications = data?.Medication.map((medication) => {
-    return (
-      <SettingsCard
-        key={medication.id}
-        content={medication.text}
-        id={medication.id}
-        handleDeleteClick={handleDeleteClick}
-      />
-    );
-  });
-
-  const [modalContent, setModalContent] = useState("");
-
-  const router = useRouter();
-  const { data: authData, status } = useSession();
-
-  if (!authData && typeof window !== "undefined" && status !== "loading") {
-    void router.push("/");
-  }
-
   const { register, handleSubmit, setValue } = useForm<settingsInput>({
     resolver: zodResolver(settingsFormSchema),
   });
@@ -106,6 +85,28 @@ export default function Settings() {
   function toggleTheme() {
     setTheme(theme === "customdark" ? "customlight" : "customdark");
   }
+
+  const userQuestions = data?.Questions.map((question) => {
+    return (
+      <SettingsCard
+        key={question.id}
+        content={question.text}
+        id={question.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
+  });
+
+  const userMedications = data?.Medication.map((medication) => {
+    return (
+      <SettingsCard
+        key={medication.id}
+        content={medication.text}
+        id={medication.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
+  });
 
   return (
     <>
