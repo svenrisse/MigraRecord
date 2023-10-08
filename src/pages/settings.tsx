@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
@@ -23,11 +23,13 @@ export default function Settings() {
   const { data } = api.user.getUserData.useQuery();
   const utils = api.useContext();
   const parent = useRef(null);
-
   const [modalContent, setModalContent] = useState("");
-
   const router = useRouter();
   const { data: authData, status } = useSession();
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
@@ -179,11 +181,17 @@ export default function Settings() {
             >
               <div>
                 {modalContent === "questions" ? (
-                  <div className="flex flex-col items-center gap-4">
+                  <div
+                    className="flex flex-col items-center gap-4"
+                    ref={parent}
+                  >
                     {userQuestions}
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center gap-4">
+                  <div
+                    className="flex flex-col items-center gap-4"
+                    ref={parent}
+                  >
                     {userMedications}
                   </div>
                 )}
