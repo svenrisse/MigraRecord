@@ -14,7 +14,7 @@ export default function SettingsCard({
       <div className="text-md flex w-11/12 items-center rounded-lg bg-primary px-3 py-3 font-bold text-base-100">
         <div>{content}</div>
         <BsFillTrashFill
-          className="ml-auto"
+          className="ml-auto cursor-pointer"
           onClick={() => handleDeleteClick(id)}
           size={"1.25rem"}
         />
