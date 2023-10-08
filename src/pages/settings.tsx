@@ -181,58 +181,57 @@ export default function Settings() {
         </div>
         {/* Open the modal using ID.showModal() method */}
         <dialog id="my_modal_2" className="modal">
-          <form method="dialog" className="modal-box bg-base-100">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4"
-            >
-              <div>
-                {modalContent === "questions" ? (
-                  <div
-                    className="flex flex-col items-center gap-4"
-                    ref={listParent}
-                  >
-                    {userQuestions}
-                  </div>
-                ) : (
-                  <div
-                    className="flex flex-col items-center gap-4"
-                    ref={listParent}
-                  >
-                    {userMedications}
-                  </div>
-                )}
-              </div>
-              <div ref={inputParent} className="flex flex-col gap-2">
-                <div className="flex items-center gap-4 px-2">
-                  <input
-                    type="text"
-                    className={`${
-                      errors.content && "input-error"
-                    } input-bordered input-primary input w-10/12 bg-base-100 text-base-200`}
-                    placeholder="Add new..."
-                    {...register("content")}
-                    min={1}
-                    max={25}
-                  ></input>
-                  <div
-                    className="btn-primary btn text-xl text-white"
-                    onClick={handleSubmit(onSubmit)}
-                  >
-                    {medicationIsLoading || questionIsLoading ? (
-                      <span className="loading loading-spinner loading-lg"></span>
-                    ) : (
-                      <div>+</div>
-                    )}
-                  </div>
+          <form
+            method="dialog"
+            className="modal-box flex flex-col gap-4 bg-base-100 "
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div>
+              {modalContent === "questions" ? (
+                <div
+                  className="flex flex-col items-center gap-4"
+                  ref={listParent}
+                >
+                  {userQuestions}
                 </div>
-                {errors.content && (
-                  <div className="text-center font-semibold text-error">
-                    Please enter between 1-25 characters
-                  </div>
-                )}
+              ) : (
+                <div
+                  className="flex flex-col items-center gap-4"
+                  ref={listParent}
+                >
+                  {userMedications}
+                </div>
+              )}
+            </div>
+            <div ref={inputParent} className="flex flex-col gap-2">
+              <div className="flex items-center gap-4 px-2">
+                <input
+                  type="text"
+                  className={`${
+                    errors.content && "input-error"
+                  } input-bordered input-primary input w-10/12 bg-base-100 text-base-200`}
+                  placeholder="Add new..."
+                  {...register("content")}
+                  min={1}
+                  max={25}
+                ></input>
+                <div
+                  className="btn-primary btn text-xl text-white"
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  {medicationIsLoading || questionIsLoading ? (
+                    <span className="loading loading-spinner loading-lg"></span>
+                  ) : (
+                    <div>+</div>
+                  )}
+                </div>
               </div>
-            </form>
+              {errors.content && (
+                <div className="text-center font-semibold text-error">
+                  Please enter between 1-25 characters
+                </div>
+              )}
+            </div>
           </form>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
