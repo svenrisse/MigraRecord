@@ -11,6 +11,7 @@ import moment from "moment";
 import { createId } from "@paralleldrive/cuid2";
 import { string, number, array, coerce, object } from "zod";
 import type { z } from "zod";
+import toast, { Toaster } from "react-hot-toast";
 
 export const eventSchema = object({
   id: string().optional(),
@@ -32,6 +33,7 @@ export default function EventForm({ id }: { id?: string }) {
 
   const { mutateAsync, isLoading } = api.event.addEvent.useMutation({
     onSuccess: (data) => {
+      notify();
       utils.event.invalidate(), utils.user.invalidate();
       router.push(`/edit/${data?.id}`);
     },
@@ -48,6 +50,9 @@ export default function EventForm({ id }: { id?: string }) {
   const { register, handleSubmit, setValue, watch } = useForm<Inputs>({
     resolver: zodResolver(eventSchema),
   });
+
+  const watchType = watch("type");
+  const watchPain = watch("painScale");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     void mutateAsync({
@@ -88,9 +93,6 @@ export default function EventForm({ id }: { id?: string }) {
     eventData?.type,
   ]);
 
-  const watchType = watch("type");
-  const watchPain = watch("painScale");
-
   const medicationOptions = data?.Medication.map((medication) => {
     return (
       <option key={medication.id} value={medication.text}>
@@ -125,6 +127,15 @@ export default function EventForm({ id }: { id?: string }) {
       />
     );
   });
+
+  const notify = () =>
+    toast.custom(
+      <div className="toast-center toast toast-top">
+        <div className="alert alert-success">
+          <span>Saved succesfully</span>
+        </div>
+      </div>
+    );
 
   if (isInitialLoading || eventLoading) {
     return (
@@ -392,6 +403,7 @@ export default function EventForm({ id }: { id?: string }) {
           <button>close</button>
         </form>
       </dialog>
+      <Toaster />
     </>
   );
 }
