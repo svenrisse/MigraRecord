@@ -10,6 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.0",
     "@hookform/resolvers": "^3.0.1",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@paralleldrive/cuid2": "^2.2.0",
@@ -29,6 +30,7 @@
     "react-calendar": "^4.2.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-loader-spinner": "^5.3.4",
     "react-modal": "^3.16.1",

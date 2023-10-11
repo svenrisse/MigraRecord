@@ -3,16 +3,18 @@ import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import { api } from "../utils/api";
 import EventCard from "~/components/EventCard";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ActiveRange from "~/components/ActiveRange";
 import { subMonths } from "date-fns";
 import { useTheme } from "next-themes";
+import autoAnimate from "@formkit/auto-animate";
 
 export interface Limit {
   limit: Date;
 }
 
 export default function List() {
+  const parent = useRef(null);
   const { theme } = useTheme();
   const router = useRouter();
   const { data: authData, status } = useSession();
@@ -20,6 +22,10 @@ export default function List() {
   if (!authData && typeof window !== "undefined" && status !== "loading") {
     void router.push("/");
   }
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   const [activeRange, setActiveRange] = useState<Limit>({
     limit: subMonths(new Date(), 1),
@@ -55,7 +61,9 @@ export default function List() {
             <p className="">Loading...</p>
           </div>
         ) : (
-          <div className="flex w-9/12 flex-col gap-3 pb-20 pt-32">{events}</div>
+          <div className="flex w-9/12 flex-col gap-3 pb-20 pt-32" ref={parent}>
+            {events}
+          </div>
         )}
       </main>
       <Navbar focused="list" />

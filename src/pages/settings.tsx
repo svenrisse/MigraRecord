@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import SettingsCard from "~/components/SettingsCard";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
@@ -10,9 +10,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
 import { string, object } from "zod";
 import type { z } from "zod";
+import autoAnimate from "@formkit/auto-animate";
 
 export const settingsFormSchema = object({
-  content: string().min(1).max(22),
+  content: string({ required_error: "Gö" }).min(1).max(22),
 });
 
 export type settingsInput = z.infer<typeof settingsFormSchema>;
@@ -20,6 +21,21 @@ export type settingsInput = z.infer<typeof settingsFormSchema>;
 export default function Settings() {
   const { theme, setTheme } = useTheme();
   const { data } = api.user.getUserData.useQuery();
+  const utils = api.useContext();
+  const listParent = useRef(null);
+  const inputParent = useRef(null);
+  const [modalContent, setModalContent] = useState("");
+  const router = useRouter();
+  const { data: authData, status } = useSession();
+
+  useEffect(() => {
+    listParent.current && autoAnimate(listParent.current);
+    inputParent.current && autoAnimate(inputParent.current);
+  }, [listParent, inputParent]);
+
+  if (!authData && typeof window !== "undefined" && status !== "loading") {
+    void router.push("/");
+  }
 
   const { mutateAsync: addQuestion, isLoading: questionIsLoading } =
     api.user.addQuestion.useMutation({
@@ -48,40 +64,12 @@ export default function Settings() {
       },
     });
 
-  const utils = api.useContext();
-
-  const userQuestions = data?.Questions.map((question) => {
-    return (
-      <SettingsCard
-        key={question.id}
-        content={question.text}
-        id={question.id}
-        handleDeleteClick={handleDeleteClick}
-      />
-    );
-  });
-
-  const userMedications = data?.Medication.map((medication) => {
-    return (
-      <SettingsCard
-        key={medication.id}
-        content={medication.text}
-        id={medication.id}
-        handleDeleteClick={handleDeleteClick}
-      />
-    );
-  });
-
-  const [modalContent, setModalContent] = useState("");
-
-  const router = useRouter();
-  const { data: authData, status } = useSession();
-
-  if (!authData && typeof window !== "undefined" && status !== "loading") {
-    void router.push("/");
-  }
-
-  const { register, handleSubmit, setValue } = useForm<settingsInput>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<settingsInput>({
     resolver: zodResolver(settingsFormSchema),
   });
 
@@ -106,6 +94,28 @@ export default function Settings() {
   function toggleTheme() {
     setTheme(theme === "customdark" ? "customlight" : "customdark");
   }
+
+  const userQuestions = data?.Questions.map((question) => {
+    return (
+      <SettingsCard
+        key={question.id}
+        content={question.text}
+        id={question.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
+  });
+
+  const userMedications = data?.Medication.map((medication) => {
+    return (
+      <SettingsCard
+        key={medication.id}
+        content={medication.text}
+        id={medication.id}
+        handleDeleteClick={handleDeleteClick}
+      />
+    );
+  });
 
   return (
     <>
@@ -171,29 +181,39 @@ export default function Settings() {
         </div>
         {/* Open the modal using ID.showModal() method */}
         <dialog id="my_modal_2" className="modal">
-          <form method="dialog" className="modal-box bg-base-100">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4"
-            >
-              <div>
-                {modalContent === "questions" ? (
-                  <div className="flex flex-col items-center gap-4">
-                    {userQuestions}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center gap-4">
-                    {userMedications}
-                  </div>
-                )}
-              </div>
+          <form
+            method="dialog"
+            className="modal-box flex flex-col gap-4 bg-base-100 "
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div>
+              {modalContent === "questions" ? (
+                <div
+                  className="flex flex-col items-center gap-4"
+                  ref={listParent}
+                >
+                  {userQuestions}
+                </div>
+              ) : (
+                <div
+                  className="flex flex-col items-center gap-4"
+                  ref={listParent}
+                >
+                  {userMedications}
+                </div>
+              )}
+            </div>
+            <div ref={inputParent} className="flex flex-col gap-2">
               <div className="flex items-center gap-4 px-2">
                 <input
                   type="text"
-                  className="input-bordered input-primary input w-10/12 bg-base-100 text-base-200"
+                  className={`${
+                    errors.content && "input-error"
+                  } input-bordered input-primary input w-10/12 bg-base-100 text-base-200`}
                   placeholder="Add new..."
                   {...register("content")}
                   min={1}
+                  max={25}
                 ></input>
                 <div
                   className="btn-primary btn text-xl text-white"
@@ -206,7 +226,12 @@ export default function Settings() {
                   )}
                 </div>
               </div>
-            </form>
+              {errors.content && (
+                <div className="text-center font-semibold text-error">
+                  Please enter between 1-25 characters
+                </div>
+              )}
+            </div>
           </form>
           <form method="dialog" className="modal-backdrop">
             <button>close</button>
